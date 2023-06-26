@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuestionService implements QuestionFinder {
 
     public static final int RANDOM_QUESTION_COUNT = 15;
+
     private final QuestionRepository questionRepository;
 
     @Override

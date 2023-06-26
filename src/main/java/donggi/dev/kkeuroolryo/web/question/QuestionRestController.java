@@ -1,11 +1,11 @@
 package donggi.dev.kkeuroolryo.web.question;
 
+import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
+import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterRequest;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionDto;
-import donggi.dev.kkeuroolryo.web.question.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/golrabas")
 public class QuestionRestController {
+
+    private final QuestionFinder questionFinder;
 
     @PostMapping("/question")
     public ResponseEntity<QuestionDto> register(@RequestBody QuestionRegisterRequest request) {
@@ -26,10 +29,8 @@ public class QuestionRestController {
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<RandomQuestionsDto> getRandomQuestionsByCategory(@PathVariable("category") String category) {
-        List<QuestionDto> questions = new ArrayList<>();
-        questions.add(new QuestionDto(1L, "본문", "선택A", "선택B"));
-        RandomQuestionsDto randomQuestionsDto = new RandomQuestionsDto(category, questions);
+    public ResponseEntity<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") String category) {
+        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(category);
         return ResponseEntity.ok().body(randomQuestionsDto);
     }
 }

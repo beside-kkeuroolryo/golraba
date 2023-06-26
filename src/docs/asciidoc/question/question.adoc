@@ -1,0 +1,17 @@
+=== 질문 등록
+
+API : `POST /api/golrabas/question`
+
+==== Request
+===== Request Fields
+include::{snippets}/question-register/request-fields.adoc[]
+===== HTTP Request
+include::{snippets}/question-register/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-register/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-register/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-register/http-response.adoc[]

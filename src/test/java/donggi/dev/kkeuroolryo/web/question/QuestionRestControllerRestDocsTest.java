@@ -22,18 +22,18 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
     @Test
     @DisplayName("골라바 질문 등록 요청이 정상적인 경우 질문 생성 후 상태코드를 반환한다.")
     void post_register() {
-        QuestionRegisterRequest request = new QuestionRegisterRequest("질문 본문", "선택 A", "선택 B");
+        QuestionRegisterRequest request = new QuestionRegisterRequest("요청한 질문 본문", "선택 A", "선택 B");
         given(this.spec)
             .filter(
                 document("question-register",
                     requestFields(
-                        fieldWithPath("content").description("골라바 질문 본문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("content").description("요청한 질문 본문").type(JsonFieldType.STRING),
                         fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
                         fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING)
                     ),
                     responseFields(
                         fieldWithPath("id").description("골라바 질문 아이디").type(JsonFieldType.NUMBER),
-                        fieldWithPath("content").description("골라바 질문 본문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("content").description("요청한 질문 본문").type(JsonFieldType.STRING),
                         fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
                         fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING)
                     )

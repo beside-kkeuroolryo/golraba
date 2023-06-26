@@ -5,14 +5,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class QuestionRegisterResponse {
+public class QuestionDto {
 
     private Long id;
     private String content;
     private String choiceA;
     private String choiceB;
 
-    public QuestionRegisterResponse(Long id, String content, String choiceA, String choiceB) {
+    public QuestionDto(Long id, String content, String choiceA, String choiceB) {
         this.id = id;
         this.content = content;
         this.choiceA = choiceA;

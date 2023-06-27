@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 유저 골라바 질문 등록 요청")
+@DisplayName("API 문서화 : 질문 등록 요청")
 @RestAssuredAndRestDocsTest
 class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 

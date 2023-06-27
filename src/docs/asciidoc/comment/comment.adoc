@@ -1,0 +1,19 @@
+=== 댓글 등록
+
+API : `POST /api/golrabas/{questionId}/comments`
+
+questionId = 질문 id
+
+==== Request
+===== Request Fields
+include::{snippets}/comment-register/request-fields.adoc[]
+===== HTTP Request
+include::{snippets}/comment-register/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/comment-register/response-fields.adoc[]
+===== Response Body
+include::{snippets}/comment-register/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/comment-register/http-response.adoc[]

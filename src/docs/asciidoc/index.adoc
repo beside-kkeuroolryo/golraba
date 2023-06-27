@@ -1,4 +1,4 @@
-= 골라바 애플리케이션
+= 골라바(Golraba) 애플리케이션
 이동기, <devdonggilee@gmail.com>
 v0.0.1, 23-06-27
 :author: 이동기
@@ -15,3 +15,7 @@ v0.0.1, 23-06-27
 == 질문 API
 
 include::{docdir}/question/question.adoc[]
+
+== 댓글 API
+
+include::{docdir}/comment/comment.adoc[]

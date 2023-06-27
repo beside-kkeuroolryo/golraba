@@ -25,8 +25,8 @@ public class Question {
     @Embedded
     private QuestionCategory category;
 
-    @Column(nullable = false)
-    private String content;
+    @Embedded
+    private QuestionContent content;
 
     @Column(nullable = false)
     private String choiceA;
@@ -36,7 +36,7 @@ public class Question {
 
     public Question(String category, String content, String choiceA, String choiceB) {
         this.category = new QuestionCategory(category);
-        this.content = content;
+        this.content = new QuestionContent(content);
         this.choiceA = choiceA;
         this.choiceB = choiceB;
     }

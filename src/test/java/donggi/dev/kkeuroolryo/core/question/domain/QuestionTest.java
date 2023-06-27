@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.UnitTest;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidCategoryException;
+import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidContentException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -41,7 +42,7 @@ class QuestionTest {
 
         @Nested
         @DisplayName("유효하지 않은 카테고리가 주어지면")
-        class Context_with_invalid_parameters {
+        class Context_with_invalid_category {
 
             @ParameterizedTest
             @NullAndEmptySource
@@ -50,6 +51,20 @@ class QuestionTest {
             void throws_exception(String category) {
                 assertThatThrownBy(() -> new Question(category, "정상적인 본문 내용", "정상적인 선택지 A", "정상적인 선택지 B"))
                     .isInstanceOf(QuestionInvalidCategoryException.class);
+            }
+        }
+
+        @Nested
+        @DisplayName("유효하지 않은 본문 내용이 주어지면")
+        class Context_with_invalid_content {
+
+            @ParameterizedTest
+            @NullAndEmptySource
+            @ValueSource(strings = {"  ", "\t", "\n"})
+            @DisplayName("예외를 발생시킨다.")
+            void throws_exception(String content) {
+                assertThatThrownBy(() -> new Question("정상 카테고리", content, "정상적인 선택지 A", "정상적인 선택지 B"))
+                    .isInstanceOf(QuestionInvalidContentException.class);
             }
         }
     }

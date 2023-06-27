@@ -16,7 +16,7 @@ public class QuestionDto {
     public static QuestionDto ofEntity(Question question) {
         QuestionDto questionDto = new QuestionDto();
         questionDto.id = question.getId();
-        questionDto.content = question.getContent();
+        questionDto.content = question.getContent().getContent();
         questionDto.choiceA = question.getChoiceA();
         questionDto.choiceB = question.getChoiceB();
         return questionDto;

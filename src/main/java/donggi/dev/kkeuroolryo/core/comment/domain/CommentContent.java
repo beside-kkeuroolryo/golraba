@@ -1,7 +1,9 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
+import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentInvalidContentException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +13,18 @@ import lombok.NoArgsConstructor;
 @Getter
 public class CommentContent {
 
+    public static final int LIMIT_LENGTH = 200;
     @Column(nullable = false)
     private String content;
 
     public CommentContent(String content) {
+        if (Objects.isNull(content)
+            || content.isEmpty()
+            || content.chars().allMatch(Character::isWhitespace)
+            || content.length() > LIMIT_LENGTH) {
+            throw new CommentInvalidContentException();
+        }
+
         this.content = content;
     }
 

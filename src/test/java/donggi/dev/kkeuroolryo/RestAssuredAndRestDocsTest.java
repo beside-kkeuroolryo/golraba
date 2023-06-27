@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@ActiveProfiles("test")
 @ExtendWith(RestDocumentationExtension.class)
 @IntegrationTest
 public @interface RestAssuredAndRestDocsTest {

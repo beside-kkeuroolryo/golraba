@@ -1,8 +1,10 @@
 package donggi.dev.kkeuroolryo.core.question.application;
 
+import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class QuestionService implements QuestionFinder {
+public class QuestionService implements QuestionFinder, QuestionEditor {
 
     public static final int RANDOM_QUESTION_COUNT = 15;
 
     private final QuestionRepository questionRepository;
+
+    @Override
+    public QuestionDto save(QuestionRegisterCommand questionRegisterCommand) {
+        Question question = questionRepository.save(questionRegisterCommand.convertToEntity());
+        return QuestionDto.ofEntity(question);
+    }
 
     @Override
     @Transactional(readOnly = true)

@@ -8,7 +8,7 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterRequest;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -20,9 +20,9 @@ import org.springframework.restdocs.payload.JsonFieldType;
 class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 
     @Test
-    @DisplayName("골라바 질문 등록 요청이 정상적인 경우 질문 생성 후 상태코드를 반환한다.")
+    @DisplayName("사용자의 질문 등록 요청이 정상적인 경우 질문 생성 후 상태코드를 반환한다.")
     void post_register() {
-        QuestionRegisterRequest request = new QuestionRegisterRequest("요청한 질문 본문", "선택 A", "선택 B");
+        QuestionRegisterCommand questionRegisterCommand = new QuestionRegisterCommand("요청한 질문 본문", "선택 A", "선택 B");
         given(this.spec)
             .filter(
                 document("question-register",
@@ -41,7 +41,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
             )
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-            .body(request)
+            .body(questionRegisterCommand)
 
         .when()
             .post("/api/golrabas/question")

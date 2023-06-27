@@ -1,11 +1,16 @@
 package donggi.dev.kkeuroolryo.core.question.domain;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import donggi.dev.kkeuroolryo.UnitTest;
+import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidCategoryException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("Question 도메인 UnitTest")
 @UnitTest
@@ -31,6 +36,20 @@ class QuestionTest {
                     softly.assertThat(question.getChoiceA()).isEqualTo(choiceA);
                     softly.assertThat(question.getChoiceB()).isEqualTo(choiceB);
                 });
+            }
+        }
+
+        @Nested
+        @DisplayName("유효하지 않은 카테고리가 주어지면")
+        class Context_with_invalid_parameters {
+
+            @ParameterizedTest
+            @NullAndEmptySource
+            @ValueSource(strings = {"  ", "\t", "\n"})
+            @DisplayName("예외를 발생시킨다.")
+            void throws_exception(String category) {
+                assertThatThrownBy(() -> new Question(category, "정상적인 본문 내용", "정상적인 선택지 A", "정상적인 선택지 B"))
+                    .isInstanceOf(QuestionInvalidCategoryException.class);
             }
         }
     }

@@ -1,6 +1,7 @@
 package donggi.dev.kkeuroolryo.core.question.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +22,8 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String category;
+    @Embedded
+    private QuestionCategory category;
 
     @Column(nullable = false)
     private String content;
@@ -34,7 +35,7 @@ public class Question {
     private String choiceB;
 
     public Question(String category, String content, String choiceA, String choiceB) {
-        this.category = category;
+        this.category = new QuestionCategory(category);
         this.content = content;
         this.choiceA = choiceA;
         this.choiceB = choiceB;

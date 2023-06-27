@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.core.comment.application.dto;
 
+import donggi.dev.kkeuroolryo.core.comment.domain.Comment;
 import lombok.Getter;
 
 @Getter
@@ -9,9 +10,11 @@ public class CommentDto {
     private String username;
     private String content;
 
-    public CommentDto(Long id, String username, String content) {
-        this.id = id;
-        this.username = username;
-        this.content = content;
+    public static CommentDto ofEntity(Comment comment) {
+        CommentDto commentDto = new CommentDto();
+        commentDto.id = comment.getId();
+        commentDto.username = comment.getUsername().getUsername();
+        commentDto.content = comment.getContent().getContent();
+        return commentDto;
     }
 }

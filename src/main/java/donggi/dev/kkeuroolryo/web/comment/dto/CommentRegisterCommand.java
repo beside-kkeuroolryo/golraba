@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.web.comment.dto;
 
+import donggi.dev.kkeuroolryo.core.comment.domain.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +16,9 @@ public class CommentRegisterCommand {
         this.username = username;
         this.password = password;
         this.content = content;
+    }
+
+    public Comment convertToEntity(Long questionId) {
+        return new Comment(questionId, getUsername(), getPassword(), getContent());
     }
 }

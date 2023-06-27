@@ -34,7 +34,7 @@ class CommentEditorTest {
             @DisplayName("저장소에 댓글을 저장하고 id가 포함된 객체를 반환한다.")
             void return_question_dto(String username, String content) {
                 Long questionId = 1L;
-                CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand(username, "패스워드", content);
+                CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand(username, "패스워드123", content);
 
                 CommentDto commentDto = commentEditor.save(questionId, commentRegisterCommand);
 

@@ -22,7 +22,7 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
     @Test
     @DisplayName("사용자의 댓글 등록 요청이 정상적인 경우 댓글 생성 후 상태코드를 반환한다.")
     void post_register() {
-        CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand("유저네임", "비밀번호", "댓글 본문");
+        CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand("유저네임", "비밀번호123", "댓글 본문");
         given(this.spec)
             .filter(
                 document("comment-register",

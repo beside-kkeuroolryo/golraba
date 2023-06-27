@@ -20,6 +20,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     private final QuestionRepository questionRepository;
 
     @Override
+    @Transactional
     public QuestionDto save(QuestionRegisterCommand questionRegisterCommand) {
         Question question = questionRepository.save(questionRegisterCommand.convertToEntity());
         return QuestionDto.ofEntity(question);

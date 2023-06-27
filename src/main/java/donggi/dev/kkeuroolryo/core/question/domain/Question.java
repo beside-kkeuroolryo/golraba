@@ -1,6 +1,9 @@
 package donggi.dev.kkeuroolryo.core.question.domain;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,19 +27,25 @@ public class Question {
     @Column(nullable = false)
     private String category;
 
-    @Column(nullable = false)
-    private String content;
+    @Embedded
+    private QuestionContent content;
 
-    @Column(nullable = false)
-    private String choiceA;
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "choice", column = @Column(name = "choice_a"))
+    })
+    private QuestionChoice choiceA;
 
-    @Column(nullable = false)
-    private String choiceB;
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "choice", column = @Column(name = "choice_b"))
+    })
+    private QuestionChoice choiceB;
 
     public Question(String category, String content, String choiceA, String choiceB) {
         this.category = category;
-        this.content = content;
-        this.choiceA = choiceA;
-        this.choiceB = choiceB;
+        this.content = new QuestionContent(content);
+        this.choiceA = new QuestionChoice(choiceA);
+        this.choiceB = new QuestionChoice(choiceB);
     }
 }

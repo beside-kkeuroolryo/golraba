@@ -28,16 +28,16 @@ public class Question {
     @Embedded
     private QuestionContent content;
 
-    @Column(nullable = false)
-    private String choiceA;
+    @Embedded
+    private QuestionChoice choiceA;
 
-    @Column(nullable = false)
-    private String choiceB;
+    @Embedded
+    private QuestionChoice choiceB;
 
     public Question(String category, String content, String choiceA, String choiceB) {
         this.category = new QuestionCategory(category);
         this.content = new QuestionContent(content);
-        this.choiceA = choiceA;
-        this.choiceB = choiceB;
+        this.choiceA = new QuestionChoice(choiceA);
+        this.choiceB = new QuestionChoice(choiceB);
     }
 }

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.UnitTest;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidCategoryException;
+import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidContentException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
@@ -65,6 +66,20 @@ class QuestionTest {
             void throws_exception(String content) {
                 assertThatThrownBy(() -> new Question("정상 카테고리", content, "정상적인 선택지 A", "정상적인 선택지 B"))
                     .isInstanceOf(QuestionInvalidContentException.class);
+            }
+        }
+
+        @Nested
+        @DisplayName("유효하지 않은 선택값이 주어지면")
+        class Context_with_invalid_choice {
+
+            @ParameterizedTest
+            @NullAndEmptySource
+            @ValueSource(strings = {"  ", "\t", "\n"})
+            @DisplayName("예외를 발생시킨다.")
+            void throws_exception(String choice) {
+                assertThatThrownBy(() -> new Question("정상 카테고리", "정상적인 본문", choice, "정상적인 선택지 B"))
+                    .isInstanceOf(QuestionInvalidChoiceException.class);
             }
         }
     }

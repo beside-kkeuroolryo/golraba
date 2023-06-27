@@ -3,7 +3,6 @@ package donggi.dev.kkeuroolryo.core.question.domain;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.UnitTest;
-import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidCategoryException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidContentException;
 import org.assertj.core.api.SoftAssertions;
@@ -34,24 +33,10 @@ class QuestionTest {
 
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(question.getCategory()).isEqualTo(category);
-                    softly.assertThat(question.getContent()).isEqualTo(content);
-                    softly.assertThat(question.getChoiceA()).isEqualTo(choiceA);
-                    softly.assertThat(question.getChoiceB()).isEqualTo(choiceB);
+                    softly.assertThat(question.getContent().getContent()).isEqualTo(content);
+                    softly.assertThat(question.getChoiceA().getChoice()).isEqualTo(choiceA);
+                    softly.assertThat(question.getChoiceB().getChoice()).isEqualTo(choiceB);
                 });
-            }
-        }
-
-        @Nested
-        @DisplayName("유효하지 않은 카테고리가 주어지면")
-        class Context_with_invalid_category {
-
-            @ParameterizedTest
-            @NullAndEmptySource
-            @ValueSource(strings = {"  ", "\t", "\n"})
-            @DisplayName("예외를 발생시킨다.")
-            void throws_exception(String category) {
-                assertThatThrownBy(() -> new Question(category, "정상적인 본문 내용", "정상적인 선택지 A", "정상적인 선택지 B"))
-                    .isInstanceOf(QuestionInvalidCategoryException.class);
             }
         }
 

@@ -26,6 +26,8 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
     @BeforeEach
     void setUp() {
+        questionRepository.deleteAll();
+
         questionRepository.save(new Question("self", "질문 본문1", "선택A 1", "선택B 1"));
         questionRepository.save(new Question("self", "질문 본문2", "선택A 2", "선택B 2"));
         questionRepository.save(new Question("self", "질문 본문3", "선택A 3", "선택B 3"));
@@ -46,7 +48,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
     @Test
     @DisplayName("특정 카테고리를 선택하면 해당 카테고리 질문을 15개 반환하고 정상 상태코드를 반환한다.")
-    void post_register() {
+    void question_register() {
         given(this.spec)
             .filter(
                 document("random-questions-read",

@@ -21,7 +21,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 
     @Test
     @DisplayName("사용자의 질문 등록 요청이 정상적인 경우 질문 생성 후 상태코드를 반환한다.")
-    void post_register() {
+    void question_register() {
         QuestionRegisterCommand questionRegisterCommand = new QuestionRegisterCommand("요청한 질문 본문", "선택 A", "선택 B");
         given(this.spec)
             .filter(

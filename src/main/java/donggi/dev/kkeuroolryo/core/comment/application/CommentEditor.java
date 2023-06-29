@@ -12,4 +12,13 @@ public interface CommentEditor {
      * @return commentDto 등록된 comment 가 포함된 객체
      */
     CommentDto save(Long questionId, CommentRegisterCommand commentRegisterCommand);
+
+    /**
+     * 특정 질문의 특정 댓글을 삭제합니다.
+     *
+     * @param questionId 삭제할 댓글의 질문 id
+     * @param commentId 삭제할 댓글 id
+     * @param password 댓글 삭제 인가 확인을 위한 패스워드
+     * */
+    void delete(Long questionId, Long commentId, String password);
 }

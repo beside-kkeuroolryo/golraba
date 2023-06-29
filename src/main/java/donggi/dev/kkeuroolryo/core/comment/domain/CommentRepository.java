@@ -1,6 +1,8 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
 import java.util.Optional;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 public interface CommentRepository {
 
@@ -32,10 +34,25 @@ public interface CommentRepository {
     void deleteAll();
 
     /**
-     * 저장소에서 comment 를 검색합니다.
+     * 저장소에서 댓글을 검색합니다.
      *
      * @param commentId 검색할 id
-     * @return Optional<Post> 객체
+     * @return Optional<Comment> 객체
      */
     Optional<Comment> findById(Long commentId);
+
+    /**
+     * 저장소에서 id의 최대값을 찾습니다.
+     *
+     * @return id 최대값
+     */
+    Optional<Long> findMaxId();
+
+    /**
+     * 저장소에서 검색 id 기준 이후의 페이지만큼 댓글을 조회합니다.
+     * @param searchAfterId 검색 기준 대상
+     * @param ofSize 페이지 크기
+     * @return 페이징 된 댓글 객체
+     */
+    Slice<Comment> findAllBySearchAfterIdAndPageable(Long searchAfterId, Pageable ofSize);
 }

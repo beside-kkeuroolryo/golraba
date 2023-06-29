@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
+import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +37,11 @@ public class Comment {
         this.username = new CommentUsername(username);
         this.password = new CommentPassword(password);
         this.content = new CommentContent(content);
+    }
+
+    public void checkPassword(String password) {
+        if (!this.password.getPassword().equals(password)) {
+            throw new CommentUnauthorizedException();
+        }
     }
 }

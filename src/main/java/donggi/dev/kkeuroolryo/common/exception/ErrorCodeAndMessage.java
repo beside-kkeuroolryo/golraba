@@ -4,6 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCodeAndMessage {
+    // common
+    NO_OFFSET_INVALID_PAGE("P401", "유효하지 않은 페이지 값입니다."),
+
     // question
     QUESTION_INVALID_CATEGORY("Q401", "유효하지 않은 카테고리입니다."),
     QUESTION_INVALID_CONTENT("Q402", "유효하지 않은 질문 본문입니다."),

@@ -29,10 +29,23 @@ API : `DELETE /api/golrabas/{questionId}/comments/{commentsId}`
 include::{snippets}/comment-delete/path-parameters.adoc[]
 ===== Request Fields
 include::{snippets}/comment-delete/request-fields.adoc[]
-
 ===== HTTP Request
 include::{snippets}/comment-delete/http-request.adoc[]
 
 ==== Response
 ===== HTTP Response
 include::{snippets}/comment-delete/http-response.adoc[]
+
+=== 댓글 조회
+
+API : `GET /api/golrabas/{questionId}/comments/`
+
+==== Request
+===== Path Parameter
+include::{snippets}/comments-read/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/comments-read/http-request.adoc[]
+
+==== Response
+===== HTTP Response
+include::{snippets}/comments-read/http-response.adoc[]

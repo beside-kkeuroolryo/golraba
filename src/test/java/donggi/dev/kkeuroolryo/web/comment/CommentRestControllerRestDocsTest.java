@@ -53,7 +53,7 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
         given(this.spec)
             .filter(
                 document("comment-register",
-                    pathParameters(parameterWithName("questionId").description("댓글 id")),
+                    pathParameters(parameterWithName("questionId").description("질문 id")),
                     requestFields(
                         fieldWithPath("username").description("사용자 이름").type(JsonFieldType.STRING),
                         fieldWithPath("password").description("비밀번호").type(JsonFieldType.STRING),

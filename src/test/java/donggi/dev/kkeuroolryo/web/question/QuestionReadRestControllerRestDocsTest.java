@@ -3,6 +3,8 @@ package donggi.dev.kkeuroolryo.web.question;
 import static io.restassured.RestAssured.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.document;
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
@@ -52,6 +54,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
         given(this.spec)
             .filter(
                 document("random-questions-read",
+                    pathParameters(parameterWithName("category").description("질문 카테고리")),
                     responseFields(
                         fieldWithPath("category").description("질문 카테고리").type(JsonFieldType.STRING),
                         fieldWithPath("questions[].id").description("질문 아이디").type(JsonFieldType.NUMBER),

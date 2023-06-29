@@ -21,6 +21,8 @@ include::{snippets}/question-register/http-response.adoc[]
 API : `GET /api/golrabas/category/{category}`
 
 ==== Request
+===== Path Parameters
+include::{snippets}/random-questions-read/path-parameters.adoc[]
 ===== HTTP Request
 include::{snippets}/random-questions-read/http-request.adoc[]
 

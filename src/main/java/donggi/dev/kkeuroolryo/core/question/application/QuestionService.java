@@ -8,6 +8,7 @@ import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,12 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
         questionResultRepository.save(new QuestionResult(question));
 
         return QuestionDto.ofEntity(question);
+    }
+
+    @Override
+    @Transactional
+    public void result(QuestionResultCommand resultCommand) {
+
     }
 
     @Override

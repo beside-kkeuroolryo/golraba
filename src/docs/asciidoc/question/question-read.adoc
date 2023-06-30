@@ -16,6 +16,20 @@ include::{snippets}/random-questions-read/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/random-questions-read/http-response.adoc[]
 
+==== 실패
+===== Path Parameters
+include::{snippets}/questions-read-invalid-category/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/questions-read-invalid-category/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/questions-read-invalid-category/response-fields.adoc[]
+===== Response Body
+include::{snippets}/questions-read-invalid-category/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/questions-read-invalid-category/http-response.adoc[]
+
 === 특정 질문 조회
 
 API : `GET /api/golrabas/{questionId}`
@@ -33,3 +47,15 @@ include::{snippets}/question-read/response-fields.adoc[]
 include::{snippets}/question-read/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/question-read/http-response.adoc[]
+
+==== 실패
+===== Path Parameters
+include::{snippets}/question-read-invalid-question-id/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-read-invalid-question-id/http-request.adoc[]
+
+==== Response
+===== Response Body
+include::{snippets}/question-read-invalid-question-id/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-read-invalid-question-id/http-response.adoc[]

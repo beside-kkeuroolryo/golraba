@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 질문 조회 요청")
+@DisplayName("API 문서화 : 질문 조회")
 @RestAssuredAndRestDocsTest
 public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
@@ -85,6 +85,35 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
     }
 
     @Test
+    @DisplayName("유효하지 않은 카테고리로 요청하면 Bad Request 상태코드를 반환한다.")
+    void questions_read_invalid_category() {
+        String invalidCategory = "haha";
+        given(this.spec)
+            .filter(
+                document("questions-read-invalid-category",
+                    pathParameters(parameterWithName("category").description("질문 카테고리")),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.category").description("질문 카테고리").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .pathParam("category", invalidCategory)
+
+        .when()
+            .get("/api/golrabas/category/{category}")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
     @DisplayName("특정 질문 조회 요청이 주어지면 해당 질문을 반환하고 정상 상태코드를 반환한다.")
     void question_read() {
         given(this.spec)
@@ -114,5 +143,28 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
         .then()
             .log().all()
             .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 질문 id 로 질문 조회 요청이 주어지면 Bad Request 상태코드를 반환한다.")
+    void question_read_invalid_question_id() {
+        Long invalidQuestionId = -1L;
+        given(this.spec)
+            .filter(
+                document("question-read-invalid-question-id",
+                    pathParameters(parameterWithName("questionId").description("질문 id"))
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .pathParam("questionId", invalidQuestionId)
+
+        .when()
+            .get("/api/golrabas/{questionId}", question.getId())
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 }

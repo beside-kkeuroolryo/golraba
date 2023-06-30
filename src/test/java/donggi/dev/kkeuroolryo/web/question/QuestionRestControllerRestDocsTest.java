@@ -25,7 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 질문 등록, 질문 선택 저장 요청")
+@DisplayName("API 문서화 : 질문 등록, 질문 선택 저장")
 @RestAssuredAndRestDocsTest
 class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 

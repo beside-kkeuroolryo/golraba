@@ -1,11 +1,15 @@
 package donggi.dev.kkeuroolryo.core.question.application;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import donggi.dev.kkeuroolryo.IntegrationTest;
+import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
+import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
@@ -134,6 +138,41 @@ class QuestionEditorTest {
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceAResult()).isEqualTo(200);
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceBResult()).isEqualTo(100);
                 });
+            }
+        }
+
+        @Nested
+        @DisplayName("정상적이지 않은 요청이면 (유효하지 않은 question id)")
+        class Context_with_invalid_result_command {
+
+            @Test
+            @DisplayName("예외를 발생시킨다.")
+            void return_exception() {
+                Long invalidQuestionId = -1L;
+                List<ChoiceResult> results = new ArrayList<>();
+                results.add(new ChoiceResult(invalidQuestionId, "a"));
+                QuestionResultCommand resultCommand = new QuestionResultCommand(results);
+
+                assertThatThrownBy(() -> questionEditor.result(resultCommand))
+                    .isInstanceOf(QuestionNotFoundException.class);
+            }
+        }
+
+        @Nested
+        @DisplayName("정상적이지 않은 요청이면 (유효하지 않은 선택)")
+        class Context_with_invalid_choice_result {
+
+            @Test
+            @DisplayName("예외를 발생시킨다.")
+            void return_exception() {
+                List<ChoiceResult> results = new ArrayList<>();
+                results.add(new ChoiceResult(question.getId(), "a"));
+                results.add(new ChoiceResult(question.getId(), "a"));
+                results.add(new ChoiceResult(question.getId(), "c"));
+                QuestionResultCommand resultCommand = new QuestionResultCommand(results);
+
+                assertThatThrownBy(() -> questionEditor.result(resultCommand))
+                    .isInstanceOf(QuestionInvalidChoiceException.class);
             }
         }
     }

@@ -521,7 +521,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/golrabas/question HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 95
 
 {
@@ -620,7 +620,7 @@ Content-Length: 95
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 268
@@ -684,7 +684,7 @@ Content-Length: 268
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/golrabas/result HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 314
 
 {
@@ -721,7 +721,7 @@ Content-Length: 314
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 104
@@ -772,7 +772,7 @@ Content-Length: 104
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/golrabas/category/self HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505</code></pre>
+Host: localhost:64219</code></pre>
 </div>
 </div>
 </div>
@@ -827,7 +827,7 @@ Host: localhost:57505</code></pre>
   "message" : "요청이 정상적으로 처리되었습니다.",
   "data" : {
     "category" : "self",
-    "questionIds" : [ 47, 42, 53, 43, 51, 49, 48, 41, 50, 54, 46, 44, 56, 45, 55 ]
+    "questionIds" : [ 54, 44, 53, 43, 45, 46, 47, 49, 41, 52, 51, 42, 50, 56, 55 ]
   }
 }</code></pre>
 </div>
@@ -840,7 +840,7 @@ Host: localhost:57505</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 213
@@ -850,7 +850,7 @@ Content-Length: 213
   "message" : "요청이 정상적으로 처리되었습니다.",
   "data" : {
     "category" : "self",
-    "questionIds" : [ 47, 42, 53, 43, 51, 49, 48, 41, 50, 54, 46, 44, 56, 45, 55 ]
+    "questionIds" : [ 54, 44, 53, 43, 45, 46, 47, 49, 41, 52, 51, 42, 50, 56, 55 ]
   }
 }</code></pre>
 </div>
@@ -861,16 +861,34 @@ Content-Length: 213
 <h4 id="_실패"><a class="link" href="#_실패">1.3.3. 실패</a></h4>
 <div class="sect4">
 <h5 id="_path_parameters_2"><a class="link" href="#_path_parameters_2">Path Parameters</a></h5>
-<div class="paragraph">
-<p>Unresolved directive in question/question-read.adoc - include::/Users/donggilee/Desktop/study/beside/kkeuroolryo/build/generated-snippets/cate/path-parameters.adoc[]
-===== HTTP Request</p>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. /api/golrabas/category/{category}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>category</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 카테고리</p></td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="sect4">
+<h5 id="_http_request_4"><a class="link" href="#_http_request_4">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/golrabas/category/self HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/golrabas/category/haha HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505</code></pre>
+Host: localhost:64219</code></pre>
 </div>
 </div>
 </div>
@@ -879,54 +897,16 @@ Host: localhost:57505</code></pre>
 <h4 id="_response_4"><a class="link" href="#_response_4">1.3.4. Response</a></h4>
 <div class="sect4">
 <h5 id="_response_fields_3"><a class="link" href="#_response_fields_3">Response Fields</a></h5>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">응답 코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">응답 메세지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.category</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">질문 카테고리</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.questionIds</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">질문 id 리스트</p></td>
-</tr>
-</tbody>
-</table>
+
 </div>
 <div class="sect4">
 <h5 id="_response_body_3"><a class="link" href="#_response_body_3">Response Body</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-json hljs" data-lang="json">{
-  "code" : "G001",
-  "message" : "요청이 정상적으로 처리되었습니다.",
-  "data" : {
-    "category" : "self",
-    "questionIds" : [ 47, 42, 53, 43, 51, 49, 48, 41, 50, 54, 46, 44, 56, 45, 55 ]
-  }
+  "code" : "Q401",
+  "message" : "유효하지 않은 카테고리입니다.",
+  "data" : "Failed to convert value of type 'java.lang.String' to required type 'donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest'; Failed to convert from type [java.lang.String] to type [@org.springframework.web.bind.annotation.PathVariable donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest] for value [haha]"
 }</code></pre>
 </div>
 </div>
@@ -935,21 +915,17 @@ Host: localhost:57505</code></pre>
 <h5 id="_http_response_4"><a class="link" href="#_http_response_4">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
-Keep-Alive: timeout=60
-Connection: keep-alive
-Content-Length: 213
+Date: Fri, 30 Jun 2023 14:10:05 GMT
+Connection: close
+Content-Length: 422
 
 {
-  "code" : "G001",
-  "message" : "요청이 정상적으로 처리되었습니다.",
-  "data" : {
-    "category" : "self",
-    "questionIds" : [ 47, 42, 53, 43, 51, 49, 48, 41, 50, 54, 46, 44, 56, 45, 55 ]
-  }
+  "code" : "Q401",
+  "message" : "유효하지 않은 카테고리입니다.",
+  "data" : "Failed to convert value of type 'java.lang.String' to required type 'donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest'; Failed to convert from type [java.lang.String] to type [@org.springframework.web.bind.annotation.PathVariable donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest] for value [haha]"
 }</code></pre>
 </div>
 </div>
@@ -966,7 +942,7 @@ Content-Length: 213
 <div class="sect4">
 <h5 id="_path_parameters_3"><a class="link" href="#_path_parameters_3">Path Parameters</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. /api/golrabas/{questionId}</caption>
+<caption class="title">Table 3. /api/golrabas/{questionId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -986,13 +962,13 @@ Content-Length: 213
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_4"><a class="link" href="#_http_request_4">HTTP Request</a></h5>
+<h5 id="_http_request_5"><a class="link" href="#_http_request_5">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/golrabas/72 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505</code></pre>
+Host: localhost:64219</code></pre>
 </div>
 </div>
 </div>
@@ -1084,7 +1060,7 @@ Host: localhost:57505</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 264
@@ -1100,6 +1076,76 @@ Content-Length: 264
     "choiceAResult" : 0,
     "choiceBResult" : 0
   }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_실패_2"><a class="link" href="#_실패_2">1.4.3. 실패</a></h4>
+<div class="sect4">
+<h5 id="_path_parameters_4"><a class="link" href="#_path_parameters_4">Path Parameters</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. /api/golrabas/{questionId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>questionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_http_request_6"><a class="link" href="#_http_request_6">HTTP Request</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/golrabas/-1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Host: localhost:64219</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_6"><a class="link" href="#_response_6">1.4.4. Response</a></h4>
+<div class="sect4">
+<h5 id="_response_body_5"><a class="link" href="#_response_body_5">Response Body</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-json hljs" data-lang="json">{
+  "code" : "Q404",
+  "message" : "존재하지 않는 질문입니다.",
+  "data" : null
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_http_response_6"><a class="link" href="#_http_response_6">HTTP Response</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, 30 Jun 2023 14:10:05 GMT
+Connection: close
+Content-Length: 92
+
+{
+  "code" : "Q404",
+  "message" : "존재하지 않는 질문입니다.",
+  "data" : null
 }</code></pre>
 </div>
 </div>
@@ -1121,7 +1167,7 @@ Content-Length: 264
 <div class="sect4">
 <h5 id="_path_parameter"><a class="link" href="#_path_parameter">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. /api/golrabas/{questionId}/comments</caption>
+<caption class="title">Table 5. /api/golrabas/{questionId}/comments</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1175,13 +1221,13 @@ Content-Length: 264
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_5"><a class="link" href="#_http_request_5">HTTP Request</a></h5>
+<h5 id="_http_request_7"><a class="link" href="#_http_request_7">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/golrabas/24/comments HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 98
 
 {
@@ -1237,7 +1283,7 @@ Content-Length: 98
 </table>
 </div>
 <div class="sect4">
-<h5 id="_response_body_5"><a class="link" href="#_response_body_5">Response Body</a></h5>
+<h5 id="_response_body_6"><a class="link" href="#_response_body_6">Response Body</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-json hljs" data-lang="json">{
@@ -1253,13 +1299,13 @@ Content-Length: 98
 </div>
 </div>
 <div class="sect4">
-<h5 id="_http_response_6"><a class="link" href="#_http_response_6">HTTP Response</a></h5>
+<h5 id="_http_response_7"><a class="link" href="#_http_response_7">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 185
@@ -1278,11 +1324,11 @@ Content-Length: 185
 </div>
 </div>
 <div class="sect3">
-<h4 id="_실패_2"><a class="link" href="#_실패_2">2.1.2. 실패</a></h4>
+<h4 id="_실패_3"><a class="link" href="#_실패_3">2.1.2. 실패</a></h4>
 <div class="sect4">
 <h5 id="_path_parameter_2"><a class="link" href="#_path_parameter_2">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. /api/golrabas/{questionId}/comments</caption>
+<caption class="title">Table 6. /api/golrabas/{questionId}/comments</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1336,13 +1382,13 @@ Content-Length: 185
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_6"><a class="link" href="#_http_request_6">HTTP Request</a></h5>
+<h5 id="_http_request_8"><a class="link" href="#_http_request_8">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/golrabas/21/comments HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 86
 
 {
@@ -1354,7 +1400,7 @@ Content-Length: 86
 </div>
 </div>
 <div class="sect4">
-<h5 id="_response_body_6"><a class="link" href="#_response_body_6">Response Body</a></h5>
+<h5 id="_response_body_7"><a class="link" href="#_response_body_7">Response Body</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-json hljs" data-lang="json">{
@@ -1366,13 +1412,13 @@ Content-Length: 86
 </div>
 </div>
 <div class="sect4">
-<h5 id="_http_response_7"><a class="link" href="#_http_response_7">HTTP Response</a></h5>
+<h5 id="_http_response_8"><a class="link" href="#_http_response_8">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Connection: close
 Content-Length: 95
 
@@ -1396,7 +1442,7 @@ Content-Length: 95
 <div class="sect4">
 <h5 id="_path_parameter_3"><a class="link" href="#_path_parameter_3">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. /api/golrabas/{questionId}/comments/{commentId}</caption>
+<caption class="title">Table 7. /api/golrabas/{questionId}/comments/{commentId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1444,13 +1490,13 @@ Content-Length: 95
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_7"><a class="link" href="#_http_request_7">HTTP Request</a></h5>
+<h5 id="_http_request_9"><a class="link" href="#_http_request_9">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/golrabas/22/comments/19 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 36
 
 {
@@ -1461,15 +1507,15 @@ Content-Length: 36
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_6"><a class="link" href="#_response_6">2.2.2. Response</a></h4>
+<h4 id="_response_7"><a class="link" href="#_response_7">2.2.2. Response</a></h4>
 <div class="sect4">
-<h5 id="_http_response_8"><a class="link" href="#_http_response_8">HTTP Response</a></h5>
+<h5 id="_http_response_9"><a class="link" href="#_http_response_9">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 104
@@ -1488,7 +1534,7 @@ Content-Length: 104
 <div class="sect4">
 <h5 id="_path_parameter_4"><a class="link" href="#_path_parameter_4">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. /api/golrabas/{questionId}/comments/{commentId}</caption>
+<caption class="title">Table 8. /api/golrabas/{questionId}/comments/{commentId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1536,13 +1582,13 @@ Content-Length: 104
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_8"><a class="link" href="#_http_request_8">HTTP Request</a></h5>
+<h5 id="_http_request_10"><a class="link" href="#_http_request_10">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/golrabas/19/comments/-1 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 36
 
 {
@@ -1553,15 +1599,15 @@ Content-Length: 36
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_7"><a class="link" href="#_response_7">2.2.4. Response</a></h4>
+<h4 id="_response_8"><a class="link" href="#_response_8">2.2.4. Response</a></h4>
 <div class="sect4">
-<h5 id="_http_response_9"><a class="link" href="#_http_response_9">HTTP Response</a></h5>
+<h5 id="_http_response_10"><a class="link" href="#_http_response_10">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Connection: close
 Content-Length: 92
 
@@ -1579,7 +1625,7 @@ Content-Length: 92
 <div class="sect4">
 <h5 id="_path_parameter_5"><a class="link" href="#_path_parameter_5">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. /api/golrabas/{questionId}/comments/{commentId}</caption>
+<caption class="title">Table 9. /api/golrabas/{questionId}/comments/{commentId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1627,13 +1673,13 @@ Content-Length: 92
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_9"><a class="link" href="#_http_request_9">HTTP Request</a></h5>
+<h5 id="_http_request_11"><a class="link" href="#_http_request_11">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/golrabas/-1/comments/17 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 36
 
 {
@@ -1644,15 +1690,15 @@ Content-Length: 36
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_8"><a class="link" href="#_response_8">2.2.6. Response</a></h4>
+<h4 id="_response_9"><a class="link" href="#_response_9">2.2.6. Response</a></h4>
 <div class="sect4">
-<h5 id="_http_response_10"><a class="link" href="#_http_response_10">HTTP Response</a></h5>
+<h5 id="_http_response_11"><a class="link" href="#_http_response_11">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Connection: close
 Content-Length: 92
 
@@ -1670,7 +1716,7 @@ Content-Length: 92
 <div class="sect4">
 <h5 id="_path_parameter_6"><a class="link" href="#_path_parameter_6">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. /api/golrabas/{questionId}/comments/{commentId}</caption>
+<caption class="title">Table 10. /api/golrabas/{questionId}/comments/{commentId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1718,13 +1764,13 @@ Content-Length: 92
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_10"><a class="link" href="#_http_request_10">HTTP Request</a></h5>
+<h5 id="_http_request_12"><a class="link" href="#_http_request_12">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/golrabas/23/comments/20 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505
+Host: localhost:64219
 Content-Length: 35
 
 {
@@ -1735,15 +1781,15 @@ Content-Length: 35
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_9"><a class="link" href="#_response_9">2.2.8. Response</a></h4>
+<h4 id="_response_10"><a class="link" href="#_response_10">2.2.8. Response</a></h4>
 <div class="sect4">
-<h5 id="_http_response_11"><a class="link" href="#_http_response_11">HTTP Response</a></h5>
+<h5 id="_http_response_12"><a class="link" href="#_http_response_12">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Connection: close
 Content-Length: 105
 
@@ -1767,7 +1813,7 @@ Content-Length: 105
 <div class="sect4">
 <h5 id="_path_parameter_7"><a class="link" href="#_path_parameter_7">Path Parameter</a></h5>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. /api/golrabas/{questionId}/comments</caption>
+<caption class="title">Table 11. /api/golrabas/{questionId}/comments</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1787,27 +1833,27 @@ Content-Length: 105
 </table>
 </div>
 <div class="sect4">
-<h5 id="_http_request_11"><a class="link" href="#_http_request_11">HTTP Request</a></h5>
+<h5 id="_http_request_13"><a class="link" href="#_http_request_13">HTTP Request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/golrabas/18/comments?searchAfterId=15&amp;size=5 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:57505</code></pre>
+Host: localhost:64219</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_10"><a class="link" href="#_response_10">2.3.2. Response</a></h4>
+<h4 id="_response_11"><a class="link" href="#_response_11">2.3.2. Response</a></h4>
 <div class="sect4">
-<h5 id="_http_response_12"><a class="link" href="#_http_response_12">HTTP Response</a></h5>
+<h5 id="_http_response_13"><a class="link" href="#_http_response_13">HTTP Response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 30 Jun 2023 10:02:22 GMT
+Date: Fri, 30 Jun 2023 14:10:05 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 724
@@ -1856,7 +1902,7 @@ Content-Length: 724
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-06-30 18:59:13 +0900
+Last updated 2023-06-30 19:13:50 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

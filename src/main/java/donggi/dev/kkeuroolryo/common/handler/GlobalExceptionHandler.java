@@ -3,17 +3,16 @@ package donggi.dev.kkeuroolryo.common.handler;
 import donggi.dev.kkeuroolryo.common.exception.ErrorCodeAndMessage;
 import donggi.dev.kkeuroolryo.common.exception.GolrabaException;
 import donggi.dev.kkeuroolryo.common.response.ApiResponse;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 @Slf4j
@@ -28,6 +27,16 @@ public class GlobalExceptionHandler {
             exception.getCode(), exception.getMessage(), exception.getCause());
 
         return ApiResponse.error(exception.getCode(), exception.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleClientException(MethodArgumentTypeMismatchException exception) {
+        log.debug("[golraba-exception] message = {}, cause = {}",
+            exception.getMessage(), exception.getCause());
+
+        return ApiResponse.error(ErrorCodeAndMessage.QUESTION_INVALID_CATEGORY.getCode(),
+            ErrorCodeAndMessage.QUESTION_INVALID_CATEGORY.getMessage(), exception.getMessage());
     }
 
     @ExceptionHandler(BindException.class)

@@ -22,7 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 댓글 조회 요청")
+@DisplayName("API 문서화 : 댓글 조회")
 @RestAssuredAndRestDocsTest
 public class CommentReadRestControllerRestDocsTest extends InitRestDocsTest {
 

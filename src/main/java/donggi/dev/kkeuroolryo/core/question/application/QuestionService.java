@@ -37,7 +37,22 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     @Override
     @Transactional
     public void result(QuestionResultCommand resultCommand) {
+        resultCommand.getResults().stream()
+            .forEach(choiceResult -> {
+                QuestionResult questionResult = questionResultRepository.findByQuestionWithPessimisticLock(choiceResult.getQuestionId())
+                    .orElseThrow(QuestionNotFoundException::new);
 
+                updateChoice(choiceResult.getChoice(), questionResult);
+                }
+            );
+    }
+
+    private void updateChoice(String choice, QuestionResult questionResult) {
+        if ("a".equals(choice)) {
+            questionResult.incrementChoiceA();
+        } else {
+            questionResult.incrementChoiceB();
+        }
     }
 
     @Override

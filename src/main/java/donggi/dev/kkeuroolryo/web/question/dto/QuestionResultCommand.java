@@ -16,6 +16,7 @@ public class QuestionResultCommand {
     }
 
     @Getter
+    @NoArgsConstructor
     public static class ChoiceResult {
         private Long questionId;
         private String choice;

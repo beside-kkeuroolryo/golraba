@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QuestionRegisterCommand {
 
-    public static final String USERMADE = "usermade";
+    private static final String USERMADE = "usermade";
     private String content;
     private String choiceA;
     private String choiceB;

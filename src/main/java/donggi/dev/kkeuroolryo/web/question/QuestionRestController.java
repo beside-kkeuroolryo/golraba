@@ -5,6 +5,7 @@ import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,12 @@ public class QuestionRestController {
     public ResponseEntity<QuestionDto> register(@RequestBody QuestionRegisterCommand questionRegisterCommand) {
         QuestionDto questionDto = questionEditor.save(questionRegisterCommand);
         return ResponseEntity.created(URI.create("/api/golrabas/question")).body(questionDto);
+    }
+
+    @PostMapping("/result")
+    public ResponseEntity<Void> register(@RequestBody QuestionResultCommand resultCommand) {
+        questionEditor.result(resultCommand);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/category/{category}")

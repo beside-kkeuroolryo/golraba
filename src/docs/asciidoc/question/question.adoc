@@ -51,3 +51,17 @@ include::{snippets}/question-read/response-fields.adoc[]
 include::{snippets}/question-read/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/question-read/http-response.adoc[]
+
+=== 질문 선택 결과 반영
+
+API : `POST /api/golrabas/result`
+
+==== Request
+===== Request Body
+include::{snippets}/question-result/request-body.adoc[]
+===== HTTP Request
+include::{snippets}/question-result/http-request.adoc[]
+
+==== Response
+===== HTTP Response
+include::{snippets}/question-result/http-response.adoc[]

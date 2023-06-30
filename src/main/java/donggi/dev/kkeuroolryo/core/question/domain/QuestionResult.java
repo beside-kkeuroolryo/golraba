@@ -35,4 +35,12 @@ public class QuestionResult {
     public QuestionResult(Question question) {
         this.question = question;
     }
+
+    public void incrementChoiceA() {
+        choiceAResult++;
+    }
+
+    public void incrementChoiceB() {
+        choiceBResult++;
+    }
 }

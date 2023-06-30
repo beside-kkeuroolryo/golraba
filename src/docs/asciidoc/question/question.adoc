@@ -33,3 +33,21 @@ include::{snippets}/random-questions-read/response-fields.adoc[]
 include::{snippets}/random-questions-read/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/random-questions-read/http-response.adoc[]
+
+=== 특정 질문 조회
+
+API : `GET /api/golrabas/{questionId}`
+
+==== Request
+===== Path Parameters
+include::{snippets}/question-read/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-read/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-read/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-read/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-read/http-response.adoc[]

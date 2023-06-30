@@ -2,6 +2,7 @@ package donggi.dev.kkeuroolryo.core.question.domain;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -41,6 +43,9 @@ public class Question {
         @AttributeOverride(name = "choice", column = @Column(name = "choice_b"))
     })
     private QuestionChoice choiceB;
+
+    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private QuestionResult questionResult;
 
     public Question(String category, String content, String choiceA, String choiceB) {
         this.category = category;

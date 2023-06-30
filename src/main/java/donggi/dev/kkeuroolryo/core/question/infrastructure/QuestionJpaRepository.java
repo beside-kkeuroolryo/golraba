@@ -11,6 +11,4 @@ public interface QuestionJpaRepository extends QuestionRepository, JpaRepository
 
     @Query(value = "select q.id from Question q where q.category= :category")
     List<Long> findAllIdsByCategory(@Param("category") String category);
-
-    List<Question> findByIdIn(List<Long> ids);
 }

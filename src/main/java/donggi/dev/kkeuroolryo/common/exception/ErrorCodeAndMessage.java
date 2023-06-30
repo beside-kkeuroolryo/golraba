@@ -4,6 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCodeAndMessage {
+    // Valid & 서버
+    SERVER_ERROR("F401", "서버 에러입니다."),
+    INVALID_REQUEST("F402", "요청 정보를 확인해주세요."),
+
     // common
     NO_OFFSET_INVALID_PAGE("P401", "유효하지 않은 페이지 값입니다."),
 

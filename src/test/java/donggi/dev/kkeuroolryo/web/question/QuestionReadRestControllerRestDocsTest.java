@@ -53,7 +53,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
         questionRepository.save(new Question("self", "질문 본문14", "선택A 14", "선택B 14"));
         questionRepository.save(new Question("self", "질문 본문15", "선택A 15", "선택B 15"));
         question = questionRepository.save(new Question("self", "질문 본문16", "선택A 16", "선택B 16"));
-        questionResultRepository.save(new QuestionResult(question, 10, 15));
+        questionResultRepository.save(new QuestionResult(question));
     }
 
     @Test

@@ -32,9 +32,7 @@ public class QuestionResult {
     @Column(name = "choice_b_result", columnDefinition = "integer default 0", nullable = false)
     private int choiceBResult;
 
-    public QuestionResult(Question question, int choiceAResult, int choiceBResult) {
+    public QuestionResult(Question question) {
         this.question = question;
-        this.choiceAResult = choiceAResult;
-        this.choiceBResult = choiceBResult;
     }
 }

@@ -4,6 +4,8 @@ import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
+import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
+import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import java.util.Collections;
@@ -19,11 +21,15 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     public static final int RANDOM_QUESTION_COUNT = 15;
 
     private final QuestionRepository questionRepository;
+    private final QuestionResultRepository questionResultRepository;
 
     @Override
     @Transactional
     public QuestionDto save(QuestionRegisterCommand questionRegisterCommand) {
         Question question = questionRepository.save(questionRegisterCommand.convertToEntity());
+
+        questionResultRepository.save(new QuestionResult(question));
+
         return QuestionDto.ofEntity(question);
     }
 
@@ -48,6 +54,6 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
         Question question = questionRepository.findById(questionId)
             .orElseThrow(QuestionNotFoundException::new);
 
-        return QuestionDto.ofEntity(question);
+        return QuestionDto.ofEntity(question, question.getQuestionResult());
     }
 }

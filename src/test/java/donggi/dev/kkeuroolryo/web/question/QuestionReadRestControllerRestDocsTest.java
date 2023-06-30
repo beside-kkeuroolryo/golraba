@@ -11,6 +11,8 @@ import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
+import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
+import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,11 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
     @Autowired
     QuestionRepository questionRepository;
+
+    @Autowired
+    QuestionResultRepository questionResultRepository;
+
+    Question question;
 
     @BeforeEach
     void setUp() {
@@ -45,7 +52,8 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
         questionRepository.save(new Question("self", "질문 본문13", "선택A 13", "선택B 13"));
         questionRepository.save(new Question("self", "질문 본문14", "선택A 14", "선택B 14"));
         questionRepository.save(new Question("self", "질문 본문15", "선택A 15", "선택B 15"));
-        questionRepository.save(new Question("self", "질문 본문16", "선택A 16", "선택B 16"));
+        question = questionRepository.save(new Question("self", "질문 본문16", "선택A 16", "선택B 16"));
+        questionResultRepository.save(new QuestionResult(question, 10, 15));
     }
 
     @Test
@@ -71,6 +79,36 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
         .when()
             .get("/api/golrabas/category/{category}")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("특정 질문 조회 요청이 주어지면 해당 질문을 반환하고 정상 상태코드를 반환한다.")
+    void question_read() {
+        given(this.spec)
+            .filter(
+                document("question-read",
+                    pathParameters(parameterWithName("questionId").description("질문 id")),
+                    responseFields(
+                        fieldWithPath("id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("content").description("질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
+                        fieldWithPath("choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .pathParam("questionId", question.getId())
+
+        .when()
+            .get("/api/golrabas/{questionId}", question.getId())
 
         .then()
             .log().all()

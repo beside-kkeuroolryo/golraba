@@ -1,9 +1,10 @@
 package donggi.dev.kkeuroolryo.core.question.application;
 
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
+import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
-import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import java.util.Collections;
 import java.util.List;
@@ -41,5 +42,13 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     private List<Long> getRandomQuestionIds(List<Long> questionIds) {
         Collections.shuffle(questionIds);
         return questionIds.subList(0, Math.min(questionIds.size(), RANDOM_QUESTION_COUNT));
+    }
+
+    @Override
+    public QuestionDto getQuestion(Long questionId) {
+        Question question = questionRepository.findById(questionId)
+            .orElseThrow(QuestionNotFoundException::new);
+
+        return QuestionDto.ofEntity(question);
     }
 }

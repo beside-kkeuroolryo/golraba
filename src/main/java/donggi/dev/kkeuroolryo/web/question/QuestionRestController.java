@@ -34,4 +34,10 @@ public class QuestionRestController {
         RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(category);
         return ResponseEntity.ok().body(randomQuestionsDto);
     }
+
+    @GetMapping("/{questionId}")
+    public ResponseEntity<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
+        QuestionDto questionDto = questionFinder.getQuestion(questionId);
+        return ResponseEntity.ok().body(questionDto);
+    }
 }

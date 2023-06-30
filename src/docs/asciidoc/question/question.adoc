@@ -16,42 +16,6 @@ include::{snippets}/question-register/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/question-register/http-response.adoc[]
 
-=== 카테고리 질문 조회
-
-API : `GET /api/golrabas/category/{category}`
-
-==== Request
-===== Path Parameters
-include::{snippets}/random-questions-read/path-parameters.adoc[]
-===== HTTP Request
-include::{snippets}/random-questions-read/http-request.adoc[]
-
-==== Response
-===== Response Fields
-include::{snippets}/random-questions-read/response-fields.adoc[]
-===== Response Body
-include::{snippets}/random-questions-read/response-body.adoc[]
-===== HTTP Response
-include::{snippets}/random-questions-read/http-response.adoc[]
-
-=== 특정 질문 조회
-
-API : `GET /api/golrabas/{questionId}`
-
-==== Request
-===== Path Parameters
-include::{snippets}/question-read/path-parameters.adoc[]
-===== HTTP Request
-include::{snippets}/question-read/http-request.adoc[]
-
-==== Response
-===== Response Fields
-include::{snippets}/question-read/response-fields.adoc[]
-===== Response Body
-include::{snippets}/question-read/response-body.adoc[]
-===== HTTP Response
-include::{snippets}/question-read/http-response.adoc[]
-
 === 질문 선택 결과 반영
 
 API : `POST /api/golrabas/result`

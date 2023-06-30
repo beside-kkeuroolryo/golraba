@@ -22,7 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 댓글 조회 요청")
+@DisplayName("API 문서화 : 댓글 조회")
 @RestAssuredAndRestDocsTest
 public class CommentReadRestControllerRestDocsTest extends InitRestDocsTest {
 
@@ -60,14 +60,16 @@ public class CommentReadRestControllerRestDocsTest extends InitRestDocsTest {
                         parameterWithName("size").description("조회할 데이터 개수")
                     ),
                     responseFields(
-                        fieldWithPath("questionId").description("질문 id").type(JsonFieldType.NUMBER),
-                        fieldWithPath("comments[].id").description("댓글 id").type(JsonFieldType.NUMBER),
-                        fieldWithPath("comments[].username").description("사용자 이름").type(JsonFieldType.STRING),
-                        fieldWithPath("comments[].content").description("댓글 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questionId").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.comments[].id").description("댓글 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.comments[].username").description("사용자 이름").type(JsonFieldType.STRING),
+                        fieldWithPath("data.comments[].content").description("댓글 본문").type(JsonFieldType.STRING),
 
-                        fieldWithPath("page.size").description("조회된 데이터 개수").type(JsonFieldType.NUMBER),
-                        fieldWithPath("page.nextId").description("다음 데이터 id").type(JsonFieldType.NUMBER),
-                        fieldWithPath("page.last").description("마지막 여부").type(JsonFieldType.BOOLEAN)
+                        fieldWithPath("data.page.size").description("조회된 데이터 개수").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.nextId").description("다음 데이터 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.last").description("마지막 여부").type(JsonFieldType.BOOLEAN)
                     )
                 )
             )

@@ -34,9 +34,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
         List<Long> randomQuestionIds = getRandomQuestionIds(questionIds);
 
-        List<Question> randomQuestions = questionRepository.findByIdIn(randomQuestionIds);
-
-        return RandomQuestionsDto.ofEntity(category, randomQuestions);
+        return RandomQuestionsDto.ofEntity(category, randomQuestionIds);
     }
 
     private List<Long> getRandomQuestionIds(List<Long> questionIds) {
@@ -45,6 +43,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public QuestionDto getQuestion(Long questionId) {
         Question question = questionRepository.findById(questionId)
             .orElseThrow(QuestionNotFoundException::new);

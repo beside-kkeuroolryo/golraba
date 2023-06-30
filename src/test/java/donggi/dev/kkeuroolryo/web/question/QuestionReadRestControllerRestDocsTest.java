@@ -57,7 +57,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
     }
 
     @Test
-    @DisplayName("특정 카테고리를 선택하면 해당 카테고리 질문을 15개 반환하고 정상 상태코드를 반환한다.")
+    @DisplayName("특정 카테고리를 선택하면 해당 카테고리 질문 id List 를 반환하고 정상 상태코드를 반환한다.")
     void questions_read() {
         given(this.spec)
             .filter(
@@ -65,17 +65,14 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
                     pathParameters(parameterWithName("category").description("질문 카테고리")),
                     responseFields(
                         fieldWithPath("category").description("질문 카테고리").type(JsonFieldType.STRING),
-                        fieldWithPath("questions[].id").description("질문 아이디").type(JsonFieldType.NUMBER),
-                        fieldWithPath("questions[].content").description("질문 본문").type(JsonFieldType.STRING),
-                        fieldWithPath("questions[].choiceA").description("선택지 A").type(JsonFieldType.STRING),
-                        fieldWithPath("questions[].choiceB").description("선택지 B").type(JsonFieldType.STRING)
+                        fieldWithPath("questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
                     )
                 )
             )
             .log().all()
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-            .pathParam("category", "self")
+            .pathParam("category", question.getCategory())
 
         .when()
             .get("/api/golrabas/category/{category}")

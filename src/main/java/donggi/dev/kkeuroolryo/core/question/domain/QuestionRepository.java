@@ -19,13 +19,6 @@ public interface QuestionRepository {
      Question save(Question question);
 
     /**
-     * 저장소에서 id 리스트의 question을 조회합니다.
-     * @param ids 조회할 아이디 리스트
-     * @return 조회한 question 리스트
-     */
-     List<Question> findByIdIn(List<Long> ids);
-
-    /**
      * 저장소에서 질문을 모두 삭제합니다.
      */
     void deleteAll();

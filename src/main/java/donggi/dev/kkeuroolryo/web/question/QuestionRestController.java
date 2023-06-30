@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.web.question;
 
+import donggi.dev.kkeuroolryo.common.response.ApiResponse;
 import donggi.dev.kkeuroolryo.core.question.application.QuestionEditor;
 import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
@@ -25,26 +26,26 @@ public class QuestionRestController {
     private final QuestionEditor questionEditor;
 
     @PostMapping("/question")
-    public ResponseEntity<QuestionDto> register(@RequestBody QuestionRegisterCommand questionRegisterCommand) {
+    public ApiResponse<QuestionDto> register(@RequestBody QuestionRegisterCommand questionRegisterCommand) {
         QuestionDto questionDto = questionEditor.save(questionRegisterCommand);
-        return ResponseEntity.created(URI.create("/api/golrabas/question")).body(questionDto);
+        return ApiResponse.success(questionDto);
     }
 
     @PostMapping("/result")
-    public ResponseEntity<Void> register(@RequestBody QuestionResultCommand resultCommand) {
+    public ApiResponse<Void> register(@RequestBody QuestionResultCommand resultCommand) {
         questionEditor.result(resultCommand);
-        return ResponseEntity.ok().build();
+        return ApiResponse.success();
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") String category) {
+    public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") String category) {
         RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(category);
-        return ResponseEntity.ok().body(randomQuestionsDto);
+        return ApiResponse.success(randomQuestionsDto);
     }
 
     @GetMapping("/{questionId}")
-    public ResponseEntity<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
+    public ApiResponse<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
         QuestionDto questionDto = questionFinder.getQuestion(questionId);
-        return ResponseEntity.ok().body(questionDto);
+        return ApiResponse.success(questionDto);
     }
 }

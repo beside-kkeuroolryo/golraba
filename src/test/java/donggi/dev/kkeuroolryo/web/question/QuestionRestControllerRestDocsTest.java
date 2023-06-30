@@ -55,12 +55,14 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
                         fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING)
                     ),
                     responseFields(
-                        fieldWithPath("id").description("질문 id").type(JsonFieldType.NUMBER),
-                        fieldWithPath("content").description("요청한 질문 본문").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceAResult").description("선택지 A 선택된 횟수").type(JsonFieldType.NUMBER),
-                        fieldWithPath("choiceBResult").description("선택지 B 선택된 횟수").type(JsonFieldType.NUMBER)
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.content").description("요청한 질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("data.choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("data.choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.choiceAResult").description("선택지 A 선택된 횟수").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.choiceBResult").description("선택지 B 선택된 횟수").type(JsonFieldType.NUMBER)
                     )
                 )
             )
@@ -74,7 +76,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 
         .then()
             .log().all()
-            .statusCode(HttpStatus.CREATED.value());
+            .statusCode(HttpStatus.OK.value());
     }
 
     @Test

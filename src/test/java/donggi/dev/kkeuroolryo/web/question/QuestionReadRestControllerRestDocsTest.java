@@ -64,8 +64,10 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
                 document("random-questions-read",
                     pathParameters(parameterWithName("category").description("질문 카테고리")),
                     responseFields(
-                        fieldWithPath("category").description("질문 카테고리").type(JsonFieldType.STRING),
-                        fieldWithPath("questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.category").description("질문 카테고리").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
                     )
                 )
             )
@@ -90,12 +92,14 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
                 document("question-read",
                     pathParameters(parameterWithName("questionId").description("질문 id")),
                     responseFields(
-                        fieldWithPath("id").description("질문 id").type(JsonFieldType.NUMBER),
-                        fieldWithPath("content").description("질문 본문").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
-                        fieldWithPath("choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER)
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.content").description("질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("data.choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("data.choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER)
                     )
                 )
             )

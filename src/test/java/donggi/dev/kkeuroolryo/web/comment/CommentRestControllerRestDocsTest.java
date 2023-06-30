@@ -60,9 +60,11 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
                         fieldWithPath("content").description("댓글 본문").type(JsonFieldType.STRING)
                     ),
                     responseFields(
-                        fieldWithPath("id").description("댓글 아이디").type(JsonFieldType.NUMBER),
-                        fieldWithPath("username").description("사용자 이름").type(JsonFieldType.STRING),
-                        fieldWithPath("content").description("요청한 댓글 본문").type(JsonFieldType.STRING)
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.id").description("댓글 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.username").description("사용자 이름").type(JsonFieldType.STRING),
+                        fieldWithPath("data.content").description("댓글 본문").type(JsonFieldType.STRING)
                     )
                 )
             )
@@ -76,7 +78,7 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
 
         .then()
             .log().all()
-            .statusCode(HttpStatus.CREATED.value());
+            .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -103,6 +105,6 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
 
         .then()
             .log().all()
-            .statusCode(HttpStatus.NO_CONTENT.value());
+            .statusCode(HttpStatus.OK.value());
     }
 }

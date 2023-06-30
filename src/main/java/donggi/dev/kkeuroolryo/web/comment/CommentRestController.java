@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.web.comment;
 
+import donggi.dev.kkeuroolryo.common.response.ApiResponse;
 import donggi.dev.kkeuroolryo.core.comment.application.CommentEditor;
 import donggi.dev.kkeuroolryo.core.comment.application.CommentFinder;
 import donggi.dev.kkeuroolryo.core.comment.application.dto.CommentDto;
@@ -28,24 +29,24 @@ public class CommentRestController {
     private final CommentFinder commentFinder;
 
     @PostMapping("/{questionId}/comments")
-    public ResponseEntity<CommentDto> register(@PathVariable("questionId") Long questionId,
+    public ApiResponse<CommentDto> register(@PathVariable("questionId") Long questionId,
         @RequestBody CommentRegisterCommand commentRegisterCommand) {
         CommentDto commentDto = commentEditor.save(questionId, commentRegisterCommand);
-        return ResponseEntity.created(URI.create("/api/golrabas/question")).body(commentDto);
+        return ApiResponse.success(commentDto);
     }
 
     @DeleteMapping("/{questionId}/comments/{commentId}")
-    public ResponseEntity<CommentDto> register(@PathVariable("questionId") Long questionId,
+    public ApiResponse<Void> delete(@PathVariable("questionId") Long questionId,
         @PathVariable("commentId") Long commentId, @RequestBody CommentDeleteCommand commentDeleteCommand) {
         commentEditor.delete(questionId, commentId, commentDeleteCommand.getPassword());
-        return ResponseEntity.noContent().build();
+        return ApiResponse.success();
     }
 
     @GetMapping("/{questionId}/comments")
-    public ResponseEntity<CommentPaginationDto> getAll(@PathVariable("questionId") Long questionId,
+    public ApiResponse<CommentPaginationDto> getAll(@PathVariable("questionId") Long questionId,
         @RequestParam(required = false, defaultValue = "0") String searchAfterId,
         @RequestParam(required = false, defaultValue = "10") String size) {
         CommentPaginationDto commentPaginationDto = commentFinder.findAllBy(questionId, new NoOffsetPageCommand(searchAfterId, size));
-        return ResponseEntity.ok().body(commentPaginationDto);
+        return ApiResponse.success(commentPaginationDto);
     }
 }

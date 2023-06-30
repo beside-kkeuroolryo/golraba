@@ -9,13 +9,14 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 질문 등록 요청")
+@DisplayName("API 문서화 : 질문 등록, 질문 선택 저장 요청")
 @RestAssuredAndRestDocsTest
 class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 
@@ -50,5 +51,28 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 
         .then()
             .statusCode(HttpStatus.CREATED.value());
+    }
+
+    @Test
+    @DisplayName("사용자의 선택 결과 저장 요청이 정상적인 경우 선택 결과를 저장 한 후 정상 상태코드를 반환한다.")
+    void question_result() {
+        QuestionResultCommand questionResultCommand = new QuestionResultCommand();
+        given(this.spec)
+            .filter(
+                document("question-result",
+                    requestFields(
+                        fieldWithPath("results").description("질문 결과 리스트").type(JsonFieldType.ARRAY)
+                    )
+                )
+            )
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .body(questionResultCommand)
+
+        .when()
+            .post("/api/golrabas/result")
+
+        .then()
+            .statusCode(HttpStatus.OK.value());
     }
 }

@@ -91,13 +91,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
         given(this.spec)
             .filter(
                 document("questions-read-invalid-category",
-                    pathParameters(parameterWithName("category").description("질문 카테고리")),
-                    responseFields(
-                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
-                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
-                        fieldWithPath("data.category").description("질문 카테고리").type(JsonFieldType.STRING),
-                        fieldWithPath("data.questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
-                    )
+                    pathParameters(parameterWithName("category").description("질문 카테고리"))
                 )
             )
             .log().all()
@@ -110,7 +104,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
         .then()
             .log().all()
-            .statusCode(HttpStatus.OK.value());
+            .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test

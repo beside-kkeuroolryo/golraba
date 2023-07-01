@@ -1,0 +1,27 @@
+spring:
+  config:
+    activate:
+      on-profile: "cors-dev"
+
+client:
+  origin: localhost:8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "cors-prod"
+
+client:
+  origin: ${CLIENT_ORIGIN}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "cors-test"
+
+client:
+  origin: localhost:8080
+
+

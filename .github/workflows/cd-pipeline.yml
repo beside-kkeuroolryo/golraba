@@ -28,6 +28,16 @@ jobs:
           distribution: "temurin"
           cache: gradle
 
+      - name: Insert Database Information
+        run: |
+          sed -i "s|\${MYSQL_URL}|$MYSQL_URL|g" ./src/main/resources/application-db.yml
+          sed -i "s|\${MYSQL_USERNAME}|$MYSQL_USERNAME|g" ./src/main/resources/application-db.yml
+          sed -i "s|\${MYSQL_PASSWORD}|$MYSQL_PASSWORD|g" ./src/main/resources/application-db.yml
+        env:
+          MYSQL_URL: ${{ secrets.MYSQL_URL }}
+          MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+
       - name: use gradle cache
         uses: actions/cache@v3
         with:

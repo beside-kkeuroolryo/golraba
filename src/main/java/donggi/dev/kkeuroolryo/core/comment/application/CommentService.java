@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService implements CommentEditor, CommentFinder {
 
     private static final Long COMMENT_PAGE_LIMIT_SIZE = 10L;
+
     private final CommentRepository commentRepository;
     private final QuestionRepository questionRepository;
 

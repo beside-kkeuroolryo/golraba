@@ -1,8 +1,9 @@
 name: BE - CD
 
 on:
+  workflow_dispatch:
   push:
-    branches: [fix-cd-pipeline]
+    branches: [main]
     paths:
       [
         "src/**",

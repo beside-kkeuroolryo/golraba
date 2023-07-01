@@ -3,8 +3,9 @@ spring:
     active:
       - dev
     group:
-      dev: "db-dev"
-      prod: "db-prod"
+      dev: "db-dev, cors-dev"
+      prod: "db-prod, cors-prod"
       test: "db-test"
     include:
       - db
+      - cors

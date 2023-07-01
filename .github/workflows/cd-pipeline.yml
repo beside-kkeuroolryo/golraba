@@ -2,7 +2,7 @@ name: BE - CD
 
 on:
   push:
-    branches: [main]
+    branches: [fix-cd-pipeline]
     paths:
       [
         "src/**",

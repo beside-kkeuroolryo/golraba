@@ -15,4 +15,13 @@ spring:
 client:
   origin: ${CLIENT_ORIGIN}
 
+---
+spring:
+  config:
+    activate:
+      on-profile: "cors-test"
+
+client:
+  origin: localhost:8080
+
 

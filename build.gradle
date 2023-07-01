@@ -92,6 +92,10 @@ build {
     dependsOn copyDocument
 }
 
+jar {
+    enabled = false
+}
+
 bootJar {
     archiveFileName="kkeuroolryo-donggi.jar"
 }

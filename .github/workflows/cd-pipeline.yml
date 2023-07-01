@@ -59,8 +59,8 @@ jobs:
           key: "${{ secrets.EC2_PRIVATE_KEY }}"
           envs: GITHUB_SHA
           script: |
-            docker stop comma
-            docker rm comma
+            docker stop kkeuroolryo
+            docker rm kkeuroolryo
             sudo docker pull "${{ secrets.DOCKER_REPO }}"/kkeuroolryo
             docker run -d --name comma -p 8080:8080 "${{ secrets.DOCKER_REPO }}"/kkeuroolryo
             docker rmi -f $(docker images -f "dangling=true" -q)

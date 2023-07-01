@@ -49,3 +49,18 @@ jobs:
           docker login -u "${{ secrets.DOCKER_ID }}" -p "${{ secrets.DOCKER_PASSWORD }}"
           docker build -f Dockerfile -t "${{ secrets.DOCKER_REPO }}"/kkeuroolryo .
           docker push "${{ secrets.DOCKER_REPO }}"/kkeuroolryo
+
+      - name: run remote ssh command plugin
+        uses: appleboy/ssh-action@v0.1.8
+        id: deploy-prod
+        with:
+          host: "${{ secrets.EC2_HOST }}"
+          username: "${{ secrets.EC2_USERNAME }}"
+          key: "${{ secrets.EC2_PRIVATE_KEY }}"
+          envs: GITHUB_SHA
+          script: |
+            docker stop comma
+            docker rm comma
+            sudo docker pull "${{ secrets.DOCKER_REPO }}"/kkeuroolryo
+            docker run -d --name comma -p 8080:8080 "${{ secrets.DOCKER_REPO }}"/kkeuroolryo
+            docker rmi -f $(docker images -f "dangling=true" -q)

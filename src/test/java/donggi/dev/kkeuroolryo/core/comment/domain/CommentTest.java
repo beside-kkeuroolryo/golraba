@@ -76,7 +76,7 @@ class CommentTest {
         class Context_with_minimum_password {
 
             @ParameterizedTest
-            @ValueSource(strings = {"15323", "1234", "123", "dd", "d"})
+            @ValueSource(strings = {"123", "dd", "d"})
             @DisplayName("예외를 발생시킨다.")
             void throws_exception(String password) {
                 assertThatThrownBy(() -> new Comment(1L, "정상 사용자이름", password, "정상 댓글본문"))

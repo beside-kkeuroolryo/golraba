@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class CommentUsername {
 
-    private static final int LIMIT_LENGTH = 20;
+    private static final int LIMIT_LENGTH = 15;
 
     @Column(nullable = false)
     private String username;

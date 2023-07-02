@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class QuestionContent {
 
-    private static final int LIMIT_LENGTH = 400;
+    private static final int LIMIT_LENGTH = 100;
 
     @Column(length = LIMIT_LENGTH, nullable = false)
     private String content;

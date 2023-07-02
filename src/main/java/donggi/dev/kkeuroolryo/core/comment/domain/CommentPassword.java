@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class CommentPassword {
 
     private static final int MINIMUM_LENGTH = 4;
+    private static final int LIMIT_LENGTH = 15;
 
     @Column(nullable = false)
     private String password;
@@ -22,7 +23,8 @@ public class CommentPassword {
         if (Objects.isNull(password)
             || password.isEmpty()
             || password.chars().allMatch(Character::isWhitespace)
-            || password.length() < MINIMUM_LENGTH) {
+            || password.length() < MINIMUM_LENGTH
+            || password.length() > LIMIT_LENGTH) {
             throw new CommentInvalidPasswordException();
         }
 

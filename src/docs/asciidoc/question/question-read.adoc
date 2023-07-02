@@ -23,8 +23,6 @@ include::{snippets}/questions-read-invalid-category/path-parameters.adoc[]
 include::{snippets}/questions-read-invalid-category/http-request.adoc[]
 
 ==== Response
-===== Response Fields
-include::{snippets}/questions-read-invalid-category/response-fields.adoc[]
 ===== Response Body
 include::{snippets}/questions-read-invalid-category/response-body.adoc[]
 ===== HTTP Response

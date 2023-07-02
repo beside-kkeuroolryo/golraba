@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class CommentPassword {
 
-    private static final int MINIMUM_LENGTH = 6;
+    private static final int MINIMUM_LENGTH = 4;
 
     @Column(nullable = false)
     private String password;

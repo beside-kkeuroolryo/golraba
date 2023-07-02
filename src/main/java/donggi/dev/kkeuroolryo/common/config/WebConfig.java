@@ -10,6 +10,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
+            .allowedOriginPatterns()
+            .allowCredentials(true)
             .allowedOrigins("https://golraba.netlify.app/");
     }
 }

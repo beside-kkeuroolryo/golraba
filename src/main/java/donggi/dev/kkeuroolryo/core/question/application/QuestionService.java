@@ -1,5 +1,10 @@
 package donggi.dev.kkeuroolryo.core.question.application;
 
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.COUPLE;
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.FRIEND;
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.RANDOM;
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.SELF;
+
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
@@ -22,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuestionService implements QuestionFinder, QuestionEditor {
 
     public static final int RANDOM_QUESTION_COUNT = 15;
+    public static final String CHOICE_A = "a";
+    public static final String CHOICE_B = "b";
 
     private final QuestionRepository questionRepository;
     private final QuestionResultRepository questionResultRepository;
@@ -50,9 +57,9 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     }
 
     private void updateChoice(String choice, QuestionResult questionResult) {
-        if ("a".equals(choice)) {
+        if (CHOICE_A.equals(choice)) {
             questionResult.incrementChoiceA();
-        } else if ("b".equals(choice)) {
+        } else if (CHOICE_B.equals(choice)) {
             questionResult.incrementChoiceB();
         } else {
             throw new QuestionInvalidChoiceException();
@@ -71,8 +78,8 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
     private List<Long> retrieveQuestionIdsByCategory(String category) {
         List<String> categories;
-        if ("random".equals(category)) {
-            categories = Arrays.asList("friend", "self", "couple");
+        if (RANDOM.name().equals(category)) {
+            categories = Arrays.asList(FRIEND.name(), SELF.name(), COUPLE.name());
         } else {
             categories = Collections.singletonList(category);
         }

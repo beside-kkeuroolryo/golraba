@@ -6,10 +6,10 @@ import java.util.Optional;
 public interface QuestionRepository {
 
     /**
-     * 저장소에서 해당 category의 모든 질문의 id를 조회합니다.
-     * @param category 검색할 카테고리
+     * 저장소에서 해당 category의 모든 질문 id를 조회합니다.
+     * @param categories 검색할 카테고리
      */
-     List<Long> findAllIdsByCategory(String category);
+    List<Long> findAllIdsByCategories(List<String> categories);
 
     /**
      * question 을 저장소에 저장합니다.

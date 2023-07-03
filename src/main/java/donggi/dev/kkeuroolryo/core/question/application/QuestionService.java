@@ -10,6 +10,7 @@ import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoi
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     @Override
     @Transactional
     public void result(QuestionResultCommand resultCommand) {
-        resultCommand.getResults().stream()
+        resultCommand.getResults()
             .forEach(choiceResult -> {
                 QuestionResult questionResult = questionResultRepository.findByQuestionWithPessimisticLock(choiceResult.getQuestionId())
                     .orElseThrow(QuestionNotFoundException::new);
@@ -61,11 +62,26 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     @Override
     @Transactional(readOnly = true)
     public RandomQuestionsDto getRandomQuestionsByCategory(String category) {
-        List<Long> questionIds = questionRepository.findAllIdsByCategory(category);
+        List<Long> questionIds = retrieveQuestionIdsByCategory(category);
 
         List<Long> randomQuestionIds = getRandomQuestionIds(questionIds);
 
         return RandomQuestionsDto.ofEntity(category, randomQuestionIds);
+    }
+
+    private List<Long> retrieveQuestionIdsByCategory(String category) {
+        List<String> categories;
+        if ("random".equals(category)) {
+            categories = Arrays.asList("friend", "self", "couple");
+        } else {
+            categories = Collections.singletonList(category);
+        }
+
+        return getAllIdsByCategories(categories);
+    }
+
+    private List<Long> getAllIdsByCategories(List<String> categories) {
+        return questionRepository.findAllIdsByCategories(categories);
     }
 
     private List<Long> getRandomQuestionIds(List<Long> questionIds) {

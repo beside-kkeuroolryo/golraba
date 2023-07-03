@@ -78,8 +78,8 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
     private List<Long> retrieveQuestionIdsByCategory(String category) {
         List<String> categories;
-        if (RANDOM.name().equals(category)) {
-            categories = Arrays.asList(FRIEND.name(), SELF.name(), COUPLE.name());
+        if (RANDOM.name().toLowerCase().equals(category)) {
+            categories = Arrays.asList(FRIEND.name().toLowerCase(), SELF.name().toLowerCase(), COUPLE.name().toLowerCase());
         } else {
             categories = Collections.singletonList(category);
         }

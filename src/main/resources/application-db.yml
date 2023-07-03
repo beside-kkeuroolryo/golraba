@@ -15,10 +15,10 @@ spring:
   sql:
     init:
       mode: always
-#      data-locations: classpath:db/data.sql
+      data-locations: classpath:db/data.sql
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     generate-ddl: true
     defer-datasource-initialization: true
     properties:

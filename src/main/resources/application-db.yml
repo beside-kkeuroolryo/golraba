@@ -15,9 +15,8 @@ spring:
   sql:
     init:
       mode: always
-      data-locations: classpath:db/data.sql
+#      data-locations: classpath:db/data.sql
   jpa:
-#    show-sql: true
     hibernate:
       ddl-auto: update
     generate-ddl: true
@@ -25,8 +24,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-#        hibernate.format_sql: true
-#        hibernate.show_sql: true
+        format_sql: true
+        show_sql: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -52,8 +51,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        hibernate.format_sql: true
-        hibernate.show_sql: true
+        format_sql: true
+        show_sql: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -49,14 +49,13 @@ public class CommentService implements CommentEditor, CommentFinder {
     @Override
     @Transactional(readOnly = true)
     public CommentPaginationDto findAllBy(Long questionId, NoOffsetPageCommand pageCommand) {
-        // size 검증
         checkNoOffsetPageSize(pageCommand.getSize());
 
         Long searchAfterId = pageCommand.getSearchAfterId() == 0
             ? commentRepository.findMaxId().orElse(0L)
             : pageCommand.getSearchAfterId();
 
-        Slice<Comment> sliceComments = commentRepository.findAllBySearchAfterIdAndPageable(searchAfterId,
+        Slice<Comment> sliceComments = commentRepository.findAllByQuestionIdAndSearchAfterIdAndPageable(questionId, searchAfterId,
             Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
 
         return CommentPaginationDto.ofEntity(sliceComments, questionId);

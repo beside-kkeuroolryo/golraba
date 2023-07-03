@@ -49,10 +49,11 @@ public interface CommentRepository {
     Optional<Long> findMaxId();
 
     /**
-     * 저장소에서 검색 id 기준 이후의 페이지만큼 댓글을 조회합니다.
+     * 저장소에서 특정 질문 id의 댓글을 검색 id 기준 이후의 페이지만큼 조회합니다.
+     * @param questionId 질문 id
      * @param searchAfterId 검색 기준 대상
      * @param ofSize 페이지 크기
      * @return 페이징 된 댓글 객체
      */
-    Slice<Comment> findAllBySearchAfterIdAndPageable(Long searchAfterId, Pageable ofSize);
+    Slice<Comment> findAllByQuestionIdAndSearchAfterIdAndPageable(Long questionId, Long searchAfterId, Pageable ofSize);
 }

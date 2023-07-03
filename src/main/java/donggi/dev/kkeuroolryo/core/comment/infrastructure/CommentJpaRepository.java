@@ -14,6 +14,6 @@ public interface CommentJpaRepository extends CommentRepository, JpaRepository<C
     @Query(value = "select max(c.id) from Comment c ")
     Optional<Long> findMaxId();
 
-    @Query(value = "select c from Comment c where c.id <= :searchAfterId order by c.id desc")
-    Slice<Comment> findAllBySearchAfterIdAndPageable(@Param("searchAfterId") Long searchAfterId, Pageable ofSize);
+    @Query(value = "select c from Comment c where c.questionId = :questionId and c.id <= :searchAfterId order by c.id desc")
+    Slice<Comment> findAllByQuestionIdAndSearchAfterIdAndPageable(@Param("questionId") Long questionId, @Param("searchAfterId") Long searchAfterId, Pageable ofSize);
 }

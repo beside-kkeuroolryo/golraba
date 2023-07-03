@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface QuestionJpaRepository extends QuestionRepository, JpaRepository<Question, Long> {
 
-    @Query(value = "select q.id from Question q where q.category= :category")
-    List<Long> findAllIdsByCategory(@Param("category") String category);
+    @Query(value = "select q.id from Question q where q.category in :categories")
+    List<Long> findAllIdsByCategories(@Param("categories") List<String> categories);
 }

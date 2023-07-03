@@ -1,5 +1,10 @@
 package donggi.dev.kkeuroolryo.core.question.application;
 
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.COUPLE;
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.FRIEND;
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.RANDOM;
+import static donggi.dev.kkeuroolryo.core.question.domain.Category.SELF;
+
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
@@ -10,6 +15,7 @@ import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoi
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuestionService implements QuestionFinder, QuestionEditor {
 
     public static final int RANDOM_QUESTION_COUNT = 15;
+    public static final String CHOICE_A = "a";
+    public static final String CHOICE_B = "b";
 
     private final QuestionRepository questionRepository;
     private final QuestionResultRepository questionResultRepository;
@@ -38,7 +46,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     @Override
     @Transactional
     public void result(QuestionResultCommand resultCommand) {
-        resultCommand.getResults().stream()
+        resultCommand.getResults()
             .forEach(choiceResult -> {
                 QuestionResult questionResult = questionResultRepository.findByQuestionWithPessimisticLock(choiceResult.getQuestionId())
                     .orElseThrow(QuestionNotFoundException::new);
@@ -49,9 +57,9 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     }
 
     private void updateChoice(String choice, QuestionResult questionResult) {
-        if ("a".equals(choice)) {
+        if (CHOICE_A.equals(choice)) {
             questionResult.incrementChoiceA();
-        } else if ("b".equals(choice)) {
+        } else if (CHOICE_B.equals(choice)) {
             questionResult.incrementChoiceB();
         } else {
             throw new QuestionInvalidChoiceException();
@@ -61,11 +69,26 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     @Override
     @Transactional(readOnly = true)
     public RandomQuestionsDto getRandomQuestionsByCategory(String category) {
-        List<Long> questionIds = questionRepository.findAllIdsByCategory(category);
+        List<Long> questionIds = retrieveQuestionIdsByCategory(category);
 
         List<Long> randomQuestionIds = getRandomQuestionIds(questionIds);
 
         return RandomQuestionsDto.ofEntity(category, randomQuestionIds);
+    }
+
+    private List<Long> retrieveQuestionIdsByCategory(String category) {
+        List<String> categories;
+        if (RANDOM.name().equals(category)) {
+            categories = Arrays.asList(FRIEND.name(), SELF.name(), COUPLE.name());
+        } else {
+            categories = Collections.singletonList(category);
+        }
+
+        return getAllIdsByCategories(categories);
+    }
+
+    private List<Long> getAllIdsByCategories(List<String> categories) {
+        return questionRepository.findAllIdsByCategories(categories);
     }
 
     private List<Long> getRandomQuestionIds(List<Long> questionIds) {

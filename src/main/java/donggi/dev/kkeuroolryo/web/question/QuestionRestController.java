@@ -38,7 +38,7 @@ public class QuestionRestController {
 
     @GetMapping("/category/{category}")
     public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") QuestionCategoryRequest request) {
-        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(request.getCategory().toString());
+        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(request.getCategory());
         return ApiResponse.success(randomQuestionsDto);
     }
 

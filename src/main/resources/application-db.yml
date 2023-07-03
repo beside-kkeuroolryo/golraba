@@ -41,11 +41,11 @@ spring:
   sql:
     init:
       mode: always
-      data-locations: classpath:db/data.sql
+#      data-locations: classpath:db/data.sql
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     generate-ddl: true
     defer-datasource-initialization: true
     properties:

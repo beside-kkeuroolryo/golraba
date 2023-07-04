@@ -4,7 +4,7 @@
 
 <div align="center">
     <p dir="auto">
-        <a href="https://beside-kkeuroolryo.github.io/spring-server/src/main/resources/static/docs/index.html">
+        <a href="https://beside-kkeuroolryo.github.io/golraba/src/main/resources/static/docs/index.html">
             <img src="https://img.shields.io/badge/API Docs-6DB33F?style=flat&logo=spring&logoColor=white">
         </a>
         <a href="https://github.com/beside-kkeuroolryo/spring-server/wiki">

@@ -34,7 +34,7 @@ gen
 ### Gradle template
 .gradle
 **/build/
-!src/**/build/
+!golraba-spring-api/src/**/build/
 bin/**
 # Ignore Gradle GUI config
 gradle-app.setting

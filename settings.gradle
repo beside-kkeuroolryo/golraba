@@ -1,3 +1,29 @@
+pluginManagement {
+    def properties = new Properties()
+    file("gradle.properties").withInputStream { stream ->
+        properties.load(stream)
+    }
+    def springBootVersion = properties.getProperty('springBootVersion')
+    def springDependencyManagementVersion = properties.getProperty('springDependencyManagementVersion')
+    def asciiDoctorVersion = properties.getProperty('asciiDoctorVersion')
+
+    resolutionStrategy {
+        eachPlugin {
+            switch (requested.id.id) {
+                case 'org.asciidoctor.jvm.convert':
+                    useVersion(asciiDoctorVersion)
+                    break;
+                case 'org.springframework.boot':
+                    useVersion(springBootVersion)
+                    break;
+                case 'io.spring.dependency-management':
+                    useVersion(springDependencyManagementVersion)
+                    break;
+            }
+        }
+    }
+}
+
 rootProject.name = 'kkeuroolryo'
 
 include (

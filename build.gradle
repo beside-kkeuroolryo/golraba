@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' apply false
-    id 'io.spring.dependency-management' apply false
+    id 'io.spring.dependency-management'
     id 'org.asciidoctor.jvm.convert' apply false
 }
 
@@ -36,6 +36,13 @@ subprojects {
             extendsFrom annotationProcessor
         }
         asciidoctorExt
+    }
+
+    dependencyManagement {
+        def springCloudDependenciesVersion = 'project'
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudDependenciesVersion}")
+        }
     }
 
     dependencies {

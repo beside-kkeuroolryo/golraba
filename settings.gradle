@@ -12,13 +12,13 @@ pluginManagement {
             switch (requested.id.id) {
                 case 'org.asciidoctor.jvm.convert':
                     useVersion(asciiDoctorVersion)
-                    break;
+                    break
                 case 'org.springframework.boot':
                     useVersion(springBootVersion)
-                    break;
+                    break
                 case 'io.spring.dependency-management':
                     useVersion(springDependencyManagementVersion)
-                    break;
+                    break
             }
         }
     }
@@ -27,5 +27,6 @@ pluginManagement {
 rootProject.name = 'kkeuroolryo'
 
 include (
-        "golraba-spring-api"
+        "golraba-spring-api",
+        "support:logging"
 )

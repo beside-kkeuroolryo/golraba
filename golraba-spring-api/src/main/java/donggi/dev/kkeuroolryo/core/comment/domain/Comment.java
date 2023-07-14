@@ -1,6 +1,6 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentUnauthorizedException;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentInvalidContentException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentInvalidContentException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.util.Objects;

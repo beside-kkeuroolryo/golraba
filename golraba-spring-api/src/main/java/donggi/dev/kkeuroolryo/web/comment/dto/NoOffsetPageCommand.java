@@ -1,6 +1,6 @@
 package donggi.dev.kkeuroolryo.web.comment.dto;
 
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.NoOffsetPageInvalidException;
+import donggi.dev.kkeuroolryo.core.comment.exception.NoOffsetPageInvalidException;
 import lombok.Getter;
 
 @Getter

@@ -1,8 +1,4 @@
 spring:
-  config:
-    import:
-      - logging.yml
-      - application-db.yml
 
   profiles:
     active:

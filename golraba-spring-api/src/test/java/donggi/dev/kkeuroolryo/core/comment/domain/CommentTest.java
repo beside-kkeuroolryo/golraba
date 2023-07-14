@@ -3,10 +3,10 @@ package donggi.dev.kkeuroolryo.core.comment.domain;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.UnitTest;
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentInvalidContentException;
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentInvalidPasswordException;
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentInvalidUsernameException;
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentInvalidContentException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentInvalidPasswordException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentInvalidUsernameException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentUnauthorizedException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

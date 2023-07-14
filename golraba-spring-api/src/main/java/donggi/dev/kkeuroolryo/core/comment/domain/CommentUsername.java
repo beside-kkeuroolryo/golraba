@@ -1,6 +1,6 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentInvalidUsernameException;
+import donggi.dev.kkeuroolryo.core.comment.exception.CommentInvalidUsernameException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.util.Objects;

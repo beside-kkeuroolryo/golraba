@@ -1,10 +1,5 @@
-tasks.getByName("bootJar") {
-    enabled = true
-}
-
-tasks.getByName("jar") {
-    enabled = false
-}
+bootJar.enabled = true
+jar.enabled = false
 
 dependencies {
     implementation project(":storage:db-core")

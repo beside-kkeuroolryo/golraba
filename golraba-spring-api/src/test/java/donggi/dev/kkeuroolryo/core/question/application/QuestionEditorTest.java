@@ -3,7 +3,6 @@ package donggi.dev.kkeuroolryo.core.question.application;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.IntegrationTest;
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;

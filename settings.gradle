@@ -9,6 +9,6 @@ pluginManagement {
 
 rootProject.name = 'kkeuroolryo'
 
-include 'core'
+include 'core:core-api'
 include 'support:logging'
 include 'storage:db-core'

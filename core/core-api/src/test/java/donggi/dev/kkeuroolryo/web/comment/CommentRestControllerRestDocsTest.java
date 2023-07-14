@@ -10,12 +10,12 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
-import donggi.dev.kkeuroolryo.core.comment.domain.Comment;
-import donggi.dev.kkeuroolryo.core.comment.domain.CommentRepository;
-import donggi.dev.kkeuroolryo.core.question.domain.Question;
-import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
-import donggi.dev.kkeuroolryo.web.comment.dto.CommentDeleteCommand;
-import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterCommand;
+import donggi.dev.core.api.core.comment.domain.Comment;
+import donggi.dev.core.api.core.comment.domain.CommentRepository;
+import donggi.dev.core.api.core.question.domain.Question;
+import donggi.dev.core.api.core.question.domain.QuestionRepository;
+import donggi.dev.core.api.web.comment.dto.CommentDeleteCommand;
+import donggi.dev.core.api.web.comment.dto.CommentRegisterCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

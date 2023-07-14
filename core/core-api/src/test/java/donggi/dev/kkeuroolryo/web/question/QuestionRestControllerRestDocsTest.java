@@ -8,13 +8,13 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
-import donggi.dev.kkeuroolryo.core.question.domain.Question;
-import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
-import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
-import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand.ChoiceResult;
+import donggi.dev.core.api.core.question.domain.Question;
+import donggi.dev.core.api.core.question.domain.QuestionRepository;
+import donggi.dev.core.api.core.question.domain.QuestionResult;
+import donggi.dev.core.api.core.question.domain.QuestionResultRepository;
+import donggi.dev.core.api.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.core.api.web.question.dto.QuestionResultCommand;
+import donggi.dev.core.api.web.question.dto.QuestionResultCommand.ChoiceResult;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

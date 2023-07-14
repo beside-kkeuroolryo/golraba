@@ -2,9 +2,10 @@ package donggi.dev.kkeuroolryo.core.question.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import donggi.dev.core.api.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.UnitTest;
-import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
-import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidContentException;
+import donggi.dev.core.api.core.question.domain.exception.QuestionInvalidChoiceException;
+import donggi.dev.core.api.core.question.domain.exception.QuestionInvalidContentException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

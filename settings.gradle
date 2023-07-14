@@ -1,32 +1,14 @@
 pluginManagement {
-    def properties = new Properties()
-    file("gradle.properties").withInputStream { stream ->
-        properties.load(stream)
-    }
-    def springBootVersion = properties.getProperty('springBootVersion')
-    def springDependencyManagementVersion = properties.getProperty('springDependencyManagementVersion')
-    def asciiDoctorVersion = properties.getProperty('asciiDoctorVersion')
-
-    resolutionStrategy {
-        eachPlugin {
-            switch (requested.id.id) {
-                case 'org.asciidoctor.jvm.convert':
-                    useVersion(asciiDoctorVersion)
-                    break
-                case 'org.springframework.boot':
-                    useVersion(springBootVersion)
-                    break
-                case 'io.spring.dependency-management':
-                    useVersion(springDependencyManagementVersion)
-                    break
-            }
-        }
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+        id 'org.asciidoctor.jvm.convert' version "${asciidoctorConvertVersion}"
+//        id 'io.spring.javaformat' version "${springJavaFormatVersion}"
     }
 }
 
 rootProject.name = 'kkeuroolryo'
 
-include (
-        "golraba-spring-api",
-        "support:logging"
-)
+include 'golraba-spring-api'
+include 'support:logging'
+include 'storage:db-core'

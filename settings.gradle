@@ -9,6 +9,6 @@ pluginManagement {
 
 rootProject.name = 'kkeuroolryo'
 
-include 'golraba-spring-api'
+include 'core'
 include 'support:logging'
 include 'storage:db-core'

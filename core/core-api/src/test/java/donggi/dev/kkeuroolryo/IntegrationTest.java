@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo;
 
+import donggi.dev.core.api.CoreApiApplication;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = CoreApiApplication.class)
 @ActiveProfiles("test")
 @Documented
 @Tag("integration")

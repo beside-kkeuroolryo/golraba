@@ -1,101 +1,114 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.1.1'
-    id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'java-library'
+    id 'org.springframework.boot' apply false
+    id 'io.spring.dependency-management'
+    id 'org.asciidoctor.jvm.convert' apply false
 }
 
-group = 'donggi.dev'
-version = '0.0.1-SNAPSHOT'
+allprojects {
+    group = "${projectGroup}"
+    version = "${applicationVersion}"
+    sourceCompatibility = project.javaVersion
 
-java {
-    sourceCompatibility = '17'
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-    asciidoctorExt
-}
-
-repositories {
-    mavenCentral()
-}
-
-ext {
-    set('snippetsDir', file("build/generated-snippets"))
-    set('testcontainersVersion', "1.18.3")
-}
-
-dependencies {
-    // web
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    // dev
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
-    // db
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-
-    // test
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.rest-assured:rest-assured'
-
-    // test containers
-    testImplementation 'org.testcontainers:junit-jupiter'
-    testImplementation 'org.testcontainers:mysql'
-
-    // api docs
-    testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
-    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    repositories {
+        mavenCentral()
     }
 }
 
-tasks.named('test') {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
-}
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.asciidoctor.jvm.convert'
 
-tasks.named('asciidoctor') {
-    inputs.dir snippetsDir
-    dependsOn test
-    configurations 'asciidoctorExt'
-
-    sources {
-        include '**/index.adoc'
+    ext {
+        set('snippetsDir', file("build/generated-snippets"))
+        set('testcontainersVersion', "1.18.3")
     }
 
-    baseDirFollowsSourceFile()
-}
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+        asciidoctorExt
+    }
 
-asciidoctor.doFirst {
-    delete file("${project.rootDir}/src/main/resources/static/docs")
-}
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudDependenciesVersion}")
+        }
+    }
 
-task copyDocument(type: Copy) {
-    dependsOn asciidoctor
+    dependencies {
+        // dev
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
 
-    from "${project.buildDir}/docs/asciidoc"
-    into "${project.rootDir}/src/main/resources/static/docs"
-}
+        // test
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'io.rest-assured:rest-assured'
 
-build {
-    dependsOn copyDocument
-}
+        // test containers
+        testImplementation 'org.testcontainers:junit-jupiter'
+        testImplementation 'org.testcontainers:mysql'
 
-jar {
-    enabled = false
-}
+        // api docs
+        testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
+        asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    }
 
-bootJar {
-    archiveFileName="kkeuroolryo-donggi.jar"
+    dependencyManagement {
+        imports {
+            mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+        }
+    }
+
+    tasks.getByName("bootJar") {
+        enabled = false
+    }
+
+    tasks.getByName("jar") {
+        enabled = true
+    }
+
+    tasks.named('test') {
+        outputs.dir snippetsDir
+        useJUnitPlatform()
+    }
+
+    tasks.named('asciidoctor') {
+        inputs.dir snippetsDir
+        dependsOn test
+        configurations 'asciidoctorExt'
+
+        sources {
+            include '**/index.adoc'
+        }
+
+        baseDirFollowsSourceFile()
+    }
+
+    asciidoctor.doFirst {
+        delete file("${project.rootDir}/src/main/resources/static/docs")
+    }
+
+    task copyDocument(type: Copy) {
+        dependsOn asciidoctor
+
+        from "${project.buildDir}/docs/asciidoc"
+        into "${project.rootDir}/src/main/resources/static/docs"
+    }
+
+    build {
+        dependsOn copyDocument
+    }
+
+//    jar {
+//        enabled = false
+//    }
+
+//    bootJar {
+//        archiveFileName="kkeuroolryo-donggi.jar"
+//    }
+
 }

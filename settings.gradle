@@ -1,1 +1,14 @@
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+        id 'org.asciidoctor.jvm.convert' version "${asciidoctorConvertVersion}"
+    }
+}
+
 rootProject.name = 'kkeuroolryo'
+
+include 'core:core-api'
+include 'support:logging'
+include 'storage:db-core'
+include 'admin:admin-api'

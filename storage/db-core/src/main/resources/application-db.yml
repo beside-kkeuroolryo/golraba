@@ -1,0 +1,83 @@
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+      hibernate.show_sql: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "db-dev"
+  sql:
+    init:
+      mode: always
+  #      data-locations: classpath:db/data.sql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        show_sql: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/golrabaDB
+    username: admin
+    password: password
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "db-prod"
+  sql:
+    init:
+      mode: always
+  #      data-locations: classpath:db/data.sql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        show_sql: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "db-test"
+
+  jpa:
+    show-sql: true
+    database-platform: MYSQL
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:mysql:8://testDB

@@ -1,0 +1,14 @@
+server:
+  port : 8081
+
+spring:
+  profiles:
+    active:
+      - dev
+    group:
+      dev: "db-dev, auth-dev"
+      prod: "db-prod, auth-prod"
+      test: "db-test, auth-test"
+    include:
+      - db
+      - auth

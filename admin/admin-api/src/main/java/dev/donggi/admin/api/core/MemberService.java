@@ -15,7 +15,7 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public MemberResponse findByMemberId(LoginCommand loginCommand) {
-        Member member = memberRepository.getByMemberId(loginCommand.getUserId());
+        Member member = memberRepository.getByMemberId(loginCommand.getMemberId());
 
         member.checkPassword(loginCommand.getPassword());
 

@@ -1,0 +1,40 @@
+spring:
+  config:
+    activate:
+      on-profile: "auth-dev"
+  security:
+    jwt:
+      token:
+        secret-key: aaaaaaaaaaaaaaaaaaaaababababababababababababdabadabadaba
+        access:
+          expired-time: 3600000 #1시간
+        refresh:
+          expired-time: 1210000000 #14일
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "auth-prod"
+  security:
+    jwt:
+      token:
+        secret-key: ${SECRET_KEY}
+        access:
+          expired-time: ${ACCESS_EXPIRED_TIME}
+        refresh:
+          expired-time: ${REFRESH_EXPIRED_TIME}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "auth-test"
+  security:
+    jwt:
+      token:
+        secret-key: aaaaaaaaaaaaaaaaaaaaababababababababababababdabadabadaba
+        access:
+          expired-time: 3600000 #1시간
+        refresh:
+          expired-time: 1210000000 #14일

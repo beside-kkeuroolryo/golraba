@@ -22,7 +22,11 @@ public enum ErrorCodeAndMessage {
     COMMENT_INVALID_PASSWORD("C402", "유효하지 않은 댓글 비밀번호입니다."),
     COMMENT_INVALID_USERNAME("C403", "유효하지 않은 사용자 이름입니다."),
     COMMENT_NOT_FOUND("C404", "존재하지 않은 댓글입니다."),
-    COMMENT_UNAUTHORIZED("C405", "올바르지 않은 댓글 비밀번호입니다.")
+    COMMENT_UNAUTHORIZED("C405", "올바르지 않은 댓글 비밀번호입니다."),
+
+    // member
+    MEMBER_INVALID_PASSWORD("M401", "유효하지 않은 비밀번호입니다."),
+    MEMBER_NOT_FOUND("M402", "존재하지 않는 멤버입니다."),
     ;
 
     private final String code;

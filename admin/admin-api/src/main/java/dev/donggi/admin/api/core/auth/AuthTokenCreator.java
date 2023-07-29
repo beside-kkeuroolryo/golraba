@@ -1,4 +1,4 @@
-package dev.donggi.admin.api.core;
+package dev.donggi.admin.api.core.auth;
 
 import dev.donggi.admin.api.core.dto.AuthToken;
 import lombok.RequiredArgsConstructor;
@@ -14,5 +14,10 @@ public class AuthTokenCreator {
         String accessToken = tokenProvider.createAccessToken(memberId);
         String refreshToken = tokenProvider.createRefreshToken(memberId);
         return new AuthToken(accessToken, refreshToken);
+    }
+
+    public String extractPayload(String accessToken) {
+        tokenProvider.validateToken(accessToken);
+        return tokenProvider.getPayload(accessToken);
     }
 }

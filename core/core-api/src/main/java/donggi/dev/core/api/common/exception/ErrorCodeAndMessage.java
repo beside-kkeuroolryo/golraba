@@ -10,6 +10,8 @@ public enum ErrorCodeAndMessage {
 
     // common
     NO_OFFSET_INVALID_PAGE("P401", "유효하지 않은 페이지 값입니다."),
+    EMPTY_AUTHORIZATION_HEADER("H401", "헤더에 Authorization 값이 존재하지 않습니다."),
+    INVALID_TOKEN("T401", "유효하지 않은 토큰입니다."),
 
     // question
     QUESTION_INVALID_CATEGORY("Q401", "유효하지 않은 카테고리입니다."),

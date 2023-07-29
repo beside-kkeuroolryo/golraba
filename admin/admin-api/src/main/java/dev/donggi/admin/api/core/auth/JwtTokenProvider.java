@@ -1,5 +1,9 @@
-package dev.donggi.admin.api.core;
+package dev.donggi.admin.api.core.auth;
 
+import dev.donggi.admin.api.core.exception.InvalidTokenException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -48,11 +52,27 @@ public class JwtTokenProvider implements TokenProvider {
 
     @Override
     public String getPayload(String token) {
-        return null;
+        return Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
     }
 
     @Override
     public void validateToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
 
+            claims.getBody()
+                .getExpiration()
+                .before(new Date());
+        } catch (final JwtException | IllegalArgumentException e) {
+            throw new InvalidTokenException();
+        }
     }
 }

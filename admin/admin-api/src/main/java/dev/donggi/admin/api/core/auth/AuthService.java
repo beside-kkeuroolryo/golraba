@@ -1,4 +1,4 @@
-package dev.donggi.admin.api.core;
+package dev.donggi.admin.api.core.auth;
 
 import dev.donggi.admin.api.core.dto.AccessAndRefreshTokenResponse;
 import dev.donggi.admin.api.core.dto.AuthToken;
@@ -11,13 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final AuthTokenCreator authTokenCreator;
+    private final AuthTokenCreator tokenCreator;
 
     @Transactional
     public AccessAndRefreshTokenResponse generateAccessAndRefreshToken(MemberResponse memberResponse) {
         String memberId = memberResponse.getMemberId();
 
-        AuthToken authToken = authTokenCreator.createAuthToken(memberId);
+        AuthToken authToken = tokenCreator.createAuthToken(memberId);
         return new AccessAndRefreshTokenResponse(authToken.getAccessToken(), authToken.getRefreshToken());
+    }
+
+    public String extractMemberId(String accessToken) {
+        String memberId = tokenCreator.extractPayload(accessToken);
+        return memberId;
     }
 }

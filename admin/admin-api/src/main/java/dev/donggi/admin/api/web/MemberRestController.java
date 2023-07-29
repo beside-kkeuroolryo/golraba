@@ -1,6 +1,6 @@
 package dev.donggi.admin.api.web;
 
-import dev.donggi.admin.api.core.AuthService;
+import dev.donggi.admin.api.core.auth.AuthService;
 import dev.donggi.admin.api.core.MemberService;
 import dev.donggi.admin.api.core.dto.AccessAndRefreshTokenResponse;
 import dev.donggi.admin.api.core.dto.LoginResponse;

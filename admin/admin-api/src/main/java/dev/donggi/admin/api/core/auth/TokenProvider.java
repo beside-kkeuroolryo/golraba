@@ -1,4 +1,4 @@
-package dev.donggi.admin.api.core;
+package dev.donggi.admin.api.core.auth;
 
 public interface TokenProvider {
 

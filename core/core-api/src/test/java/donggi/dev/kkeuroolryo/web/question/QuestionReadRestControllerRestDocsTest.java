@@ -9,10 +9,10 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
-import donggi.dev.core.api.core.question.domain.Question;
-import donggi.dev.core.api.core.question.domain.QuestionRepository;
-import donggi.dev.core.api.core.question.domain.QuestionResult;
-import donggi.dev.core.api.core.question.domain.QuestionResultRepository;
+import dev.donggi.core.api.core.question.domain.Question;
+import dev.donggi.core.api.core.question.domain.QuestionRepository;
+import dev.donggi.core.api.core.question.domain.QuestionResult;
+import dev.donggi.core.api.core.question.domain.QuestionResultRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

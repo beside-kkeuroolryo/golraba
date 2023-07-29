@@ -1,6 +1,6 @@
 package donggi.dev.kkeuroolryo.common.config;
 
-import donggi.dev.core.api.common.config.WebConfig;
+import dev.donggi.core.api.common.config.WebConfig;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

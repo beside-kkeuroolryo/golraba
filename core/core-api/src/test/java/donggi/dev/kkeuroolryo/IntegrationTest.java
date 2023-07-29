@@ -1,6 +1,6 @@
 package donggi.dev.kkeuroolryo;
 
-import donggi.dev.core.api.CoreApiApplication;
+import dev.donggi.core.api.CoreApiApplication;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

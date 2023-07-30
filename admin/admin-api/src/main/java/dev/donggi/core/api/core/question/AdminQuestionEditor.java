@@ -22,4 +22,11 @@ public interface AdminQuestionEditor {
      * @return adminQuestionDto 수정된 question이 포함된 객체
      */
     void update(Long questionId, AdminQuestionUpdateCommand adminQuestionUpdateCommand);
+
+    /**
+     * 관리자가 질문을 삭제합니다.
+     *
+     * @param questionId 삭제할 질문 id
+     */
+    void delete(Long questionId);
 }

@@ -1,5 +1,6 @@
 package dev.donggi.core.api.core.question;
 
+import dev.donggi.core.api.core.comment.domain.Comment;
 import dev.donggi.core.api.core.question.domain.Question;
 import java.util.Optional;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +24,11 @@ public interface AdminQuestionRepository {
      * @return 페이징 된 질문 객체
      */
     Slice<Question> findByContent(String content, Long searchAfterId, Pageable ofSize);
+
+    /**
+     * 저장소에서 질문을 삭제합니다.
+     *
+     * @param question 삭제할 질문 객체
+     */
+    void delete(Question question);
 }

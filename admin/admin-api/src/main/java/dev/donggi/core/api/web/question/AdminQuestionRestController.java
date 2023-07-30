@@ -11,10 +11,12 @@ import dev.donggi.core.api.web.comment.dto.NoOffsetPageCommand;
 import dev.donggi.core.api.web.member.dto.LoginMember;
 import dev.donggi.core.api.core.question.dto.QuestionPaginationDto;
 import dev.donggi.core.api.web.question.dto.AdminQuestionRegisterCommand;
+import dev.donggi.core.api.web.question.dto.AdminQuestionUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,11 +48,17 @@ public class AdminQuestionRestController {
     }
 
     @PostMapping
-    public ApiResponse<AdminQuestionDto> register(@RequestBody AdminQuestionRegisterCommand questionRegisterCommand) {
-        System.out.println(questionRegisterCommand.getCategory());
-        System.out.println(questionRegisterCommand.getContent());
-        System.out.println(questionRegisterCommand.getChoiceA());
+    public ApiResponse<AdminQuestionDto> register(@AuthenticatedMember LoginMember loginMember,
+                                                  @RequestBody AdminQuestionRegisterCommand questionRegisterCommand) {
         AdminQuestionDto adminQuestionDto = adminQuestionEditor.save(questionRegisterCommand);
         return ApiResponse.success(adminQuestionDto);
+    }
+
+    @PutMapping("/{questionId}")
+    public ApiResponse<Void> update(@AuthenticatedMember LoginMember loginMember,
+                                    @PathVariable("questionId") Long questionId,
+                                    @RequestBody AdminQuestionUpdateCommand adminQuestionUpdateCommand) {
+        adminQuestionEditor.update(questionId, adminQuestionUpdateCommand);
+        return ApiResponse.success();
     }
 }

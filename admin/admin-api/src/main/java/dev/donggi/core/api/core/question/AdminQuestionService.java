@@ -5,10 +5,12 @@ import dev.donggi.core.api.core.question.domain.Question;
 import dev.donggi.core.api.core.question.domain.QuestionRepository;
 import dev.donggi.core.api.core.question.domain.QuestionResult;
 import dev.donggi.core.api.core.question.domain.QuestionResultRepository;
+import dev.donggi.core.api.core.question.domain.exception.QuestionNotFoundException;
 import dev.donggi.core.api.core.question.dto.AdminQuestionDto;
 import dev.donggi.core.api.core.question.dto.QuestionPaginationDto;
 import dev.donggi.core.api.web.comment.dto.NoOffsetPageCommand;
 import dev.donggi.core.api.web.question.dto.AdminQuestionRegisterCommand;
+import dev.donggi.core.api.web.question.dto.AdminQuestionUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -53,5 +55,15 @@ public class AdminQuestionService implements AdminQuestionFinder, AdminQuestionE
         questionResultRepository.save(new QuestionResult(question));
 
         return AdminQuestionDto.ofEntity(question);
+    }
+
+    @Override
+    @Transactional
+    public void update(Long questionId, AdminQuestionUpdateCommand updateCommand) {
+        Question foundQuestion = questionRepository.findById(questionId)
+            .orElseThrow(QuestionNotFoundException::new);
+
+        foundQuestion.update(updateCommand.getContent(), updateCommand.getCategory(),
+                             updateCommand.getChoiceA(), updateCommand.getChoiceB());
     }
 }

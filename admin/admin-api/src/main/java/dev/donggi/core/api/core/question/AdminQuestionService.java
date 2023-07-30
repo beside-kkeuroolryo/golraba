@@ -7,6 +7,7 @@ import dev.donggi.core.api.core.question.domain.QuestionResult;
 import dev.donggi.core.api.core.question.domain.QuestionResultRepository;
 import dev.donggi.core.api.core.question.domain.exception.QuestionNotFoundException;
 import dev.donggi.core.api.core.question.dto.AdminQuestionDto;
+import dev.donggi.core.api.core.question.dto.QuestionByCategoryPaginationDto;
 import dev.donggi.core.api.core.question.dto.QuestionPaginationDto;
 import dev.donggi.core.api.web.comment.dto.NoOffsetPageCommand;
 import dev.donggi.core.api.web.question.dto.AdminQuestionRegisterCommand;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AdminQuestionService implements AdminQuestionFinder, AdminQuestionEditor {
 
     public static final Long QUESTION_PAGE_LIMIT_SIZE = 30L;
@@ -28,17 +30,31 @@ public class AdminQuestionService implements AdminQuestionFinder, AdminQuestionE
     private final QuestionResultRepository questionResultRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public QuestionPaginationDto searchByContent(String content, NoOffsetPageCommand pageCommand) {
         checkNoOffsetPageSize(pageCommand.getSize());
 
-        Long searchAfterId = pageCommand.getSearchAfterId() == 0
-            ? adminQuestionRepository.findMaxId().orElse(0L)
-            : pageCommand.getSearchAfterId();
+        Long searchAfterId = getSearchAfterId(pageCommand);
 
         Slice<Question> sliceQuestions = adminQuestionRepository.findByContent(content, searchAfterId,
             Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
         return QuestionPaginationDto.ofEntity(sliceQuestions, content);
+    }
+
+    @Override
+    public QuestionByCategoryPaginationDto getQuestionByCategory(String category, NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = getSearchAfterId(pageCommand);
+
+        Slice<Question> sliceQuestions = adminQuestionRepository.findAllByCategory(category, searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+        return QuestionByCategoryPaginationDto.ofEntity(sliceQuestions, category);
+    }
+
+    private Long getSearchAfterId(NoOffsetPageCommand pageCommand) {
+        return pageCommand.getSearchAfterId() == 0
+            ? adminQuestionRepository.getMaxId()
+            : pageCommand.getSearchAfterId();
     }
 
     private void checkNoOffsetPageSize(Long size) {

@@ -15,4 +15,7 @@ public interface AdminQuestionJpaRepository extends AdminQuestionRepository, Jpa
 
     @Query(value = "select q from Question q where q.content.content like %:content% and q.id <= :searchAfterId order by q.id desc")
     Slice<Question> findByContent(@Param("content") String content, @Param("searchAfterId") Long searchAfterId, Pageable ofSize);
+
+    @Query(value = "select q from Question q where q.category = :category and q.id <= :searchAfterId order by q.id desc")
+    Slice<Question> findAllByCategory(@Param("category") String category, @Param("searchAfterId") Long searchAfterId, Pageable ofSize);
 }

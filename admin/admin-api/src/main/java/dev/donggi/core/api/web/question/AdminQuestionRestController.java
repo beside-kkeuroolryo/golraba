@@ -7,6 +7,7 @@ import dev.donggi.core.api.core.question.AdminQuestionFinder;
 import dev.donggi.core.api.core.question.application.QuestionFinder;
 import dev.donggi.core.api.core.question.application.dto.QuestionDto;
 import dev.donggi.core.api.core.question.dto.AdminQuestionDto;
+import dev.donggi.core.api.core.question.dto.QuestionByCategoryPaginationDto;
 import dev.donggi.core.api.web.comment.dto.NoOffsetPageCommand;
 import dev.donggi.core.api.web.member.dto.LoginMember;
 import dev.donggi.core.api.core.question.dto.QuestionPaginationDto;
@@ -44,8 +45,8 @@ public class AdminQuestionRestController {
                                                               @RequestParam("content") String content,
                                                               @RequestParam(required = false, defaultValue = "0") String searchAfterId,
                                                               @RequestParam(required = false, defaultValue = "30") String size) {
-        QuestionPaginationDto question = adminQuestionFinder.searchByContent(content, new NoOffsetPageCommand(searchAfterId, size));
-        return ApiResponse.success(question);
+        QuestionPaginationDto questionDto = adminQuestionFinder.searchByContent(content, new NoOffsetPageCommand(searchAfterId, size));
+        return ApiResponse.success(questionDto);
     }
 
     @PostMapping
@@ -68,5 +69,14 @@ public class AdminQuestionRestController {
                                     @PathVariable("questionId") Long questionId) {
         adminQuestionEditor.delete(questionId);
         return ApiResponse.success();
+    }
+
+    @GetMapping("/category/{category}")
+    public ApiResponse<QuestionByCategoryPaginationDto> getQuestionByCategory(@AuthenticatedMember LoginMember loginMember,
+                                                                    @PathVariable("category") String category,
+                                                                    @RequestParam(required = false, defaultValue = "0") String searchAfterId,
+                                                                    @RequestParam(required = false, defaultValue = "30") String size) {
+        QuestionByCategoryPaginationDto questionDto = adminQuestionFinder.getQuestionByCategory(category, new NoOffsetPageCommand(searchAfterId, size));
+        return ApiResponse.success(questionDto);
     }
 }

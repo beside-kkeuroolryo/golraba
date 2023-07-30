@@ -9,6 +9,7 @@ public class QuestionDto {
 
     private Long id;
     private String content;
+    private String category;
     private String choiceA;
     private String choiceB;
     private int choiceAResult;
@@ -18,6 +19,7 @@ public class QuestionDto {
         QuestionDto questionDto = new QuestionDto();
         questionDto.id = question.getId();
         questionDto.content = question.getContent().getContent();
+        questionDto.category = question.getCategory();
         questionDto.choiceA = question.getChoiceA().getChoice();
         questionDto.choiceB = question.getChoiceB().getChoice();
         int totalChoices = questionResult.getChoiceAResult() + questionResult.getChoiceBResult();
@@ -30,6 +32,7 @@ public class QuestionDto {
         QuestionDto questionDto = new QuestionDto();
         questionDto.id = question.getId();
         questionDto.content = question.getContent().getContent();
+        questionDto.category = question.getCategory();
         questionDto.choiceA = question.getChoiceA().getChoice();
         questionDto.choiceB = question.getChoiceB().getChoice();
         return questionDto;

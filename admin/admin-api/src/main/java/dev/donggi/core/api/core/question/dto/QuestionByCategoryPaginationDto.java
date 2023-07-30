@@ -10,15 +10,15 @@ import lombok.Getter;
 import org.springframework.data.domain.Slice;
 
 @Getter
-public class QuestionPaginationDto {
+public class QuestionByCategoryPaginationDto {
 
-    private String content;
+    private String category;
     private List<QuestionDto> questions = new ArrayList<>();
     private PageDto page;
 
-    public static QuestionPaginationDto ofEntity(Slice<Question> sliceQuestion, String content) {
-        QuestionPaginationDto questionPaginationDto = new QuestionPaginationDto();
-        questionPaginationDto.content = content;
+    public static QuestionByCategoryPaginationDto ofEntity(Slice<Question> sliceQuestion, String category) {
+        QuestionByCategoryPaginationDto questionPaginationDto = new QuestionByCategoryPaginationDto();
+        questionPaginationDto.category = category;
 
         List<Question> questions = sliceQuestion.getContent();
         questionPaginationDto.questions = questions.stream()

@@ -1,6 +1,5 @@
 package dev.donggi.core.api.core.question;
 
-import dev.donggi.core.api.core.comment.domain.Comment;
 import dev.donggi.core.api.core.question.domain.Question;
 import java.util.Optional;
 import org.springframework.data.domain.Pageable;
@@ -15,13 +14,17 @@ public interface AdminQuestionRepository {
      */
     Optional<Long> findMaxId();
 
+    default Long getMaxId() {
+        return findMaxId().orElse(0L);
+    }
+
     /**
      * 저장소에서 검색 키워드를 통해 question 를 검색합니다.
      *
      * @param content 검색할 키워드
      * @param searchAfterId 검색 기준 대상
      * @param ofSize 페이지 크기
-     * @return 페이징 된 질문 객체
+     * @return 페이징된 질문 객체
      */
     Slice<Question> findByContent(String content, Long searchAfterId, Pageable ofSize);
 
@@ -31,4 +34,14 @@ public interface AdminQuestionRepository {
      * @param question 삭제할 질문 객체
      */
     void delete(Question question);
+
+    /**
+     * 저장소에서 특정 카테고리 질문을 조회합니다.
+     *
+     * @param category 조회할 카테고리
+     * @param searchAfterId 검색 기준 대상
+     * @param ofSize 페이지 크기
+     * @return 페이징된 질문 객체
+     */
+    Slice<Question> findAllByCategory(String category, Long searchAfterId, Pageable ofSize);
 }

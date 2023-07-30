@@ -53,4 +53,11 @@ public class Question {
         this.choiceA = new QuestionChoice(choiceA);
         this.choiceB = new QuestionChoice(choiceB);
     }
+
+    public void update(String content, String category, String choiceA, String choiceB) {
+        this.content = new QuestionContent(content);
+        this.category = category;
+        this.choiceA = new QuestionChoice(choiceA);
+        this.choiceB = new QuestionChoice(choiceB);
+    }
 }

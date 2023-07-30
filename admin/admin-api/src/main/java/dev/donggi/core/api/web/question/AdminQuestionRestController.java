@@ -46,10 +46,8 @@ public class AdminQuestionRestController {
     }
 
     @PostMapping
-    public ApiResponse<AdminQuestionDto> register(@RequestBody AdminQuestionRegisterCommand questionRegisterCommand) {
-        System.out.println(questionRegisterCommand.getCategory());
-        System.out.println(questionRegisterCommand.getContent());
-        System.out.println(questionRegisterCommand.getChoiceA());
+    public ApiResponse<AdminQuestionDto> register(@AuthenticatedMember LoginMember loginMember,
+                                                  @RequestBody AdminQuestionRegisterCommand questionRegisterCommand) {
         AdminQuestionDto adminQuestionDto = adminQuestionEditor.save(questionRegisterCommand);
         return ApiResponse.success(adminQuestionDto);
     }

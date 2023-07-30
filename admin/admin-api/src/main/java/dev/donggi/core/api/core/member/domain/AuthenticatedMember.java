@@ -1,4 +1,4 @@
-package dev.donggi.core.api.core.domain;
+package dev.donggi.core.api.core.member.domain;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

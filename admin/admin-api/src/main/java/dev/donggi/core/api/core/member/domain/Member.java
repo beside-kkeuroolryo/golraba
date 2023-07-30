@@ -1,6 +1,6 @@
-package dev.donggi.core.api.core.domain;
+package dev.donggi.core.api.core.member.domain;
 
-import dev.donggi.core.api.core.exception.MemberInvalidPasswordException;
+import dev.donggi.core.api.core.member.exception.MemberInvalidPasswordException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

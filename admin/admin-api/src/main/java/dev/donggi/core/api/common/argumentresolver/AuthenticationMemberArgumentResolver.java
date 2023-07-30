@@ -1,9 +1,9 @@
 package dev.donggi.core.api.common.argumentresolver;
 
-import dev.donggi.core.api.core.auth.AuthService;
-import dev.donggi.core.api.core.auth.AuthorizationExtractor;
-import dev.donggi.core.api.core.domain.AuthenticatedMember;
-import dev.donggi.core.api.web.dto.LoginMember;
+import dev.donggi.core.api.core.member.auth.AuthService;
+import dev.donggi.core.api.core.member.auth.AuthorizationExtractor;
+import dev.donggi.core.api.core.member.domain.AuthenticatedMember;
+import dev.donggi.core.api.web.member.dto.LoginMember;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;

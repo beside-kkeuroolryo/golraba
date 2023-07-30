@@ -1,8 +1,8 @@
-package dev.donggi.core.api.core.auth;
+package dev.donggi.core.api.core.member.auth;
 
-import dev.donggi.core.api.core.dto.AccessAndRefreshTokenResponse;
-import dev.donggi.core.api.core.dto.AuthToken;
-import dev.donggi.core.api.core.dto.MemberResponse;
+import dev.donggi.core.api.core.member.dto.AccessAndRefreshTokenResponse;
+import dev.donggi.core.api.core.member.dto.AuthToken;
+import dev.donggi.core.api.core.member.dto.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

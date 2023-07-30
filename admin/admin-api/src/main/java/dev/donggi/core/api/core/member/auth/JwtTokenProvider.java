@@ -1,6 +1,6 @@
-package dev.donggi.core.api.core.auth;
+package dev.donggi.core.api.core.member.auth;
 
-import dev.donggi.core.api.core.exception.InvalidTokenException;
+import dev.donggi.core.api.core.member.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;

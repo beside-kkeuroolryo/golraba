@@ -1,7 +1,7 @@
-package dev.donggi.core.api.core;
+package dev.donggi.core.api.core.member;
 
-import dev.donggi.core.api.core.domain.Member;
-import dev.donggi.core.api.core.exception.MemberNotFoundException;
+import dev.donggi.core.api.core.member.domain.Member;
+import dev.donggi.core.api.core.member.exception.MemberNotFoundException;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

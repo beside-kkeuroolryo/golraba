@@ -1,4 +1,4 @@
-package dev.donggi.core.api.core.dto;
+package dev.donggi.core.api.core.member.dto;
 
 import lombok.Getter;
 

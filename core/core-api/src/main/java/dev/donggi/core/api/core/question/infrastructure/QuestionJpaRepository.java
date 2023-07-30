@@ -14,10 +14,4 @@ public interface QuestionJpaRepository extends QuestionRepository, JpaRepository
 
     @Query(value = "select q.id from Question q where q.category in :categories")
     List<Long> findAllIdsByCategories(@Param("categories") List<String> categories);
-
-    @Query(value = "select max(q.id) from Question q")
-    Optional<Long> findMaxId();
-
-    @Query(value = "select q from Question q where q.content.content like %:content% and q.id <= :searchAfterId order by q.id desc")
-    Slice<Question> findByContent(@Param("content") String content, @Param("searchAfterId") Long searchAfterId, Pageable ofSize);
 }

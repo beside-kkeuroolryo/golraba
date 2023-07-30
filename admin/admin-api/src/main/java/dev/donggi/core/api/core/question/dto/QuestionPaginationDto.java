@@ -1,6 +1,7 @@
-package dev.donggi.core.api.core.question.application.dto;
+package dev.donggi.core.api.core.question.dto;
 
 import dev.donggi.core.api.core.common.PageDto;
+import dev.donggi.core.api.core.question.application.dto.QuestionDto;
 import dev.donggi.core.api.core.question.domain.Question;
 import java.util.ArrayList;
 import java.util.List;

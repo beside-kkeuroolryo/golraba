@@ -1,12 +1,13 @@
-package dev.donggi.core.api.web;
+package dev.donggi.core.api.web.question;
 
 import dev.donggi.core.api.common.response.ApiResponse;
-import dev.donggi.core.api.core.domain.AuthenticatedMember;
+import dev.donggi.core.api.core.member.domain.AuthenticatedMember;
+import dev.donggi.core.api.core.question.AdminQuestionService;
 import dev.donggi.core.api.core.question.application.QuestionService;
 import dev.donggi.core.api.core.question.application.dto.QuestionDto;
 import dev.donggi.core.api.web.comment.dto.NoOffsetPageCommand;
-import dev.donggi.core.api.web.dto.LoginMember;
-import dev.donggi.core.api.core.question.application.dto.QuestionPaginationDto;
+import dev.donggi.core.api.web.member.dto.LoginMember;
+import dev.donggi.core.api.core.question.dto.QuestionPaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
-public class AdminRestController {
+public class AdminQuestionRestController {
 
+    private final AdminQuestionService adminQuestionService;
     private final QuestionService questionService;
 
     @GetMapping("/question/{questionId}")
@@ -33,7 +35,7 @@ public class AdminRestController {
                                                               @RequestParam("content") String content,
                                                               @RequestParam(required = false, defaultValue = "0") String searchAfterId,
                                                               @RequestParam(required = false, defaultValue = "30") String size) {
-        QuestionPaginationDto question = questionService.searchByContent(content, new NoOffsetPageCommand(searchAfterId, size));
+        QuestionPaginationDto question = adminQuestionService.searchByContent(content, new NoOffsetPageCommand(searchAfterId, size));
         return ApiResponse.success(question);
     }
 }

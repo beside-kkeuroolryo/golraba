@@ -1,7 +1,7 @@
-package dev.donggi.core.api.core.auth;
+package dev.donggi.core.api.core.member.auth;
 
-import dev.donggi.core.api.core.exception.EmptyAuthorizationHeaderException;
-import dev.donggi.core.api.core.exception.InvalidTokenException;
+import dev.donggi.core.api.core.member.exception.EmptyAuthorizationHeaderException;
+import dev.donggi.core.api.core.member.exception.InvalidTokenException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import org.springframework.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package dev.donggi.core.api.core.auth;
+package dev.donggi.core.api.core.member.auth;
 
 public interface TokenProvider {
 

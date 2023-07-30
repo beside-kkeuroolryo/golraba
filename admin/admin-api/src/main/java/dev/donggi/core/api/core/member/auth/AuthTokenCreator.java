@@ -1,6 +1,6 @@
-package dev.donggi.core.api.core.auth;
+package dev.donggi.core.api.core.member.auth;
 
-import dev.donggi.core.api.core.dto.AuthToken;
+import dev.donggi.core.api.core.member.dto.AuthToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

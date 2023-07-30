@@ -1,4 +1,4 @@
-package dev.donggi.core.api.web.dto;
+package dev.donggi.core.api.web.member.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

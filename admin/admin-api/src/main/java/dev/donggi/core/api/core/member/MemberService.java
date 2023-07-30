@@ -1,8 +1,8 @@
-package dev.donggi.core.api.core;
+package dev.donggi.core.api.core.member;
 
-import dev.donggi.core.api.core.domain.Member;
-import dev.donggi.core.api.core.dto.MemberResponse;
-import dev.donggi.core.api.web.dto.LoginCommand;
+import dev.donggi.core.api.core.member.domain.Member;
+import dev.donggi.core.api.core.member.dto.MemberResponse;
+import dev.donggi.core.api.web.member.dto.LoginCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,6 @@
-package dev.donggi.core.api.core.dto;
+package dev.donggi.core.api.core.member.dto;
 
-import dev.donggi.core.api.core.domain.Member;
+import dev.donggi.core.api.core.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

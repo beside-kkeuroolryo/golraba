@@ -1,20 +1,25 @@
 package dev.donggi.core.api.core.question.application;
 
+import dev.donggi.core.api.core.comment.exception.NoOffsetPageInvalidException;
 import dev.donggi.core.api.core.question.application.dto.QuestionDto;
+import dev.donggi.core.api.core.question.application.dto.QuestionPaginationDto;
 import dev.donggi.core.api.core.question.application.dto.RandomQuestionsDto;
 import dev.donggi.core.api.core.question.domain.Category;
 import dev.donggi.core.api.core.question.domain.Question;
 import dev.donggi.core.api.core.question.domain.QuestionRepository;
 import dev.donggi.core.api.core.question.domain.QuestionResult;
 import dev.donggi.core.api.core.question.domain.QuestionResultRepository;
+import dev.donggi.core.api.core.question.domain.exception.QuestionInvalidChoiceException;
 import dev.donggi.core.api.core.question.domain.exception.QuestionNotFoundException;
+import dev.donggi.core.api.web.comment.dto.NoOffsetPageCommand;
 import dev.donggi.core.api.web.question.dto.QuestionRegisterCommand;
 import dev.donggi.core.api.web.question.dto.QuestionResultCommand;
-import dev.donggi.core.api.core.question.domain.exception.QuestionInvalidChoiceException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuestionService implements QuestionFinder, QuestionEditor {
 
     public static final int RANDOM_QUESTION_COUNT = 15;
+    public static final Long QUESTION_PAGE_LIMIT_SIZE = 30L;
     public static final String CHOICE_A = "a";
     public static final String CHOICE_B = "b";
 
@@ -99,5 +105,25 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
             .orElseThrow(QuestionNotFoundException::new);
 
         return QuestionDto.ofEntity(question, question.getQuestionResult());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public QuestionPaginationDto searchByContent(String content, NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = pageCommand.getSearchAfterId() == 0
+            ? questionRepository.findMaxId().orElse(0L)
+            : pageCommand.getSearchAfterId();
+
+        Slice<Question> sliceQuestions = questionRepository.findByContent(content, searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+        return QuestionPaginationDto.ofEntity(sliceQuestions, content);
+    }
+
+    private void checkNoOffsetPageSize(Long size) {
+        if (size > QUESTION_PAGE_LIMIT_SIZE) {
+            throw new NoOffsetPageInvalidException();
+        }
     }
 }

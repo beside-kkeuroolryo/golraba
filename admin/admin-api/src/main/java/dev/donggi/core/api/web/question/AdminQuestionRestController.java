@@ -13,6 +13,7 @@ import dev.donggi.core.api.core.question.dto.QuestionPaginationDto;
 import dev.donggi.core.api.web.question.dto.AdminQuestionRegisterCommand;
 import dev.donggi.core.api.web.question.dto.AdminQuestionUpdateCommand;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,13 @@ public class AdminQuestionRestController {
                                     @PathVariable("questionId") Long questionId,
                                     @RequestBody AdminQuestionUpdateCommand adminQuestionUpdateCommand) {
         adminQuestionEditor.update(questionId, adminQuestionUpdateCommand);
+        return ApiResponse.success();
+    }
+
+    @DeleteMapping("/{questionId}")
+    public ApiResponse<Void> delete(@AuthenticatedMember LoginMember loginMember,
+                                    @PathVariable("questionId") Long questionId) {
+        adminQuestionEditor.delete(questionId);
         return ApiResponse.success();
     }
 }

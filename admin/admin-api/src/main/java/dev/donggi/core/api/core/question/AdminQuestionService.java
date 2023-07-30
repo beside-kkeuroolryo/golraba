@@ -66,4 +66,13 @@ public class AdminQuestionService implements AdminQuestionFinder, AdminQuestionE
         foundQuestion.update(updateCommand.getContent(), updateCommand.getCategory(),
                              updateCommand.getChoiceA(), updateCommand.getChoiceB());
     }
+
+    @Override
+    @Transactional
+    public void delete(Long questionId) {
+        Question foundQuestion = questionRepository.findById(questionId)
+            .orElseThrow(QuestionNotFoundException::new);
+
+        adminQuestionRepository.delete(foundQuestion);
+    }
 }

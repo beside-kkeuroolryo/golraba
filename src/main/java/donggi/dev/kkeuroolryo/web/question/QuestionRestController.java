@@ -31,7 +31,7 @@ public class QuestionRestController {
     }
 
     @PostMapping("/result")
-    public ApiResponse<Void> register(@RequestBody QuestionResultCommand resultCommand) {
+    public ApiResponse<Void> result(@RequestBody QuestionResultCommand resultCommand) {
         questionEditor.result(resultCommand);
         return ApiResponse.success();
     }

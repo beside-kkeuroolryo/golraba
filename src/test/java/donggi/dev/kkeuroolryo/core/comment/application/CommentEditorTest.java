@@ -9,6 +9,7 @@ import donggi.dev.kkeuroolryo.core.comment.domain.Comment;
 import donggi.dev.kkeuroolryo.core.comment.domain.CommentRepository;
 import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentNotFoundException;
 import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
@@ -45,7 +46,7 @@ class CommentEditorTest {
         questionRepository.deleteAll();
         commentRepository.deleteAll();
 
-        question = questionRepository.save(new Question("카테고리", "질문본문", "선택지A", "선택지B"));
+        question = questionRepository.save(new Question("질문본문", "선택지A", "선택지B", Category.SELF));
         comment = commentRepository.save(new Comment(question.getId(), "사용자이름", "비밀번호123", "댓글본문"));
     }
 

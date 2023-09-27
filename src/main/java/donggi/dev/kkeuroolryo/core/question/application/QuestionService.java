@@ -13,7 +13,7 @@ import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,8 +35,8 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
     @Override
     @Transactional
-    public QuestionDto save(QuestionRegisterCommand questionRegisterCommand) {
-        Question question = questionRepository.save(questionRegisterCommand.convertToEntity());
+    public QuestionDto save(QuestionRegisterDto questionRegisterDto) {
+        Question question = questionRepository.save(questionRegisterDto.convertToEntity());
 
         questionResultRepository.save(new QuestionResult(question));
 

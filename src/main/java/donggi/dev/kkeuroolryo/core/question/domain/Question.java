@@ -6,6 +6,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +29,8 @@ public class Question {
     private Long id;
 
     @Column(nullable = false)
-    private String category;
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
 
     @Embedded
     private QuestionContent content;
@@ -47,10 +50,10 @@ public class Question {
     @OneToOne(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private QuestionResult questionResult;
 
-    public Question(String category, String content, String choiceA, String choiceB) {
-        this.category = category;
+    public Question(String content, String choiceA, String choiceB, Category category) {
         this.content = new QuestionContent(content);
         this.choiceA = new QuestionChoice(choiceA);
         this.choiceB = new QuestionChoice(choiceB);
+        this.category = category;
     }
 }

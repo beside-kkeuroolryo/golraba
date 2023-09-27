@@ -12,6 +12,7 @@ import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
 import donggi.dev.kkeuroolryo.core.comment.domain.Comment;
 import donggi.dev.kkeuroolryo.core.comment.domain.CommentRepository;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +41,7 @@ public class CommentReadRestControllerRestDocsTest extends InitRestDocsTest {
         questionRepository.deleteAll();
         commentRepository.deleteAll();
 
-        question = questionRepository.save(new Question("카테고리", "질문본문", "선택지A", "선택지B"));
+        question = questionRepository.save(new Question("질문본문", "선택지A", "선택지B", Category.SELF));
         comment = commentRepository.save(new Comment(question.getId(), "사용자이름1", "비밀번호123", "댓글본문1"));
         comment = commentRepository.save(new Comment(question.getId(), "사용자이름2", "비밀번호123", "댓글본문2"));
         comment = commentRepository.save(new Comment(question.getId(), "사용자이름3", "비밀번호123", "댓글본문3"));

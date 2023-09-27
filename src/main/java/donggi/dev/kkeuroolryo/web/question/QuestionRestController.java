@@ -6,7 +6,7 @@ import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +25,8 @@ public class QuestionRestController {
     private final QuestionEditor questionEditor;
 
     @PostMapping("/question")
-    public ApiResponse<QuestionDto> register(@RequestBody QuestionRegisterCommand questionRegisterCommand) {
-        QuestionDto questionDto = questionEditor.save(questionRegisterCommand);
+    public ApiResponse<QuestionDto> register(@RequestBody QuestionRegisterDto questionRegisterDto) {
+        QuestionDto questionDto = questionEditor.save(questionRegisterDto);
         return ApiResponse.success(questionDto);
     }
 

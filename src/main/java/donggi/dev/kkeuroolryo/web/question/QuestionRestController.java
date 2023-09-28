@@ -36,9 +36,13 @@ public class QuestionRestController {
         return ApiResponse.success();
     }
 
+    /**
+     * 카테고리 이름으로 해당 카테고리의 질문을 조회합니다.
+     * 질문은 랜덤한 순서로 조회합니다.
+     */
     @GetMapping("/category/{category}")
     public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") QuestionCategoryRequest request) {
-        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(request.getCategory());
+        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(request.category());
         return ApiResponse.success(randomQuestionsDto);
     }
 

@@ -7,6 +7,7 @@ import static donggi.dev.kkeuroolryo.core.question.domain.Category.SELF;
 
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
@@ -68,7 +69,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
     @Override
     @Transactional(readOnly = true)
-    public RandomQuestionsDto getRandomQuestionsByCategory(String category) {
+    public RandomQuestionsDto getRandomQuestionsByCategory(Category category) {
         List<Long> questionIds = retrieveQuestionIdsByCategory(category);
 
         List<Long> randomQuestionIds = getRandomQuestionIds(questionIds);
@@ -76,10 +77,10 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
         return RandomQuestionsDto.ofEntity(category, randomQuestionIds);
     }
 
-    private List<Long> retrieveQuestionIdsByCategory(String category) {
-        List<String> categories;
-        if (RANDOM.name().toLowerCase().equals(category)) {
-            categories = Arrays.asList(FRIEND.name().toLowerCase(), SELF.name().toLowerCase(), COUPLE.name().toLowerCase());
+    private List<Long> retrieveQuestionIdsByCategory(Category category) {
+        List<Category> categories;
+        if (category.equals(RANDOM)) {
+            categories = Arrays.asList(FRIEND, SELF, COUPLE);
         } else {
             categories = Collections.singletonList(category);
         }
@@ -87,8 +88,8 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
         return getAllIdsByCategories(categories);
     }
 
-    private List<Long> getAllIdsByCategories(List<String> categories) {
-        return questionRepository.findAllIdsByCategories(categories);
+    private List<Long> getAllIdsByCategories(List<Category> categories) {
+        return questionRepository.findAllByIdInCategories(categories);
     }
 
     private List<Long> getRandomQuestionIds(List<Long> questionIds) {

@@ -2,6 +2,7 @@ package donggi.dev.kkeuroolryo.core.question.application;
 
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 
 public interface QuestionFinder {
 
@@ -11,7 +12,7 @@ public interface QuestionFinder {
      * @param category 카테고리 이름
      * @return RandomQuestionsDto 무작위로 조회한 여러 Question 이 포함된 객체
      */
-    RandomQuestionsDto getRandomQuestionsByCategory(String category);
+    RandomQuestionsDto getRandomQuestionsByCategory(Category category);
 
     /**
      * 특정 질문을 조회합니다.

@@ -35,6 +35,8 @@ public class Question {
     @Embedded
     private QuestionContent content;
 
+    private boolean active = true;
+
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "choice", column = @Column(name = "choice_a"))
@@ -54,6 +56,10 @@ public class Question {
         this.content = new QuestionContent(content);
         this.choiceA = new QuestionChoice(choiceA);
         this.choiceB = new QuestionChoice(choiceB);
+
+        if (category.equals(Category.USERMADE)) {
+            active = false;
+        }
         this.category = category;
     }
 }

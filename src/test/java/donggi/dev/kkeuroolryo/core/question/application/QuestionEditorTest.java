@@ -74,6 +74,52 @@ class QuestionEditorTest {
                 });
             }
         }
+
+        @Nested
+        @DisplayName("카테고리가 USERMADE이면")
+        class Context_with_valid_register_command2 {
+
+            @ParameterizedTest
+            @CsvSource({"본문1,선택A,선택B,USERMADE", "본문2,선택A2,선택B2,USERMADE", "본문3,선택A3,선택B3,USERMADE"})
+            @DisplayName("저장소에 질문을 저장하고 active는 false로 저장된다.")
+            void return_question_dto(String content, String choiceA, String choiceB, Category category) {
+                QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto(
+                    content, choiceA, choiceB, category);
+
+                QuestionDto questionDto = questionEditor.save(questionRegisterDto);
+
+                SoftAssertions.assertSoftly(softly -> {
+                    softly.assertThat(questionDto.getId()).isNotNull();
+                    softly.assertThat(questionDto.getContent()).isEqualTo(content);
+                    softly.assertThat(questionDto.isActive()).isFalse();
+                    softly.assertThat(questionDto.getChoiceA()).isEqualTo(choiceA);
+                    softly.assertThat(questionDto.getChoiceB()).isEqualTo(choiceB);
+                });
+            }
+        }
+
+        @Nested
+        @DisplayName("카테고리가 SELF, COUPLE, FRIEND 이면")
+        class Context_with_valid_register_command3 {
+
+            @ParameterizedTest
+            @CsvSource({"본문1,선택A,선택B,COUPLE", "본문2,선택A2,선택B2,FRIEND", "본문3,선택A3,선택B3,SELF"})
+            @DisplayName("저장소에 질문을 저장하고 active는 true로 저장된다.")
+            void return_question_dto(String content, String choiceA, String choiceB, Category category) {
+                QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto(
+                    content, choiceA, choiceB, category);
+
+                QuestionDto questionDto = questionEditor.save(questionRegisterDto);
+
+                SoftAssertions.assertSoftly(softly -> {
+                    softly.assertThat(questionDto.getId()).isNotNull();
+                    softly.assertThat(questionDto.getContent()).isEqualTo(content);
+                    softly.assertThat(questionDto.isActive()).isTrue();
+                    softly.assertThat(questionDto.getChoiceA()).isEqualTo(choiceA);
+                    softly.assertThat(questionDto.getChoiceB()).isEqualTo(choiceB);
+                });
+            }
+        }
     }
 
     @Nested

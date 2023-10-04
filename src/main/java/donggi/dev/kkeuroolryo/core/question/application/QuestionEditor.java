@@ -29,4 +29,11 @@ public interface QuestionEditor {
      * @param request    변경할 active 상태가 포함된 객체
      */
     void changeActive(Long questionId, QuestionActiveUpdateDto request);
+
+    /**
+     * 사용자가 등록한 질문을 수정합니다.
+     *
+     * @param questionRegisterDto 질문 수정 객체
+     */
+    void modify(Long questionId, QuestionRegisterDto questionRegisterDto);
 }

@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.core.question.domain;
 
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.CascadeType;
@@ -64,5 +65,12 @@ public class Question {
 
     public void changeActive(boolean active) {
         this.active = active;
+    }
+
+    public void modify(QuestionRegisterDto request) {
+        this.category = request.category();
+        this.content = new QuestionContent(request.content());
+        this.choiceA = new QuestionChoice(request.choiceA());
+        this.choiceB = new QuestionChoice(request.choiceB());
     }
 }

@@ -72,6 +72,14 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
         question.changeActive(request.active());
     }
 
+    @Override
+    @Transactional
+    public void modify(Long questionId, QuestionRegisterDto questionRegisterDto) {
+        Question question = questionRepository.getById(questionId);
+
+        question.modify(questionRegisterDto);
+    }
+
     private void updateChoice(String choice, QuestionResult questionResult) {
         if (CHOICE_A.equals(choice)) {
             questionResult.incrementChoiceA();

@@ -4,7 +4,9 @@ import donggi.dev.kkeuroolryo.common.response.ApiResponse;
 import donggi.dev.kkeuroolryo.core.question.application.QuestionEditor;
 import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
+import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionPaginationDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -52,6 +55,15 @@ public class QuestionRestController {
     public ApiResponse<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
         QuestionDto questionDto = questionFinder.getQuestion(questionId);
         return ApiResponse.success(questionDto);
+    }
+
+    @GetMapping("/question")
+    public ApiResponse<QuestionPaginationDto> getAll(
+        @RequestParam(required = false, defaultValue = "0") String searchAfterId,
+        @RequestParam(required = false, defaultValue = "20") String size
+    ) {
+        QuestionPaginationDto questionPaginationDto = questionFinder.findAllBy(new NoOffsetPageCommand(searchAfterId, size));
+        return ApiResponse.success(questionPaginationDto);
     }
 
     @PatchMapping("/{questionId}/active")

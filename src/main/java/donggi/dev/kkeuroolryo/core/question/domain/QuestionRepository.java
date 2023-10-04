@@ -1,7 +1,8 @@
 package donggi.dev.kkeuroolryo.core.question.domain;
 
 import java.util.List;
-import java.util.Optional;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 public interface QuestionRepository {
 
@@ -30,4 +31,19 @@ public interface QuestionRepository {
      * @return Question 객체
      */
     Question getById(Long questionId);
+
+    /**
+     * 저장소에서 id의 최대값을 찾습니다.
+     *
+     * @return id 최대값
+     */
+    Long getMaxId();
+
+    /**
+     * 저장소에서 질문을 검색 id 기준 이후의 페이지만큼 조회합니다.
+     * @param searchAfterId 검색 기준 대상
+     * @param ofSize 페이지 크기
+     * @return 페이징 된 질문 객체
+     */
+    Slice<Question> findAllBySearchAfterIdAndPageable(Long searchAfterId, Pageable ofSize);
 }

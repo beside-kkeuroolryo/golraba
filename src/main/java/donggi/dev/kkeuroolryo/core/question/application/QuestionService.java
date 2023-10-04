@@ -5,7 +5,9 @@ import static donggi.dev.kkeuroolryo.core.question.domain.Category.FRIEND;
 import static donggi.dev.kkeuroolryo.core.question.domain.Category.RANDOM;
 import static donggi.dev.kkeuroolryo.core.question.domain.Category.SELF;
 
+import donggi.dev.kkeuroolryo.core.comment.domain.exception.NoOffsetPageInvalidException;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
+import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionPaginationDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
 import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
@@ -14,6 +16,7 @@ import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
+import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
@@ -21,6 +24,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class QuestionService implements QuestionFinder, QuestionEditor {
 
+    private static final Long QUESTION_PAGE_LIMIT_SIZE = 20L;
     public static final int RANDOM_QUESTION_COUNT = 15;
     public static final String CHOICE_A = "a";
     public static final String CHOICE_B = "b";
@@ -59,6 +65,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     }
 
     @Override
+    @Transactional
     public void changeActive(Long questionId, QuestionActiveUpdateDto request) {
         Question question = questionRepository.getById(questionId);
 
@@ -111,5 +118,26 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
         Question question = questionRepository.getById(questionId);
 
         return QuestionDto.ofEntity(question, question.getQuestionResult());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public QuestionPaginationDto findAllBy(NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = pageCommand.getSearchAfterId() == 0
+            ? questionRepository.getMaxId()
+            : pageCommand.getSearchAfterId();
+
+        Slice<Question> sliceQuestions = questionRepository.findAllBySearchAfterIdAndPageable(searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+
+        return QuestionPaginationDto.ofEntity(sliceQuestions);
+    }
+
+    private void checkNoOffsetPageSize(Long size) {
+        if (size > QUESTION_PAGE_LIMIT_SIZE) {
+            throw new NoOffsetPageInvalidException();
+        }
     }
 }

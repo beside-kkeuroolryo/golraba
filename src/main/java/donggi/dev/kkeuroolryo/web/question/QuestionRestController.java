@@ -5,11 +5,13 @@ import donggi.dev.kkeuroolryo.core.question.application.QuestionEditor;
 import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,5 +52,12 @@ public class QuestionRestController {
     public ApiResponse<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
         QuestionDto questionDto = questionFinder.getQuestion(questionId);
         return ApiResponse.success(questionDto);
+    }
+
+    @PatchMapping("/{questionId}/active")
+    public ApiResponse<Void> changeActive(@PathVariable("questionId") Long questionId,
+                                          @RequestBody QuestionActiveUpdateDto request) {
+        questionEditor.changeActive(questionId, request);
+        return ApiResponse.success();
     }
 }

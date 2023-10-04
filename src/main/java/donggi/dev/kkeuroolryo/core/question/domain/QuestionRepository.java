@@ -27,7 +27,7 @@ public interface QuestionRepository {
      * 저장소에서 question 를 검색합니다.
      *
      * @param questionId 검색할 id
-     * @return Optional<Question> 객체
+     * @return Question 객체
      */
-    Optional<Question> findById(Long questionId);
+    Question getById(Long questionId);
 }

@@ -1,6 +1,7 @@
 package donggi.dev.kkeuroolryo.core.question.application;
 
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 
@@ -20,4 +21,12 @@ public interface QuestionEditor {
      * @param resultCommand 선택 결과 객체
      */
     void result(QuestionResultCommand resultCommand);
+
+    /**
+     * 질문의 활성화 상태를 변경합니다.
+     *
+     * @param questionId 변경할 질문 id
+     * @param request    변경할 active 상태가 포함된 객체
+     */
+    void changeActive(Long questionId, QuestionActiveUpdateDto request);
 }

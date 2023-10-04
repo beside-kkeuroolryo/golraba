@@ -56,10 +56,13 @@ public class Question {
         this.content = new QuestionContent(content);
         this.choiceA = new QuestionChoice(choiceA);
         this.choiceB = new QuestionChoice(choiceB);
-
         if (category.equals(Category.USERMADE)) {
             active = false;
         }
         this.category = category;
+    }
+
+    public void changeActive(boolean active) {
+        this.active = active;
     }
 }

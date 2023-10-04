@@ -7,7 +7,6 @@ import donggi.dev.kkeuroolryo.core.comment.domain.CommentRepository;
 import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentNotFoundException;
 import donggi.dev.kkeuroolryo.core.comment.domain.exception.NoOffsetPageInvalidException;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
-import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterCommand;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +34,7 @@ public class CommentService implements CommentEditor, CommentFinder {
     @Override
     @Transactional
     public void delete(Long questionId, Long commentId, String password) {
-        questionRepository.findById(questionId)
-            .orElseThrow(QuestionNotFoundException::new);
+        questionRepository.getById(questionId);
 
         Comment comment = commentRepository.findByQuestionIdAndId(questionId, commentId)
             .orElseThrow(CommentNotFoundException::new);

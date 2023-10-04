@@ -14,6 +14,7 @@ import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import java.util.Arrays;
@@ -55,6 +56,13 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
                 updateChoice(choiceResult.getChoice(), questionResult);
                 }
             );
+    }
+
+    @Override
+    public void changeActive(Long questionId, QuestionActiveUpdateDto request) {
+        Question question = questionRepository.getById(questionId);
+
+        question.changeActive(request.active());
     }
 
     private void updateChoice(String choice, QuestionResult questionResult) {
@@ -100,8 +108,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     @Override
     @Transactional(readOnly = true)
     public QuestionDto getQuestion(Long questionId) {
-        Question question = questionRepository.findById(questionId)
-            .orElseThrow(QuestionNotFoundException::new);
+        Question question = questionRepository.getById(questionId);
 
         return QuestionDto.ofEntity(question, question.getQuestionResult());
     }

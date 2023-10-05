@@ -8,11 +8,12 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand.ChoiceResult;
 import java.util.ArrayList;
@@ -39,20 +40,22 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
 
     @BeforeEach
     void setUp() {
-        question = questionRepository.save(new Question("self", "질문 본문16", "선택A 16", "선택B 16"));
+        question = questionRepository.save(new Question("질문 본문16", "선택A 16", "선택B 16", Category.SELF));
         questionResultRepository.save(new QuestionResult(question));
     }
     @Test
     @DisplayName("사용자의 질문 등록 요청이 정상적인 경우 질문 생성 후 상태코드를 반환한다.")
     void question_register() {
-        QuestionRegisterCommand questionRegisterCommand = new QuestionRegisterCommand("요청한 질문 본문", "선택 A", "선택 B");
+        QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto("요청한 질문 본문", "선택 A", "선택 B",
+            Category.SELF);
         given(this.spec)
             .filter(
                 document("question-register",
                     requestFields(
                         fieldWithPath("content").description("요청한 질문 본문").type(JsonFieldType.STRING),
                         fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
-                        fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING)
+                        fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("category").description("카테고리").type(JsonFieldType.STRING)
                     ),
                     responseFields(
                         fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
@@ -61,6 +64,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
                         fieldWithPath("data.content").description("요청한 질문 본문").type(JsonFieldType.STRING),
                         fieldWithPath("data.choiceA").description("선택지 A").type(JsonFieldType.STRING),
                         fieldWithPath("data.choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.active").description("활성화 상태").type(JsonFieldType.BOOLEAN),
                         fieldWithPath("data.choiceAResult").description("선택지 A 선택된 횟수").type(JsonFieldType.NUMBER),
                         fieldWithPath("data.choiceBResult").description("선택지 B 선택된 횟수").type(JsonFieldType.NUMBER)
                     )
@@ -69,7 +73,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
             .log().all()
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-            .body(questionRegisterCommand)
+            .body(questionRegisterDto)
 
         .when()
             .post("/api/golrabas/question")

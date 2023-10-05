@@ -3,15 +3,15 @@ package donggi.dev.kkeuroolryo.core.question.application;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.IntegrationTest;
-import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterCommand;
+import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand.ChoiceResult;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ class QuestionEditorTest {
 
     @BeforeEach
     void setUp() {
-        question = questionRepository.save(new Question("카테고리", "질문 본문", "선택지A", "선택지B"));
+        question = questionRepository.save(new Question("질문 본문", "선택지A", "선택지B", Category.SELF));
         questionResultRepository.save(new QuestionResult(question));
     }
 
@@ -58,17 +58,63 @@ class QuestionEditorTest {
         class Context_with_valid_register_command {
 
             @ParameterizedTest
-            @CsvSource({"본문1,선택A,선택B", "본문2,선택A2,선택B2", "본문3,선택A3,선택B3"})
+            @CsvSource({"본문1,선택A,선택B,SELF", "본문2,선택A2,선택B2,COUPLE", "본문3,선택A3,선택B3,USERMADE"})
             @DisplayName("저장소에 질문을 저장하고 id가 포함된 객체를 반환한다.")
-            void return_question_dto(String content, String choiceA, String choiceB) {
-                QuestionRegisterCommand questionRegisterCommand = new QuestionRegisterCommand(
-                    content, choiceA, choiceB);
+            void return_question_dto(String content, String choiceA, String choiceB, Category category) {
+                QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto(
+                    content, choiceA, choiceB, category);
 
-                QuestionDto questionDto = questionEditor.save(questionRegisterCommand);
+                QuestionDto questionDto = questionEditor.save(questionRegisterDto);
 
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(questionDto.getId()).isNotNull();
                     softly.assertThat(questionDto.getContent()).isEqualTo(content);
+                    softly.assertThat(questionDto.getChoiceA()).isEqualTo(choiceA);
+                    softly.assertThat(questionDto.getChoiceB()).isEqualTo(choiceB);
+                });
+            }
+        }
+
+        @Nested
+        @DisplayName("카테고리가 USERMADE이면")
+        class Context_with_valid_register_command2 {
+
+            @ParameterizedTest
+            @CsvSource({"본문1,선택A,선택B,USERMADE", "본문2,선택A2,선택B2,USERMADE", "본문3,선택A3,선택B3,USERMADE"})
+            @DisplayName("저장소에 질문을 저장하고 active는 false로 저장된다.")
+            void return_question_dto(String content, String choiceA, String choiceB, Category category) {
+                QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto(
+                    content, choiceA, choiceB, category);
+
+                QuestionDto questionDto = questionEditor.save(questionRegisterDto);
+
+                SoftAssertions.assertSoftly(softly -> {
+                    softly.assertThat(questionDto.getId()).isNotNull();
+                    softly.assertThat(questionDto.getContent()).isEqualTo(content);
+                    softly.assertThat(questionDto.isActive()).isFalse();
+                    softly.assertThat(questionDto.getChoiceA()).isEqualTo(choiceA);
+                    softly.assertThat(questionDto.getChoiceB()).isEqualTo(choiceB);
+                });
+            }
+        }
+
+        @Nested
+        @DisplayName("카테고리가 SELF, COUPLE, FRIEND 이면")
+        class Context_with_valid_register_command3 {
+
+            @ParameterizedTest
+            @CsvSource({"본문1,선택A,선택B,COUPLE", "본문2,선택A2,선택B2,FRIEND", "본문3,선택A3,선택B3,SELF"})
+            @DisplayName("저장소에 질문을 저장하고 active는 true로 저장된다.")
+            void return_question_dto(String content, String choiceA, String choiceB, Category category) {
+                QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto(
+                    content, choiceA, choiceB, category);
+
+                QuestionDto questionDto = questionEditor.save(questionRegisterDto);
+
+                SoftAssertions.assertSoftly(softly -> {
+                    softly.assertThat(questionDto.getId()).isNotNull();
+                    softly.assertThat(questionDto.getContent()).isEqualTo(content);
+                    softly.assertThat(questionDto.isActive()).isTrue();
                     softly.assertThat(questionDto.getChoiceA()).isEqualTo(choiceA);
                     softly.assertThat(questionDto.getChoiceB()).isEqualTo(choiceB);
                 });
@@ -95,8 +141,7 @@ class QuestionEditorTest {
 
                 questionEditor.result(resultCommand);
 
-                Question findQuestion = questionRepository.findById(question.getId())
-                    .orElseThrow(QuestionNotFoundException::new);
+                Question findQuestion = questionRepository.getById(question.getId());
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceAResult()).isEqualTo(2);
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceBResult()).isEqualTo(1);
@@ -132,8 +177,7 @@ class QuestionEditorTest {
                 }
                 countDownLatch.await();
 
-                Question findQuestion = questionRepository.findById(question.getId())
-                    .orElseThrow(QuestionNotFoundException::new);
+                Question findQuestion = questionRepository.getById(question.getId());
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceAResult()).isEqualTo(200);
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceBResult()).isEqualTo(100);

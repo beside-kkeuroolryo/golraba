@@ -8,7 +8,7 @@ import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentNotFoundExcep
 import donggi.dev.kkeuroolryo.core.comment.domain.exception.NoOffsetPageInvalidException;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
-import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterCommand;
+import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterDto;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -27,16 +27,15 @@ public class CommentService implements CommentEditor, CommentFinder {
 
     @Override
     @Transactional
-    public CommentDto save(Long questionId, CommentRegisterCommand commentRegisterCommand) {
-        Comment comment = commentRepository.save(commentRegisterCommand.convertToEntity(questionId));
+    public CommentDto save(Long questionId, CommentRegisterDto commentRegisterDto) {
+        Comment comment = commentRepository.save(commentRegisterDto.convertToEntity(questionId));
         return CommentDto.ofEntity(comment);
     }
 
     @Override
     @Transactional
     public void delete(Long questionId, Long commentId, String password) {
-        questionRepository.findById(questionId)
-            .orElseThrow(QuestionNotFoundException::new);
+        questionRepository.getById(questionId);
 
         Comment comment = commentRepository.findByQuestionIdAndId(questionId, commentId)
             .orElseThrow(CommentNotFoundException::new);
@@ -44,6 +43,18 @@ public class CommentService implements CommentEditor, CommentFinder {
         comment.checkPassword(password);
 
         commentRepository.delete(comment);
+    }
+
+    @Override
+    @Transactional
+    public void modify(Long questionId, Long commentId, CommentRegisterDto commentRegisterDto) {
+        if (questionRepository.existsById(questionId)) {
+            throw new QuestionNotFoundException();
+        }
+
+        Comment comment = commentRepository.getById(commentId);
+
+        comment.modify(commentRegisterDto);
     }
 
     @Override

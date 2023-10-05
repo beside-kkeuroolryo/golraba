@@ -1,6 +1,7 @@
 package donggi.dev.kkeuroolryo.core.comment.domain;
 
 import donggi.dev.kkeuroolryo.core.comment.domain.exception.CommentUnauthorizedException;
+import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterDto;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,5 +44,11 @@ public class Comment {
         if (!this.password.getPassword().equals(password)) {
             throw new CommentUnauthorizedException();
         }
+    }
+
+    public void modify(CommentRegisterDto request) {
+        this.username = new CommentUsername(request.getUsername());
+        this.password = new CommentPassword(request.getPassword());
+        this.content = new CommentContent(request.getContent());
     }
 }

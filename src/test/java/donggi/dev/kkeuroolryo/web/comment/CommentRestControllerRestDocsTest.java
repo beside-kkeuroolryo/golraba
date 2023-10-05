@@ -12,10 +12,11 @@ import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
 import donggi.dev.kkeuroolryo.core.comment.domain.Comment;
 import donggi.dev.kkeuroolryo.core.comment.domain.CommentRepository;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.web.comment.dto.CommentDeleteCommand;
-import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterCommand;
+import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,14 +43,14 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
         questionRepository.deleteAll();
         commentRepository.deleteAll();
 
-        question = questionRepository.save(new Question("카테고리", "질문본문", "선택지A", "선택지B"));
+        question = questionRepository.save(new Question("질문본문", "선택지A", "선택지B", Category.SELF));
         comment = commentRepository.save(new Comment(question.getId(), "사용자이름", "비밀번호123", "댓글본문"));
     }
 
     @Test
     @DisplayName("사용자의 댓글 등록 요청이 정상적인 경우 댓글 생성 후 상태코드를 반환한다.")
     void comment_register() {
-        CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand("유저네임", "비밀번호123", "댓글 본문");
+        CommentRegisterDto commentRegisterDto = new CommentRegisterDto("유저네임", "비밀번호123", "댓글 본문");
         given(this.spec)
             .filter(
                 document("comment-register",
@@ -71,7 +72,7 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
             .log().all()
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-            .body(commentRegisterCommand)
+            .body(commentRegisterDto)
 
         .when()
             .post("/api/golrabas/{questionId}/comments", question.getId())
@@ -84,7 +85,7 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
     @Test
     @DisplayName("유효하지 않은 댓글 등록 요청인 경우 Bad Request 상태코드를 반환한다.")
     void comment_register_invalid_command() {
-        CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand("", "비밀번호123", "댓글 본문");
+        CommentRegisterDto commentRegisterDto = new CommentRegisterDto("", "비밀번호123", "댓글 본문");
         given(this.spec)
             .filter(
                 document("comment-register-invalid-command",
@@ -99,7 +100,7 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
             .log().all()
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-            .body(commentRegisterCommand)
+            .body(commentRegisterDto)
 
         .when()
             .post("/api/golrabas/{questionId}/comments", question.getId())

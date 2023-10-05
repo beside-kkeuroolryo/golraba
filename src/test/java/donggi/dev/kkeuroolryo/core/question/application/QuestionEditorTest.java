@@ -141,8 +141,7 @@ class QuestionEditorTest {
 
                 questionEditor.result(resultCommand);
 
-                Question findQuestion = questionRepository.findById(question.getId())
-                    .orElseThrow(QuestionNotFoundException::new);
+                Question findQuestion = questionRepository.getById(question.getId());
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceAResult()).isEqualTo(2);
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceBResult()).isEqualTo(1);
@@ -178,8 +177,7 @@ class QuestionEditorTest {
                 }
                 countDownLatch.await();
 
-                Question findQuestion = questionRepository.findById(question.getId())
-                    .orElseThrow(QuestionNotFoundException::new);
+                Question findQuestion = questionRepository.getById(question.getId());
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceAResult()).isEqualTo(200);
                     softly.assertThat(findQuestion.getQuestionResult().getChoiceBResult()).isEqualTo(100);

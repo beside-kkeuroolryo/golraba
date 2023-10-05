@@ -6,13 +6,14 @@ import donggi.dev.kkeuroolryo.core.comment.application.CommentFinder;
 import donggi.dev.kkeuroolryo.core.comment.application.dto.CommentDto;
 import donggi.dev.kkeuroolryo.core.comment.application.dto.CommentPaginationDto;
 import donggi.dev.kkeuroolryo.web.comment.dto.CommentDeleteCommand;
-import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterCommand;
+import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterDto;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +29,17 @@ public class CommentRestController {
 
     @PostMapping("/{questionId}/comments")
     public ApiResponse<CommentDto> register(@PathVariable("questionId") Long questionId,
-        @RequestBody CommentRegisterCommand commentRegisterCommand) {
-        CommentDto commentDto = commentEditor.save(questionId, commentRegisterCommand);
+        @RequestBody CommentRegisterDto commentRegisterDto) {
+        CommentDto commentDto = commentEditor.save(questionId, commentRegisterDto);
         return ApiResponse.success(commentDto);
+    }
+
+    @PutMapping("/{questionId}/comments/{commentId}")
+    public ApiResponse<Void> modify(@PathVariable("questionId") Long questionId,
+                                    @PathVariable("commentId") Long commentId,
+                                    @RequestBody CommentRegisterDto commentRegisterDto) {
+        commentEditor.modify(questionId, commentId, commentRegisterDto);
+        return ApiResponse.success();
     }
 
     @DeleteMapping("/{questionId}/comments/{commentId}")

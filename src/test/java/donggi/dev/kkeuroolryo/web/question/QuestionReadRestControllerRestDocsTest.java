@@ -124,6 +124,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
                         fieldWithPath("data.content").description("질문 본문").type(JsonFieldType.STRING),
                         fieldWithPath("data.choiceA").description("선택지 A").type(JsonFieldType.STRING),
                         fieldWithPath("data.choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.active").description("활성화 상태").type(JsonFieldType.BOOLEAN),
                         fieldWithPath("data.choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
                         fieldWithPath("data.choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER)
                     )

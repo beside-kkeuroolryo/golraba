@@ -46,4 +46,11 @@ public interface QuestionRepository {
      * @return 페이징 된 질문 객체
      */
     Slice<Question> findAllBySearchAfterIdAndPageable(Long searchAfterId, Pageable ofSize);
+
+    /**
+     * 저장소에 id로 해당 질문이 존재하는지 여부를 반환합니다.
+     * @param questionId 검색할 질문 id
+     * @return 존재하면 true, 존재하지 않으면 false 반환
+     */
+    boolean existsById(Long questionId);
 }

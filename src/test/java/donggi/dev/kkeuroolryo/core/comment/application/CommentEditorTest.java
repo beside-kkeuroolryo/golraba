@@ -1,6 +1,5 @@
 package donggi.dev.kkeuroolryo.core.comment.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import donggi.dev.kkeuroolryo.IntegrationTest;
@@ -14,9 +13,9 @@ import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.comment.dto.CommentDeleteCommand;
-import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterCommand;
-import java.util.Optional;
+import donggi.dev.kkeuroolryo.web.comment.dto.CommentRegisterDto;
 import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -63,9 +62,9 @@ class CommentEditorTest {
             @DisplayName("저장소에 댓글을 저장하고 id가 포함된 객체를 반환한다.")
             void return_question_dto(String username, String content) {
                 Long questionId = 1L;
-                CommentRegisterCommand commentRegisterCommand = new CommentRegisterCommand(username, "패스워드123", content);
+                CommentRegisterDto commentRegisterDto = new CommentRegisterDto(username, "패스워드123", content);
 
-                CommentDto commentDto = commentEditor.save(questionId, commentRegisterCommand);
+                CommentDto commentDto = commentEditor.save(questionId, commentRegisterDto);
 
                 SoftAssertions.assertSoftly(softly -> {
                     softly.assertThat(commentDto.getId()).isNotNull();
@@ -91,9 +90,8 @@ class CommentEditorTest {
                 CommentDeleteCommand commentDeleteCommand = new CommentDeleteCommand(password);
                 commentEditor.delete(question.getId(), comment.getId(), commentDeleteCommand.getPassword());
 
-                Optional<Comment> deletedComment = commentRepository.findById(comment.getId());
-
-                assertThat(deletedComment).isNotPresent();
+                assertThatThrownBy(() -> commentRepository.getById(comment.getId()))
+                    .isInstanceOf(CommentNotFoundException.class);
             }
         }
 

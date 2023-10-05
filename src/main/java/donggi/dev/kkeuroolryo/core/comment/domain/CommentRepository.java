@@ -34,14 +34,6 @@ public interface CommentRepository {
     void deleteAll();
 
     /**
-     * 저장소에서 댓글을 검색합니다.
-     *
-     * @param commentId 검색할 id
-     * @return Optional<Comment> 객체
-     */
-    Optional<Comment> findById(Long commentId);
-
-    /**
      * 저장소에서 id의 최대값을 찾습니다.
      *
      * @return id 최대값
@@ -56,4 +48,12 @@ public interface CommentRepository {
      * @return 페이징 된 댓글 객체
      */
     Slice<Comment> findAllByQuestionIdAndSearchAfterIdAndPageable(Long questionId, Long searchAfterId, Pageable ofSize);
+
+    /**
+     * 저장소에서 댓글을 검색합니다.
+     *
+     * @param commentId 조회할 id
+     * @return Comment 객체
+     */
+    Comment getById(Long commentId);
 }

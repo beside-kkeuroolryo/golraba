@@ -44,7 +44,8 @@ public class CommentRestController {
 
     @DeleteMapping("/{questionId}/comments/{commentId}")
     public ApiResponse<Void> delete(@PathVariable("questionId") Long questionId,
-        @PathVariable("commentId") Long commentId, @RequestBody CommentDeleteCommand commentDeleteCommand) {
+                                    @PathVariable("commentId") Long commentId,
+                                    @RequestBody CommentDeleteCommand commentDeleteCommand) {
         commentEditor.delete(questionId, commentId, commentDeleteCommand.getPassword());
         return ApiResponse.success();
     }

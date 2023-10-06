@@ -26,9 +26,9 @@ public interface QuestionEditor {
      * 질문의 활성화 상태를 변경합니다.
      *
      * @param questionId 변경할 질문 id
-     * @param request    변경할 active 상태가 포함된 객체
+     * @param active    변경할 active 상태
      */
-    void changeActive(Long questionId, QuestionActiveUpdateDto request);
+    void changeActive(Long questionId, boolean active);
 
     /**
      * 사용자가 등록한 질문을 수정합니다.

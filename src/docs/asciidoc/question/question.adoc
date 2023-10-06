@@ -16,6 +16,40 @@ include::{snippets}/question-register/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/question-register/http-response.adoc[]
 
+=== 질문 수정
+
+API : `PUT /api/golrabas/question/{questionId}`
+
+==== Request
+===== Request Fields
+include::{snippets}/question-modify/request-fields.adoc[]
+===== Path Parameters
+include::{snippets}/question-modify/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-modify/http-request.adoc[]
+
+==== Response
+===== Response Body
+include::{snippets}/question-modify/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-modify/http-response.adoc[]
+
+=== 질문 상태 변경
+
+API : `PATCH /api/golrabas/question/{questionId}/active/{active}`
+
+==== Request
+===== Path Parameters
+include::{snippets}/question-active/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-active/http-request.adoc[]
+
+==== Response
+===== Response Body
+include::{snippets}/question-active/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-active/http-response.adoc[]
+
 === 질문 선택 결과 반영
 
 API : `POST /api/golrabas/result`

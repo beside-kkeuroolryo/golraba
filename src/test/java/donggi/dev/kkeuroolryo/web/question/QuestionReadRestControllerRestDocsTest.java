@@ -5,6 +5,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.document;
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
@@ -24,7 +25,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 @DisplayName("API 문서화 : 질문 조회")
 @RestAssuredAndRestDocsTest
-public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
+class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
 
     @Autowired
     QuestionRepository questionRepository;
@@ -57,58 +58,56 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
         questionResultRepository.save(new QuestionResult(question));
     }
 
-    // TODO : id 안가져와지는 문제 발생
-//    @Test
-//    @DisplayName("특정 카테고리를 선택하면 해당 카테고리 질문 id List 를 반환하고 정상 상태코드를 반환한다.")
-//    void questions_read() {
-//        given(this.spec)
-//            .filter(
-//                document("random-questions-read",
-//                    pathParameters(parameterWithName("category").description("질문 카테고리")),
-//                    responseFields(
-//                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
-//                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
-//                        fieldWithPath("data.category").description("질문 카테고리").type(JsonFieldType.STRING),
-//                        fieldWithPath("data.questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
-//                    )
-//                )
-//            )
-//            .log().all()
-//            .accept(MediaType.APPLICATION_JSON_VALUE)
-//            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-//            .pathParam("category", question.getCategory())
-//
-//        .when()
-//            .get("/api/golrabas/category/{category}")
-//
-//        .then()
-//            .log().all()
-//            .statusCode(HttpStatus.OK.value());
-//    }
+    @Test
+    @DisplayName("특정 카테고리를 선택하면 해당 카테고리 질문 id List 를 반환하고 정상 상태코드를 반환한다.")
+    void questions_read() {
+        given(this.spec)
+            .filter(
+                document("random-questions-read",
+                    pathParameters(parameterWithName("category").description("질문 카테고리")),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.category").description("질문 카테고리").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questionIds").description("질문 id 리스트").type(JsonFieldType.ARRAY)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .pathParam("category", question.getCategory())
 
-    // TODO : 유효하지 않은 카테고리로 요청시 500 에러로 처리되는중
-//    @Test
-//    @DisplayName("유효하지 않은 카테고리로 요청하면 Bad Request 상태코드를 반환한다.")
-//    void questions_read_invalid_category() {
-//        String invalidCategory = "haha";
-//        given(this.spec)
-//            .filter(
-//                document("questions-read-invalid-category",
-//                    pathParameters(parameterWithName("category").description("질문 카테고리"))
-//                )
-//            )
-//            .log().all()
-//            .accept(MediaType.APPLICATION_JSON_VALUE)
-//            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
-//            .pathParam("category", invalidCategory)
-//
-//        .when()
-//            .get("/api/golrabas/category/{category}")
-//
-//        .then()
-//            .log().all()
-//            .statusCode(HttpStatus.BAD_REQUEST.value());
-//    }
+        .when()
+            .get("/api/golrabas/category/{category}")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 카테고리로 요청하면 Bad Request 상태코드를 반환한다.")
+    void questions_read_invalid_category() {
+        String invalidCategory = "haha";
+        given(this.spec)
+            .filter(
+                document("questions-read-invalid-category",
+                    pathParameters(parameterWithName("category").description("질문 카테고리"))
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .pathParam("category", invalidCategory)
+
+        .when()
+            .get("/api/golrabas/category/{category}")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
 
     @Test
     @DisplayName("특정 질문 조회 요청이 주어지면 해당 질문을 반환하고 정상 상태코드를 반환한다.")
@@ -136,7 +135,7 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
             .pathParam("questionId", question.getId())
 
         .when()
-            .get("/api/golrabas/{questionId}", question.getId())
+            .get("/api/golrabas/question/{questionId}", question.getId())
 
         .then()
             .log().all()
@@ -159,10 +158,51 @@ public class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
             .pathParam("questionId", invalidQuestionId)
 
         .when()
-            .get("/api/golrabas/{questionId}", question.getId())
+            .get("/api/golrabas/question/{questionId}", question.getId())
 
         .then()
             .log().all()
             .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    @DisplayName("질문 리스트 조회 요청이 정상적이면 질문 리스트를 반환하고 정상 상태코드를 반환한다.")
+    void question_list_read() {
+        given(this.spec)
+            .filter(
+                document("question-list-read",
+                    queryParameters(
+                        parameterWithName("searchAfterId").description("검색 시작할 댓글 id"),
+                        parameterWithName("size").description("조회할 데이터 개수")
+                    ),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].content").description("질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].active").description("활성화 상태").type(JsonFieldType.BOOLEAN),
+                        fieldWithPath("data.questions[].choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER),
+
+                        fieldWithPath("data.page.size").description("조회된 데이터 개수").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.nextId").description("다음 데이터 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.last").description("마지막 여부").type(JsonFieldType.BOOLEAN)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .queryParam("searchAfterId", question.getId())
+            .queryParam("size", 5)
+
+        .when()
+            .get("/api/golrabas/question")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
     }
 }

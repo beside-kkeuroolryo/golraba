@@ -27,7 +27,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 @DisplayName("API 문서화 : 댓글 등록, 삭제")
 @RestAssuredAndRestDocsTest
-public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
+class CommentRestControllerRestDocsTest extends InitRestDocsTest {
 
     @Autowired
     CommentRepository commentRepository;
@@ -218,5 +218,36 @@ public class CommentRestControllerRestDocsTest extends InitRestDocsTest {
         .then()
             .log().all()
             .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    @DisplayName("사용자의 댓글 수정 요청이 정상적인 경우 댓글을 수정하고 상태코드를 반환한다.")
+    void comment_modify() {
+        CommentRegisterDto commentRegisterDto = new CommentRegisterDto("username", "password", "content");
+        given(this.spec)
+            .filter(
+                document("comment-modify",
+                    pathParameters(
+                        parameterWithName(("questionId")).description("질문 id"),
+                        parameterWithName(("commentId")).description("댓글 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("username").description("유저 이름").type(JsonFieldType.STRING),
+                        fieldWithPath("password").description("댓글 비밀번호").type(JsonFieldType.STRING),
+                        fieldWithPath("content").description("수정할 댓글 본문").type(JsonFieldType.STRING)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .body(commentRegisterDto)
+
+            .when()
+            .put("/api/golrabas/{questionId}/comments/{commentId}", question.getId(), comment.getId())
+
+            .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
     }
 }

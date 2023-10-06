@@ -34,6 +34,25 @@ include::{snippets}/comment-register-invalid-command/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/comment-register-invalid-command/http-response.adoc[]
 
+=== 댓글 수정
+
+API : `PUT /api/golrabas/{questionId}/comments/{commentId}`
+
+==== 성공
+===== Path Parameter
+include::{snippets}/comment-modify/path-parameters.adoc[]
+
+===== Request Fields
+include::{snippets}/comment-modify/request-fields.adoc[]
+
+===== HTTP Request
+include::{snippets}/comment-modify/http-request.adoc[]
+
+===== Response Body
+include::{snippets}/comment-modify/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/comment-modify/http-response.adoc[]
+
 === 댓글 삭제
 
 API : `DELETE /api/golrabas/{questionId}/comments/{commentsId}`

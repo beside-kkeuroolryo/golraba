@@ -6,9 +6,8 @@ import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionPaginationDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +37,7 @@ public class QuestionRestController {
 
     @PutMapping("/question/{questionId}")
     public ApiResponse<Void> modify(@PathVariable("questionId") Long questionId,
-                                           @RequestBody QuestionRegisterDto questionRegisterDto) {
+                                    @RequestBody QuestionRegisterDto questionRegisterDto) {
         questionEditor.modify(questionId, questionRegisterDto);
         return ApiResponse.success();
     }
@@ -54,12 +53,12 @@ public class QuestionRestController {
      * 질문은 랜덤한 순서로 조회합니다.
      */
     @GetMapping("/category/{category}")
-    public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") QuestionCategoryRequest request) {
-        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(request.category());
+    public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") Category category) {
+        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(category);
         return ApiResponse.success(randomQuestionsDto);
     }
 
-    @GetMapping("/{questionId}")
+    @GetMapping("/question/{questionId}")
     public ApiResponse<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
         QuestionDto questionDto = questionFinder.getQuestion(questionId);
         return ApiResponse.success(questionDto);
@@ -74,10 +73,10 @@ public class QuestionRestController {
         return ApiResponse.success(questionPaginationDto);
     }
 
-    @PatchMapping("/{questionId}/active")
+    @PatchMapping("/question/{questionId}/active/{active}")
     public ApiResponse<Void> changeActive(@PathVariable("questionId") Long questionId,
-                                          @RequestBody QuestionActiveUpdateDto request) {
-        questionEditor.changeActive(questionId, request);
+                                          @PathVariable("active") boolean active) {
+        questionEditor.changeActive(questionId, active);
         return ApiResponse.success();
     }
 }

@@ -48,7 +48,7 @@ public class CommentService implements CommentEditor, CommentFinder {
     @Override
     @Transactional
     public void modify(Long questionId, Long commentId, CommentRegisterDto commentRegisterDto) {
-        if (questionRepository.existsById(questionId)) {
+        if (!questionRepository.existsById(questionId)) {
             throw new QuestionNotFoundException();
         }
 

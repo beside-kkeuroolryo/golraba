@@ -57,3 +57,21 @@ include::{snippets}/question-read-invalid-question-id/http-request.adoc[]
 include::{snippets}/question-read-invalid-question-id/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/question-read-invalid-question-id/http-response.adoc[]
+
+=== 질문 리스트 조회
+
+API : `GET /api/golrabas/question`
+
+==== 성공
+===== HTTP Request
+include::{snippets}/question-list-read/http-request.adoc[]
+===== Query Paramters
+include::{snippets}/question-list-read/query-parameters.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-list-read/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-list-read/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-list-read/http-response.adoc[]

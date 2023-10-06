@@ -59,7 +59,7 @@ public class QuestionRestController {
         return ApiResponse.success(randomQuestionsDto);
     }
 
-    @GetMapping("/{questionId}")
+    @GetMapping("/question/{questionId}")
     public ApiResponse<QuestionDto> getQuestion(@PathVariable("questionId") Long questionId) {
         QuestionDto questionDto = questionFinder.getQuestion(questionId);
         return ApiResponse.success(questionDto);

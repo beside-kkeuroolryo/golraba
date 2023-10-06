@@ -66,10 +66,10 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
     @Override
     @Transactional
-    public void changeActive(Long questionId, QuestionActiveUpdateDto request) {
+    public void changeActive(Long questionId, boolean active) {
         Question question = questionRepository.getById(questionId);
 
-        question.changeActive(request.active());
+        question.changeActive(active);
     }
 
     @Override

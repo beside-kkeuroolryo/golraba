@@ -74,10 +74,10 @@ public class QuestionRestController {
         return ApiResponse.success(questionPaginationDto);
     }
 
-    @PatchMapping("/{questionId}/active")
+    @PatchMapping("/question/{questionId}/active/{active}")
     public ApiResponse<Void> changeActive(@PathVariable("questionId") Long questionId,
-                                          @RequestBody QuestionActiveUpdateDto request) {
-        questionEditor.changeActive(questionId, request);
+                                          @PathVariable("active") boolean active) {
+        questionEditor.changeActive(questionId, active);
         return ApiResponse.success();
     }
 }

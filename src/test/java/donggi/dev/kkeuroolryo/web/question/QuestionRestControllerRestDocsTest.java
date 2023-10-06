@@ -145,6 +145,31 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
             .statusCode(HttpStatus.OK.value());
     }
 
+    @Test
+    @DisplayName("질문의 active 변경 요청이 정상적인 경우 active 를 변경하고 상태코드를 반환한다.")
+    void question_active() {
+        boolean active = false;
+        given(this.spec)
+            .filter(
+                document("question-active",
+                    pathParameters(
+                        parameterWithName(("questionId")).description("질문 id"),
+                        parameterWithName(("active")).description("변경할 active 상태")
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+
+        .when()
+            .patch("/api/golrabas/question/{questionId}/active/{active}", question.getId(), active)
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
     private List<ChoiceResult> setChoiceResultData() {
         List<ChoiceResult> results = new ArrayList<>();
         results.add(new ChoiceResult(question.getId(), "a"));

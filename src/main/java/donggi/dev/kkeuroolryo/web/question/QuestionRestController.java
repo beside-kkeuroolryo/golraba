@@ -38,7 +38,7 @@ public class QuestionRestController {
 
     @PutMapping("/question/{questionId}")
     public ApiResponse<Void> modify(@PathVariable("questionId") Long questionId,
-                                           @RequestBody QuestionRegisterDto questionRegisterDto) {
+                                    @RequestBody QuestionRegisterDto questionRegisterDto) {
         questionEditor.modify(questionId, questionRegisterDto);
         return ApiResponse.success();
     }

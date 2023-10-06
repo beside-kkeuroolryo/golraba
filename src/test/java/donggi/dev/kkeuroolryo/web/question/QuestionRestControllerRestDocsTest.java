@@ -4,6 +4,8 @@ import static io.restassured.RestAssured.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.document;
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
@@ -43,6 +45,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
         question = questionRepository.save(new Question("질문 본문16", "선택A 16", "선택B 16", Category.SELF));
         questionResultRepository.save(new QuestionResult(question));
     }
+
     @Test
     @DisplayName("사용자의 질문 등록 요청이 정상적인 경우 질문 생성 후 상태코드를 반환한다.")
     void question_register() {
@@ -79,6 +82,38 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
             .post("/api/golrabas/question")
 
         .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("사용자의 질문 수정 요청이 정상적인 경우 질문 수정하고 상태코드를 반환한다.")
+    void question_modify() {
+        QuestionRegisterDto questionRegisterDto = new QuestionRegisterDto("수정한 질문 본문", "선택 A", "선택 B",
+            Category.SELF);
+        given(this.spec)
+            .filter(
+                document("question-modify",
+                    pathParameters(
+                        parameterWithName(("questionId")).description("질문 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("content").description("수정한 질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("category").description("카테고리").type(JsonFieldType.STRING)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .body(questionRegisterDto)
+
+            .when()
+            .put("/api/golrabas/question/{questionId}", question.getId())
+
+            .then()
             .log().all()
             .statusCode(HttpStatus.OK.value());
     }

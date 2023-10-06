@@ -6,9 +6,8 @@ import donggi.dev.kkeuroolryo.core.question.application.QuestionFinder;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.QuestionPaginationDto;
 import donggi.dev.kkeuroolryo.core.question.application.dto.RandomQuestionsDto;
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionCategoryRequest;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import lombok.RequiredArgsConstructor;
@@ -54,8 +53,8 @@ public class QuestionRestController {
      * 질문은 랜덤한 순서로 조회합니다.
      */
     @GetMapping("/category/{category}")
-    public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") QuestionCategoryRequest request) {
-        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(request.category());
+    public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") Category category) {
+        RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(category);
         return ApiResponse.success(randomQuestionsDto);
     }
 

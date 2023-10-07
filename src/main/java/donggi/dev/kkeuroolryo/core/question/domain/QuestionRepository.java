@@ -48,6 +48,15 @@ public interface QuestionRepository {
     Slice<Question> findAllBySearchAfterIdAndPageable(Long searchAfterId, Pageable ofSize);
 
     /**
+     * 저장소에서 질문을 키워드로 검색하고 페이지만큼 조회합니다.
+     * @param keyword 검색할 키워드
+     * @param searchAfterId 검색 기준 대상
+     * @param ofSize 페이지 크기
+     * @return 페이징 된 질문 객체
+     */
+    Slice<Question> findAllByContentContainingAndSearchAfterIdAndPageable(String keyword, Long searchAfterId, Pageable ofSize);
+
+    /**
      * 저장소에 id로 해당 질문이 존재하는지 여부를 반환합니다.
      * @param questionId 검색할 질문 id
      * @return 존재하면 true, 존재하지 않으면 false 반환

@@ -209,7 +209,7 @@ class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
     @Test
     @DisplayName("질문 키워드 검색 요청이 정상적이면 키워드로 검색한 질문 리스트를 반환하고 정상 상태코드를 반환한다.")
     void question_search() {
-        String keyword = "keyword";
+        String keyword = "질문";
         given(this.spec)
             .filter(
                 document("question-search",

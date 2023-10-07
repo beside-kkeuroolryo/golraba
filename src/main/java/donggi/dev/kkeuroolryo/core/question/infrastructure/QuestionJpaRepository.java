@@ -24,6 +24,9 @@ public interface QuestionJpaRepository extends QuestionRepository, JpaRepository
     @Query(value = "select q from Question q where q.id <= :searchAfterId and q.active = true order by q.id desc")
     Slice<Question> findAllBySearchAfterIdAndPageable(@Param("searchAfterId") Long searchAfterId, Pageable ofSize);
 
+    @Query(value = "select q from Question q where q.content.content like %:keyword% and q.id <= :searchAfterId and q.active = true order by q.id desc")
+    Slice<Question> findAllByContentContainingAndSearchAfterIdAndPageable(@Param("keyword") String keyword, @Param("searchAfterId") Long searchAfterId, Pageable ofSize);
+
     @Override
     default Question getById(Long questionId) {
         return findById(questionId).orElseThrow(QuestionNotFoundException::new);

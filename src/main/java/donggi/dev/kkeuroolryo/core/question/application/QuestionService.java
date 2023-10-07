@@ -143,8 +143,18 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
     }
 
     @Override
-    public QuestionPaginationDto search(String keyword, NoOffsetPageCommand noOffsetPageCommand) {
-        return null;
+    @Transactional(readOnly = true)
+    public QuestionPaginationDto search(String keyword, NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = pageCommand.getSearchAfterId() == 0
+            ? questionRepository.getMaxId()
+            : pageCommand.getSearchAfterId();
+
+        Slice<Question> sliceQuestions = questionRepository.findAllByContentContainingAndSearchAfterIdAndPageable(keyword, searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+
+        return QuestionPaginationDto.ofEntity(sliceQuestions);
     }
 
     private void checkNoOffsetPageSize(Long size) {

@@ -28,7 +28,15 @@ public interface QuestionFinder {
      * 페이지 요청에 따른 모든 질문을 조회합니다.
      *
      * @param noOffsetPageCommand 페이징 정보가 담긴 객체
-     * @return 페이징 된 글 객체
+     * @return 페이징된 질문 객체
      */
     QuestionPaginationDto findAllBy(NoOffsetPageCommand noOffsetPageCommand);
+
+    /**
+     * 질문을 키워드로 검색하여 리스트로 조회합니다.
+     * @param keyword 검색할 키워드
+     * @param noOffsetPageCommand 페이징 정보가 담긴 객체
+     * @return 페이징된 질문 객체
+     */
+    QuestionPaginationDto search(String keyword, NoOffsetPageCommand noOffsetPageCommand);
 }

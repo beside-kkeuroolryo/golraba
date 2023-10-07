@@ -205,4 +205,48 @@ class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
             .log().all()
             .statusCode(HttpStatus.OK.value());
     }
+
+    @Test
+    @DisplayName("질문 키워드 검색 요청이 정상적이면 키워드로 검색한 질문 리스트를 반환하고 정상 상태코드를 반환한다.")
+    void question_search() {
+        String keyword = "질문";
+        given(this.spec)
+            .filter(
+                document("question-search",
+                    queryParameters(
+                        parameterWithName("keyword").description("검색할 질문 키워드"),
+                        parameterWithName("searchAfterId").description("검색 시작할 댓글 id"),
+                        parameterWithName("size").description("조회할 데이터 개수")
+                    ),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].content").description("질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].active").description("활성화 상태").type(JsonFieldType.BOOLEAN),
+                        fieldWithPath("data.questions[].choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER),
+
+                        fieldWithPath("data.page.size").description("조회된 데이터 개수").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.nextId").description("다음 데이터 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.last").description("마지막 여부").type(JsonFieldType.BOOLEAN)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .queryParam("keyword", keyword)
+            .queryParam("searchAfterId", question.getId())
+            .queryParam("size", 5)
+
+        .when()
+            .get("/api/golrabas/question/search")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
 }

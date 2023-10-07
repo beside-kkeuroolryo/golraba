@@ -65,7 +65,7 @@ API : `GET /api/golrabas/question`
 ==== 성공
 ===== HTTP Request
 include::{snippets}/question-list-read/http-request.adoc[]
-===== Query Paramters
+===== Query Parameters
 include::{snippets}/question-list-read/query-parameters.adoc[]
 
 ==== Response
@@ -75,3 +75,21 @@ include::{snippets}/question-list-read/response-fields.adoc[]
 include::{snippets}/question-list-read/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/question-list-read/http-response.adoc[]
+
+=== 질문 키워드 검색
+
+API : `GET /api/golrabas/question/search`
+
+==== 성공
+===== HTTP Request
+include::{snippets}/question-search/http-request.adoc[]
+===== Query Parameters
+include::{snippets}/question-search/query-parameters.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-search/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-search/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-search/http-response.adoc[]

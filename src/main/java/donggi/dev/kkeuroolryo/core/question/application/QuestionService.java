@@ -17,7 +17,6 @@ import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import java.util.Arrays;
@@ -138,6 +137,21 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
             : pageCommand.getSearchAfterId();
 
         Slice<Question> sliceQuestions = questionRepository.findAllBySearchAfterIdAndPageable(searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+
+        return QuestionPaginationDto.ofEntity(sliceQuestions);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public QuestionPaginationDto search(String keyword, NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = pageCommand.getSearchAfterId() == 0
+            ? questionRepository.getMaxId()
+            : pageCommand.getSearchAfterId();
+
+        Slice<Question> sliceQuestions = questionRepository.findAllByContentContainingAndSearchAfterIdAndPageable(keyword, searchAfterId,
             Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
 
         return QuestionPaginationDto.ofEntity(sliceQuestions);

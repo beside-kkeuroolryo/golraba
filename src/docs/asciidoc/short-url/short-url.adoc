@@ -1,0 +1,36 @@
+=== short url 등록
+
+API : `POST /api/golrabas/shortUrl`
+
+==== Request
+===== Request Fields
+include::{snippets}/short-url-encode/request-fields.adoc[]
+===== HTTP Request
+include::{snippets}/short-url-encode/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/short-url-encode/response-fields.adoc[]
+===== Response Body
+include::{snippets}/short-url-encode/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/short-url-encode/http-response.adoc[]
+
+=== 원본 url 조회
+
+API : `GET /api/golrabas/shortUrl/{shortUrl}`
+
+==== Request
+===== Path Parameters
+include::{snippets}/short-url-decode/path-parameters.adoc[]
+
+===== HTTP Request
+include::{snippets}/short-url-decode/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/short-url-decode/response-fields.adoc[]
+===== Response Body
+include::{snippets}/short-url-decode/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/short-url-decode/http-response.adoc[]

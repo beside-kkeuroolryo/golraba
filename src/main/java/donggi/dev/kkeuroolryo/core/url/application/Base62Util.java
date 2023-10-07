@@ -20,14 +20,17 @@ public class Base62Util {
     }
 
     public long decoding(String param) {
-        long sum = 0;
-        long power = 1;
+        int result = 0;
+        int power = 1;
 
         for (int i = 0; i < param.length(); i++) {
-//            sum += BASE62.indexOf(param.charAt(i)) * power;
-            power *= RADIX;
+            int digit = String.valueOf(BASE62).indexOf(param.charAt(i));
+
+            result += digit * power;
+
+                power *= RADIX;
         }
-        return sum;
+        return result;
     }
 
 }

@@ -8,7 +8,7 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
-import donggi.dev.kkeuroolryo.core.url.domain.ShortUrlRepository;
+import donggi.dev.kkeuroolryo.core.url.domain.ShortUrlJpaRepository;
 import donggi.dev.kkeuroolryo.web.url.dto.ShortUrlRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 class ShortUrlRestControllerTest extends InitRestDocsTest {
 
     @Autowired
-    ShortUrlRepository shortUrlRepository;
+    ShortUrlJpaRepository shortUrlRepository;
 
     @BeforeEach
     void setUp() {

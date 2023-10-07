@@ -22,8 +22,10 @@ public enum ErrorCodeAndMessage {
     COMMENT_INVALID_PASSWORD("C402", "유효하지 않은 댓글 비밀번호입니다."),
     COMMENT_INVALID_USERNAME("C403", "유효하지 않은 사용자 이름입니다."),
     COMMENT_NOT_FOUND("C404", "존재하지 않은 댓글입니다."),
-    COMMENT_UNAUTHORIZED("C405", "올바르지 않은 댓글 비밀번호입니다.")
-    ;
+    COMMENT_UNAUTHORIZED("C405", "올바르지 않은 댓글 비밀번호입니다."),
+
+    // short url
+    URL_NOT_FOUND("U404", "존재하지 않는 url 입니다.");
 
     private final String code;
     private final String message;

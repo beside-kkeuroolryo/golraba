@@ -73,6 +73,16 @@ public class QuestionRestController {
         return ApiResponse.success(questionPaginationDto);
     }
 
+    @GetMapping("/question/search")
+    public ApiResponse<QuestionPaginationDto> search(
+        @RequestParam String keyword,
+        @RequestParam(required = false, defaultValue = "0") String searchAfterId,
+        @RequestParam(required = false, defaultValue = "20") String size
+    ) {
+        QuestionPaginationDto questionPaginationDto = questionFinder.search(keyword, new NoOffsetPageCommand(searchAfterId, size));
+        return ApiResponse.success(questionPaginationDto);
+    }
+
     @PatchMapping("/question/{questionId}/active/{active}")
     public ApiResponse<Void> changeActive(@PathVariable("questionId") Long questionId,
                                           @PathVariable("active") boolean active) {

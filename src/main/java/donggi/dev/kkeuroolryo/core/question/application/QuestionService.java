@@ -17,7 +17,6 @@ import donggi.dev.kkeuroolryo.core.question.domain.QuestionResultRepository;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionInvalidChoiceException;
 import donggi.dev.kkeuroolryo.core.question.domain.exception.QuestionNotFoundException;
 import donggi.dev.kkeuroolryo.web.comment.dto.NoOffsetPageCommand;
-import donggi.dev.kkeuroolryo.web.question.dto.QuestionActiveUpdateDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionRegisterDto;
 import donggi.dev.kkeuroolryo.web.question.dto.QuestionResultCommand;
 import java.util.Arrays;
@@ -141,6 +140,11 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
             Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
 
         return QuestionPaginationDto.ofEntity(sliceQuestions);
+    }
+
+    @Override
+    public QuestionPaginationDto search(String keyword, NoOffsetPageCommand noOffsetPageCommand) {
+        return null;
     }
 
     private void checkNoOffsetPageSize(Long size) {

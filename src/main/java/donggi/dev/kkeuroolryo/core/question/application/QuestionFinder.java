@@ -30,7 +30,7 @@ public interface QuestionFinder {
      * @param noOffsetPageCommand 페이징 정보가 담긴 객체
      * @return 페이징된 질문 객체
      */
-    QuestionPaginationDto findAllBy(NoOffsetPageCommand noOffsetPageCommand);
+    QuestionPaginationDto findAllIdsByCategory(NoOffsetPageCommand noOffsetPageCommand);
 
     /**
      * 질문을 키워드로 검색하여 리스트로 조회합니다.
@@ -39,4 +39,21 @@ public interface QuestionFinder {
      * @return 페이징된 질문 객체
      */
     QuestionPaginationDto search(String keyword, NoOffsetPageCommand noOffsetPageCommand);
+
+    /**
+     * 어드민에서 카테고리로 질문 리스트를 조회합니다.
+     * @param category 조회할 카테고리
+     * @param pageCommand 페이징 정보가 담긴 객체
+     * @return 페이징된 질문 객체
+     */
+    QuestionPaginationDto findAllByCategory(Category category, NoOffsetPageCommand pageCommand);
+
+    /**
+     * 어드민에서 특정 active 상태의 카테고리 질문 리스트를 조회합니다.
+     * @param category 조회할 카테고리
+     * @param active 조회할 active 상태
+     * @param pageCommand 페이징 정보가 담긴 객체
+     * @return 페이징된 질문 객체
+     */
+    QuestionPaginationDto findAllByCategoryAndActive(Category category, boolean active, NoOffsetPageCommand pageCommand);
 }

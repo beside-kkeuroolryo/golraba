@@ -48,6 +48,15 @@ public interface QuestionRepository {
     Slice<Question> findAllBySearchAfterIdAndPageable(Long searchAfterId, Pageable ofSize);
 
     /**
+     * 카테고리로 저장소에서 질문 리스트를 검색 id 기준 이후의 페이지만큼 조회합니다.
+     * @param category 조회할 카테고리
+     * @param searchAfterId 검색 기준 대상
+     * @param ofSize 페이지 크기
+     * @return 페이징 된 질문 객체
+     */
+    Slice<Question> findAllByCategoryAndSearchAfterIdAndPageable(Category category, Long searchAfterId, Pageable ofSize);
+
+    /**
      * 저장소에서 질문을 키워드로 검색하고 페이지만큼 조회합니다.
      * @param keyword 검색할 키워드
      * @param searchAfterId 검색 기준 대상
@@ -62,4 +71,14 @@ public interface QuestionRepository {
      * @return 존재하면 true, 존재하지 않으면 false 반환
      */
     boolean existsById(Long questionId);
+
+    /**
+     * 저장소에서 특정 active 상태의 카테고리 질문 리스트를 조회합니다.
+     * @param category 조회할 카테고리
+     * @param active 조회할 active 상태
+     * @param searchAfterId 검색 기준 대상
+     * @param ofSize 페이지 크기
+     * @return 페이징 된 질문 객체
+     */
+    Slice<Question> findAllByCategoryAndActiveAndSearchAfterIdAndPageable(Category category, boolean active, Long searchAfterId, Pageable ofSize);
 }

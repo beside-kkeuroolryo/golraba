@@ -207,6 +207,93 @@ class QuestionReadRestControllerRestDocsTest extends InitRestDocsTest {
     }
 
     @Test
+    @DisplayName("카테고리로 질문 리스트 조회 요청이 정상적이면 질문 리스트를 반환하고 정상 상태코드를 반환한다.")
+    void question_list_read_by_category() {
+        given(this.spec)
+            .filter(
+                document("question-list-read-by-category",
+                    pathParameters(parameterWithName("category").description("조회할 카테고리")),
+                    queryParameters(
+                        parameterWithName("searchAfterId").description("검색 시작할 댓글 id"),
+                        parameterWithName("size").description("조회할 데이터 개수")
+                    ),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].content").description("질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].active").description("활성화 상태").type(JsonFieldType.BOOLEAN),
+                        fieldWithPath("data.questions[].choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER),
+
+                        fieldWithPath("data.page.size").description("조회된 데이터 개수").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.nextId").description("다음 데이터 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.last").description("마지막 여부").type(JsonFieldType.BOOLEAN)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .queryParam("searchAfterId", question.getId())
+            .queryParam("size", 5)
+
+        .when()
+            .get("/api/golrabas/category/{category}/question", question.getCategory())
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("특정 active 상태와 카테고리로 질문 리스트 조회 요청이 정상적이면 질문 리스트를 반환하고 정상 상태코드를 반환한다.")
+    void question_list_read_by_category_and_active() {
+        given(this.spec)
+            .filter(
+                document("question-list-read-by-category-and-active",
+                    pathParameters(
+                        parameterWithName("category").description("조회할 카테고리"),
+                        parameterWithName("active").description("조회할 active 상태")
+                    ),
+                    queryParameters(
+                        parameterWithName("searchAfterId").description("검색 시작할 댓글 id"),
+                        parameterWithName("size").description("조회할 데이터 개수")
+                    ),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].content").description("질문 본문").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceA").description("선택지 A").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].choiceB").description("선택지 B").type(JsonFieldType.STRING),
+                        fieldWithPath("data.questions[].active").description("활성화 상태").type(JsonFieldType.BOOLEAN),
+                        fieldWithPath("data.questions[].choiceAResult").description("선택지 A의 득표율").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.questions[].choiceBResult").description("선택지 B의 득표율").type(JsonFieldType.NUMBER),
+
+                        fieldWithPath("data.page.size").description("조회된 데이터 개수").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.nextId").description("다음 데이터 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.page.last").description("마지막 여부").type(JsonFieldType.BOOLEAN)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .queryParam("searchAfterId", question.getId())
+            .queryParam("size", 5)
+
+        .when()
+            .get("/api/golrabas/category/{category}/question/active/{active}", question.getCategory(), question.isActive())
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
     @DisplayName("질문 키워드 검색 요청이 정상적이면 키워드로 검색한 질문 리스트를 반환하고 정상 상태코드를 반환한다.")
     void question_search() {
         String keyword = "질문";

@@ -129,7 +129,7 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
 
     @Override
     @Transactional(readOnly = true)
-    public QuestionPaginationDto findAllBy(NoOffsetPageCommand pageCommand) {
+    public QuestionPaginationDto findAllIdsByCategory(NoOffsetPageCommand pageCommand) {
         checkNoOffsetPageSize(pageCommand.getSize());
 
         Long searchAfterId = pageCommand.getSearchAfterId() == 0
@@ -152,6 +152,35 @@ public class QuestionService implements QuestionFinder, QuestionEditor {
             : pageCommand.getSearchAfterId();
 
         Slice<Question> sliceQuestions = questionRepository.findAllByContentContainingAndSearchAfterIdAndPageable(keyword, searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+
+        return QuestionPaginationDto.ofEntity(sliceQuestions);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public QuestionPaginationDto findAllByCategory(Category category, NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = pageCommand.getSearchAfterId() == 0
+            ? questionRepository.getMaxId()
+            : pageCommand.getSearchAfterId();
+
+        Slice<Question> sliceQuestions = questionRepository.findAllByCategoryAndSearchAfterIdAndPageable(category, searchAfterId,
+            Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
+
+        return QuestionPaginationDto.ofEntity(sliceQuestions);
+    }
+
+    @Override
+    public QuestionPaginationDto findAllByCategoryAndActive(Category category, boolean active, NoOffsetPageCommand pageCommand) {
+        checkNoOffsetPageSize(pageCommand.getSize());
+
+        Long searchAfterId = pageCommand.getSearchAfterId() == 0
+            ? questionRepository.getMaxId()
+            : pageCommand.getSearchAfterId();
+
+        Slice<Question> sliceQuestions = questionRepository.findAllByCategoryAndActiveAndSearchAfterIdAndPageable(category, active, searchAfterId,
             Pageable.ofSize(Math.toIntExact(pageCommand.getSize())));
 
         return QuestionPaginationDto.ofEntity(sliceQuestions);

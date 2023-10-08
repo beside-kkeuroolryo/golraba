@@ -1,4 +1,4 @@
-=== 카테고리 질문 조회
+=== 카테고리로 질문 id 리스트 조회
 
 API : `GET /api/golrabas/category/{category}`
 
@@ -28,7 +28,43 @@ include::{snippets}/questions-read-invalid-category/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/questions-read-invalid-category/http-response.adoc[]
 
-=== 특정 질문 조회
+=== 카테고리로 질문 리스트 조회
+
+API : `GET /api/golrabas/category/{category}/question`
+
+==== 성공
+===== Path Parameters
+include::{snippets}/question-list-read-by-category/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-list-read-by-category/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-list-read-by-category/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-list-read-by-category/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-list-read-by-category/http-response.adoc[]
+
+=== 카테고리와 active 상태에 맞는 질문 리스트 조회
+
+API : `GET /api/golrabas/category/{category}/question/active/{active}`
+
+==== 성공
+===== Path Parameters
+include::{snippets}/question-list-read-by-category-and-active/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-list-read-by-category-and-active/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-list-read-by-category-and-active/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-list-read-by-category-and-active/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-list-read-by-category-and-active/http-response.adoc[]
+
+=== 특정 질문 리조회
 
 API : `GET /api/golrabas/{questionId}`
 

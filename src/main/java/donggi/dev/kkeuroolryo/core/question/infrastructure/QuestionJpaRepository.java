@@ -14,17 +14,16 @@ import org.springframework.data.repository.query.Param;
 
 public interface QuestionJpaRepository extends QuestionRepository, JpaRepository<Question, Long> {
 
-    // TODO : active = true인 질문만 조회하도록 변경 필요
     @Query(value = "select q.id from Question q where q.category in :categories and q.active = true")
     List<Long> findAllByIdInCategories(@Param("categories") List<Category> categories);
 
     @Query(value = "select max(q.id) from Question q ")
     Optional<Long> findMaxId();
 
-    @Query(value = "select q from Question q where q.id <= :searchAfterId and q.active = true order by q.id desc")
+    @Query(value = "select q from Question q where q.id <= :searchAfterId order by q.id desc")
     Slice<Question> findAllBySearchAfterIdAndPageable(@Param("searchAfterId") Long searchAfterId, Pageable ofSize);
 
-    @Query(value = "select q from Question q where q.content.content like %:keyword% and q.id <= :searchAfterId and q.active = true order by q.id desc")
+    @Query(value = "select q from Question q where q.content.content like %:keyword% and q.id <= :searchAfterId order by q.id desc")
     Slice<Question> findAllByContentContainingAndSearchAfterIdAndPageable(@Param("keyword") String keyword, @Param("searchAfterId") Long searchAfterId, Pageable ofSize);
 
     @Override

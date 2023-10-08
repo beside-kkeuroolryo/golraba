@@ -1,4 +1,4 @@
-=== 카테고리 질문 조회
+=== 카테고리로 질문 id 리스트 조회
 
 API : `GET /api/golrabas/category/{category}`
 
@@ -27,6 +27,24 @@ include::{snippets}/questions-read-invalid-category/http-request.adoc[]
 include::{snippets}/questions-read-invalid-category/response-body.adoc[]
 ===== HTTP Response
 include::{snippets}/questions-read-invalid-category/http-response.adoc[]
+
+=== 카테고리로 질문 리스트 조회
+
+API : `GET /api/golrabas/category/{category}/question`
+
+==== 성공
+===== Path Parameters
+include::{snippets}/question-list-read-by-category/path-parameters.adoc[]
+===== HTTP Request
+include::{snippets}/question-list-read-by-category/http-request.adoc[]
+
+==== Response
+===== Response Fields
+include::{snippets}/question-list-read-by-category/response-fields.adoc[]
+===== Response Body
+include::{snippets}/question-list-read-by-category/response-body.adoc[]
+===== HTTP Response
+include::{snippets}/question-list-read-by-category/http-response.adoc[]
 
 === 특정 질문 조회
 

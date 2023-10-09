@@ -49,13 +49,40 @@ public class QuestionRestController {
     }
 
     /**
-     * 카테고리 이름으로 해당 카테고리의 질문을 조회합니다.
+     * 카테고리 이름으로 해당 카테고리의 질문 id를 조회합니다.
      * 질문은 랜덤한 순서로 조회합니다.
      */
     @GetMapping("/category/{category}")
-    public ApiResponse<RandomQuestionsDto> getQuestionsByCategory(@PathVariable("category") Category category) {
+    public ApiResponse<RandomQuestionsDto> getQuestionIdsByCategory(@PathVariable("category") Category category) {
         RandomQuestionsDto randomQuestionsDto = questionFinder.getRandomQuestionsByCategory(category);
         return ApiResponse.success(randomQuestionsDto);
+    }
+
+    /**
+     * 어드민에서 카테고리로 질문 리스트를 조회합니다.
+     */
+    @GetMapping("/category/{category}/question")
+    public ApiResponse<QuestionPaginationDto> getQuestionsByCategory(
+        @PathVariable("category") Category category,
+        @RequestParam(required = false, defaultValue = "0") String searchAfterId,
+        @RequestParam(required = false, defaultValue = "20") String size
+    ) {
+        QuestionPaginationDto questionPaginationDto = questionFinder.findAllByCategory(category, new NoOffsetPageCommand(searchAfterId, size));
+        return ApiResponse.success(questionPaginationDto);
+    }
+
+    /**
+     * 어드민에서 특정 active 상태의 카테고리 질문 리스트를 조회합니다.
+     */
+    @GetMapping("/category/{category}/question/active/{active}")
+    public ApiResponse<QuestionPaginationDto> getQuestionsByCategoryAndActive(
+        @PathVariable("category") Category category,
+        @PathVariable("active") boolean active,
+        @RequestParam(required = false, defaultValue = "0") String searchAfterId,
+        @RequestParam(required = false, defaultValue = "20") String size
+    ) {
+        QuestionPaginationDto questionPaginationDto = questionFinder.findAllByCategoryAndActive(category, active, new NoOffsetPageCommand(searchAfterId, size));
+        return ApiResponse.success(questionPaginationDto);
     }
 
     @GetMapping("/question/{questionId}")
@@ -69,7 +96,7 @@ public class QuestionRestController {
         @RequestParam(required = false, defaultValue = "0") String searchAfterId,
         @RequestParam(required = false, defaultValue = "20") String size
     ) {
-        QuestionPaginationDto questionPaginationDto = questionFinder.findAllBy(new NoOffsetPageCommand(searchAfterId, size));
+        QuestionPaginationDto questionPaginationDto = questionFinder.findAllIdsByCategory(new NoOffsetPageCommand(searchAfterId, size));
         return ApiResponse.success(questionPaginationDto);
     }
 

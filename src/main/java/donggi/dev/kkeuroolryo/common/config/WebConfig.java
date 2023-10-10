@@ -20,6 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
                 HttpMethod.DELETE.name()
             )
             .allowCredentials(true)
-            .allowedOrigins("https://golraba.netlify.app/");
+            .allowedOrigins("/*");
     }
 }

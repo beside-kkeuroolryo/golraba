@@ -29,9 +29,9 @@ public class Url {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "urlIdGenerator")
     private Long id;
 
-    private String originalUrl;
+    private String originalData;
 
-    public Url(String originalUrl) {
-        this.originalUrl = originalUrl;
+    public Url(String originalData) {
+        this.originalData = originalData;
     }
 }

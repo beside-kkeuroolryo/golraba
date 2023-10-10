@@ -27,6 +27,6 @@ public class ShortUrlService {
     public ShortUrlDto decodeShortUrl(String shortUrl) {
         Long decoding = base62Util.decoding(shortUrl);
         Url url = shortUrlRepository.getById(decoding);
-        return new ShortUrlDto(url.getOriginalUrl());
+        return new ShortUrlDto(url.getOriginalData());
     }
 }

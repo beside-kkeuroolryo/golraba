@@ -38,19 +38,19 @@ class ShortUrlRestControllerTest extends InitRestDocsTest {
     void setUp() {
         shortUrlRepository.deleteAllInBatch();
 
-        ShortUrlRequestDto shortUrlRequestDto = new ShortUrlRequestDto("originalUrl");
+        ShortUrlRequestDto shortUrlRequestDto = new ShortUrlRequestDto("originalData");
         url = shortUrlRepository.save(shortUrlRequestDto.convertToEntity());
     }
 
     @Test
     @DisplayName("url 줄이기 요청이 정상적이면 short url을 생성하고 상태 코드를 반환한다.")
     void short_url_register() {
-        ShortUrlRequestDto shortUrlRequestDto = new ShortUrlRequestDto("originalUrl");
+        ShortUrlRequestDto shortUrlRequestDto = new ShortUrlRequestDto("originalData");
         given(this.spec)
             .filter(
                 document("short-url-encode",
                     requestFields(
-                        fieldWithPath("originalUrl").description("원본 url").type(JsonFieldType.STRING)
+                        fieldWithPath("originalData").description("원본 url").type(JsonFieldType.STRING)
                     ),
                     responseFields(
                         fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
@@ -76,7 +76,7 @@ class ShortUrlRestControllerTest extends InitRestDocsTest {
     @DisplayName("원본 url 조회 요청이 요청이 정상적이면 원본 url을 반환하고 상태 코드를 반환한다.")
     void short_url_decode() {
         ShortUrlResponseDto shortUrlResponseDto = shortUrlService.encodeShortUrl(
-            new ShortUrlRequestDto("originalUrl"));
+            new ShortUrlRequestDto("originalData"));
         given(this.spec)
             .filter(
                 document("short-url-decode",
@@ -86,7 +86,7 @@ class ShortUrlRestControllerTest extends InitRestDocsTest {
                     responseFields(
                         fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
                         fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
-                        fieldWithPath("data.originalUrl").description("원본 url").type(JsonFieldType.STRING)
+                        fieldWithPath("data.originalData").description("원본 url").type(JsonFieldType.STRING)
                     )
                 )
             )

@@ -64,6 +64,7 @@ class QuestionRestControllerRestDocsTest extends InitRestDocsTest {
                         fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
                         fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING),
                         fieldWithPath("data.id").description("질문 id").type(JsonFieldType.NUMBER),
+                        fieldWithPath("data.category").description("질문 카테고리").type(JsonFieldType.STRING),
                         fieldWithPath("data.content").description("요청한 질문 본문").type(JsonFieldType.STRING),
                         fieldWithPath("data.choiceA").description("선택지 A").type(JsonFieldType.STRING),
                         fieldWithPath("data.choiceB").description("선택지 B").type(JsonFieldType.STRING),

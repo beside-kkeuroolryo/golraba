@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.core.question.application.dto;
 
+import donggi.dev.kkeuroolryo.core.question.domain.Category;
 import donggi.dev.kkeuroolryo.core.question.domain.Question;
 import donggi.dev.kkeuroolryo.core.question.domain.QuestionResult;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Getter;
 public class QuestionDto {
 
     private Long id;
+    private Category category;
     private String content;
     private boolean active;
     private String choiceA;
@@ -18,6 +20,7 @@ public class QuestionDto {
     public static QuestionDto ofEntity(Question question, QuestionResult questionResult) {
         QuestionDto questionDto = new QuestionDto();
         questionDto.id = question.getId();
+        questionDto.category = question.getCategory();
         questionDto.content = question.getContent().getContent();
         questionDto.active = question.isActive();
         questionDto.choiceA = question.getChoiceA().getChoice();
@@ -31,6 +34,7 @@ public class QuestionDto {
     public static QuestionDto ofEntity(Question question) {
         QuestionDto questionDto = new QuestionDto();
         questionDto.id = question.getId();
+        questionDto.category = question.getCategory();
         questionDto.content = question.getContent().getContent();
         questionDto.active = question.isActive();
         questionDto.choiceA = question.getChoiceA().getChoice();

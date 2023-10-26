@@ -18,7 +18,7 @@ public class UserRestController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ApiResponse<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ApiResponse<LoginResponseDto> login(@RequestBody final LoginRequestDto loginRequestDto) {
         LoginResponseDto loginResponseDto = userService.login(loginRequestDto);
         return ApiResponse.success(loginResponseDto);
     }

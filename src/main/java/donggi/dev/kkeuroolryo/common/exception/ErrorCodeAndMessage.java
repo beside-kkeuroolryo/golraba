@@ -25,7 +25,11 @@ public enum ErrorCodeAndMessage {
     COMMENT_UNAUTHORIZED("C405", "올바르지 않은 댓글 비밀번호입니다."),
 
     // short url
-    URL_NOT_FOUND("U404", "존재하지 않는 url 입니다.");
+    URL_NOT_FOUND("U404", "존재하지 않는 url 입니다."),
+
+    // user
+    USER_NOT_FOUND("U404", "존재하지 않는 유저입니다.")
+    ;
 
     private final String code;
     private final String message;

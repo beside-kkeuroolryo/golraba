@@ -1,5 +1,6 @@
 package donggi.dev.kkeuroolryo.core.user.domain;
 
+import donggi.dev.kkeuroolryo.core.user.domain.exception.InvalidPasswordException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,15 +24,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 20, nullable = false)
+    @Column(unique = true, length = 20)
     private String loginId;
     @Column(length = 20, nullable = false)
     private String password;
-    @Column(length = 100)
-    private String accessToken;
-    @Column(length = 100)
-    private String refreshToken;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
@@ -40,5 +36,11 @@ public class User {
     public User(String loginId, String password) {
         this.loginId = loginId;
         this.password = password;
+    }
+
+    public void checkPassword(final String password) {
+        if (!this.password.equals(password)) {
+            throw new InvalidPasswordException();
+        }
     }
 }

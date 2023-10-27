@@ -14,7 +14,7 @@ public interface UserRepository {
      * @param user 저장할 유저 객체
      * @return 저장한 유저 객체
      */
-    User save(User user);
+    User save(final User user);
 
     /**
      * 저장소에 유저 데이터를 모두 삭제합니다.

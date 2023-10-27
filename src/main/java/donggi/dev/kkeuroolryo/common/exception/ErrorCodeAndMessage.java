@@ -28,7 +28,8 @@ public enum ErrorCodeAndMessage {
     URL_NOT_FOUND("U404", "존재하지 않는 url 입니다."),
 
     // user
-    USER_NOT_FOUND("U404", "존재하지 않는 유저입니다.")
+    USER_NOT_FOUND("U404", "존재하지 않는 유저입니다."),
+    USER_INVALID_PASSWORD("U401", "유효하지 않은 비밀번호입니다."),
     ;
 
     private final String code;

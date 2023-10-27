@@ -22,9 +22,11 @@ public class UserService {
     @Transactional
     public LoginTokens login(final LoginRequestDto loginRequestDto) {
         final User user = userRepository.getByLoginId(loginRequestDto.loginId());
-        LoginTokens loginTokens = jwtProvider.generateLoginToken(user.getId().toString());
-        RefreshToken refreshToken = new RefreshToken(loginTokens.refreshToken(), user.getId());
+        final LoginTokens loginTokens = jwtProvider.generateLoginToken(user.getId().toString());
+        final RefreshToken refreshToken = new RefreshToken(loginTokens.refreshToken(), user.getId());
+
         refreshTokenRepository.save(refreshToken);
+
         return loginTokens;
     }
 }

@@ -8,16 +8,33 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 import donggi.dev.kkeuroolryo.InitRestDocsTest;
 import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
+import donggi.dev.kkeuroolryo.core.user.domain.User;
+import donggi.dev.kkeuroolryo.core.user.domain.UserRepository;
 import donggi.dev.kkeuroolryo.web.user.dto.LoginRequestDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 @DisplayName("API 문서화 : 유저 로그인")
 @RestAssuredAndRestDocsTest
-class UserRestControllerTest extends InitRestDocsTest {
+class UserRestControllerRestDocsTest extends InitRestDocsTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        userRepository.deleteAllInBatch();
+
+        LoginRequestDto loginRequestDto = new LoginRequestDto("loginId", "password");
+        user = userRepository.save(loginRequestDto.convertToEntity());
+    }
 
     @Test
     @DisplayName("유저의 로그인 요청이 정상적인 경우 액세스 토큰과 리프레쉬 토큰을 발급한 후 상태 코드를 반환한다.")

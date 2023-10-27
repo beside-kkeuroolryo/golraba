@@ -16,4 +16,6 @@ public interface UserJpaRepository extends UserRepository, JpaRepository<User, L
     Optional<User> findByLoginId(final String loginId);
 
     User save(final User user);
+
+    void deleteAllInBatch();
 }

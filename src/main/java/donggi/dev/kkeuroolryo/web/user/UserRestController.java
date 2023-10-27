@@ -1,8 +1,8 @@
 package donggi.dev.kkeuroolryo.web.user;
 
 import donggi.dev.kkeuroolryo.common.response.ApiResponse;
-import donggi.dev.kkeuroolryo.core.user.LoginResponseDto;
 import donggi.dev.kkeuroolryo.core.user.application.UserService;
+import donggi.dev.kkeuroolryo.core.user.application.dto.LoginTokens;
 import donggi.dev.kkeuroolryo.web.user.dto.LoginRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +18,8 @@ public class UserRestController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ApiResponse<LoginResponseDto> login(@RequestBody final LoginRequestDto loginRequestDto) {
-        LoginResponseDto loginResponseDto = userService.login(loginRequestDto);
-        return ApiResponse.success(loginResponseDto);
+    public ApiResponse<LoginTokens> login(@RequestBody final LoginRequestDto loginRequestDto) {
+        final LoginTokens loginTokens = userService.login(loginRequestDto);
+        return ApiResponse.success(loginTokens);
     }
 }

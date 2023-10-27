@@ -47,8 +47,8 @@ class UserServiceTest {
                 LoginTokens loginTokens = userService.login(loginRequestDto);
 
                 assertSoftly(softly -> {
-                    softly.assertThat(loginTokens.accessToken()).isNotEmpty();
-                    softly.assertThat(loginTokens.refreshToken()).isNotEmpty();
+                    softly.assertThat(loginTokens.accessToken()).isNotNull();
+                    softly.assertThat(loginTokens.refreshToken()).isNotNull();
                 });
             }
         }

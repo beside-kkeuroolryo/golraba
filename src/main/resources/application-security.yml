@@ -1,0 +1,35 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: "security-dev"
+
+security:
+  jwt:
+    secret-key: secretkeytestsecretkeytestsecretkeytestsecretkeytestsecretkeytest
+    access-expiration-time: 3600
+    refresh-expiration-time: 2592000
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "security-prod"
+
+security:
+  jwt:
+    secret-key: ${SECRET_KEY}
+    access-expiration-time: ${ACCESS_EXPIRED_TIME}
+    refresh-expiration-time: ${REFRESH_EXPIRED_TIME}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "security-test"
+
+security:
+  jwt:
+    secret-key: secretkeytestsecretkeytestsecretkeytestsecretkeytestsecretkeytest
+    access-expiration-time: 3600
+    refresh-expiration-time: 2592000

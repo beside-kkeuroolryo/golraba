@@ -1,4 +1,4 @@
-package donggi.dev.kkeuroolryo.core.user;
+package donggi.dev.kkeuroolryo.core.user.application.dto;
 
 public record LoginResponseDto(
     String loginId,

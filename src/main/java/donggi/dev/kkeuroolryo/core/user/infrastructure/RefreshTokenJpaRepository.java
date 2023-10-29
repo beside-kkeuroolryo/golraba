@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RefreshTokenJpaRepository extends RefreshTokenRepository, JpaRepository<RefreshToken, Long> {
 
-    RefreshToken save(RefreshToken refreshToken);
+    RefreshToken save(final RefreshToken refreshToken);
 }

@@ -20,4 +20,11 @@ public interface UserRepository {
      * 저장소에 유저 데이터를 모두 삭제합니다.
      */
     void deleteAllInBatch();
+
+    /**
+     * 저장소에서 loginId로 User 존재 여부를 확인합니다.
+     * @param loginId
+     * @return 요청한 loginId가 존재하면 true, 존재하지 않으면 false 반환
+     */
+    boolean existsByLoginId(String loginId);
 }

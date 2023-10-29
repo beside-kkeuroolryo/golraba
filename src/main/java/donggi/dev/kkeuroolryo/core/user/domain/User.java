@@ -28,6 +28,7 @@ public class User {
     private String loginId;
     @Column(length = 20, nullable = false)
     private String password;
+    private boolean active;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
@@ -36,6 +37,7 @@ public class User {
     public User(String loginId, String password) {
         this.loginId = loginId;
         this.password = password;
+        this.active = false;
     }
 
     public void checkPassword(final String password) {

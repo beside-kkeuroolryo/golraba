@@ -6,7 +6,9 @@ import donggi.dev.kkeuroolryo.core.user.domain.RefreshToken;
 import donggi.dev.kkeuroolryo.core.user.domain.RefreshTokenRepository;
 import donggi.dev.kkeuroolryo.core.user.domain.User;
 import donggi.dev.kkeuroolryo.core.user.domain.UserRepository;
+import donggi.dev.kkeuroolryo.core.user.domain.exception.DuplicatedLoginIdException;
 import donggi.dev.kkeuroolryo.web.user.dto.LoginRequestDto;
+import donggi.dev.kkeuroolryo.web.user.dto.SignupRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,5 +34,14 @@ public class UserService {
         refreshTokenRepository.save(refreshToken);
 
         return loginTokens;
+    }
+
+    @Transactional
+    public void signup(SignupRequestDto signupRequestDto) {
+        if (userRepository.existsByLoginId(signupRequestDto.loginId())) {
+            throw new DuplicatedLoginIdException();
+        }
+
+        userRepository.save(signupRequestDto.convertToEntity());
     }
 }

@@ -11,6 +11,7 @@ import donggi.dev.kkeuroolryo.RestAssuredAndRestDocsTest;
 import donggi.dev.kkeuroolryo.core.user.domain.User;
 import donggi.dev.kkeuroolryo.core.user.domain.UserRepository;
 import donggi.dev.kkeuroolryo.web.user.dto.LoginRequestDto;
+import donggi.dev.kkeuroolryo.web.user.dto.SignupRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-@DisplayName("API 문서화 : 유저 로그인")
+@DisplayName("API 문서화 : 유저 로그인, 회원가입")
 @RestAssuredAndRestDocsTest
 class UserRestControllerRestDocsTest extends InitRestDocsTest {
 
@@ -32,8 +33,8 @@ class UserRestControllerRestDocsTest extends InitRestDocsTest {
     void setUp() {
         userRepository.deleteAllInBatch();
 
-        LoginRequestDto loginRequestDto = new LoginRequestDto("loginId", "password");
-        user = userRepository.save(loginRequestDto.convertToEntity());
+        SignupRequestDto signupRequestDto = new SignupRequestDto("loginId", "password");
+        user = userRepository.save(signupRequestDto.convertToEntity());
     }
 
     @Test
@@ -62,6 +63,37 @@ class UserRestControllerRestDocsTest extends InitRestDocsTest {
 
         .when()
             .post("/api/user/login")
+
+        .then()
+            .log().all()
+            .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("회원가입 요청이 정상적인 경우 입력한 유저 정보를 저장하고 상태 코드를 반환한다.")
+    void user_signup() {
+        SignupRequestDto signupRequestDto = new SignupRequestDto("loginId", "password");
+        given(this.spec)
+            .filter(
+                document("user-signup",
+                    requestFields(
+                        fieldWithPath("loginId").description("로그인 아이디").type(JsonFieldType.STRING),
+                        fieldWithPath("password").description("로그인 비밀번호").type(JsonFieldType.STRING),
+                        fieldWithPath("userRole").description("유저 타입").type(JsonFieldType.STRING)
+                    ),
+                    responseFields(
+                        fieldWithPath("code").description("응답 코드").type(JsonFieldType.STRING),
+                        fieldWithPath("message").description("응답 메세지").type(JsonFieldType.STRING)
+                    )
+                )
+            )
+            .log().all()
+            .accept(MediaType.APPLICATION_JSON_VALUE)
+            .header("Content-type", MediaType.APPLICATION_JSON_VALUE)
+            .body(signupRequestDto)
+
+        .when()
+            .post("/api/user/signup")
 
         .then()
             .log().all()

@@ -7,6 +7,7 @@ import donggi.dev.kkeuroolryo.core.user.application.dto.LoginTokens;
 import donggi.dev.kkeuroolryo.core.user.domain.User;
 import donggi.dev.kkeuroolryo.core.user.domain.UserRepository;
 import donggi.dev.kkeuroolryo.web.user.dto.LoginRequestDto;
+import donggi.dev.kkeuroolryo.web.user.dto.SignupRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -28,7 +29,9 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        user = userRepository.save(new User("loginId", "password"));
+        SignupRequestDto signupRequestDto = new SignupRequestDto("loginId", "password123");
+
+        user = userRepository.save(signupRequestDto.convertToEntity());
     }
 
     @Nested

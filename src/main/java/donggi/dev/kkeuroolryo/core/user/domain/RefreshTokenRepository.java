@@ -7,5 +7,5 @@ public interface RefreshTokenRepository {
      * @param refreshToken
      * @return 저장한 refreshToken
      */
-    RefreshToken save(RefreshToken refreshToken);
+    RefreshToken save(final RefreshToken refreshToken);
 }

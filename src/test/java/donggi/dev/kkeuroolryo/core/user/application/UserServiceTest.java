@@ -29,7 +29,7 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        SignupRequestDto signupRequestDto = new SignupRequestDto("loginId", "password123");
+        SignupRequestDto signupRequestDto = new SignupRequestDto("loginId", "password");
 
         user = userRepository.save(signupRequestDto.convertToEntity());
     }

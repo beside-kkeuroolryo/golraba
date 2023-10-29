@@ -19,5 +19,5 @@ public interface UserJpaRepository extends UserRepository, JpaRepository<User, L
 
     void deleteAllInBatch();
 
-    boolean existsByLoginId(String loginId);
+    boolean existsByLoginId(final String loginId);
 }

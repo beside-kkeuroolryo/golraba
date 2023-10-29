@@ -26,5 +26,5 @@ public interface UserRepository {
      * @param loginId
      * @return 요청한 loginId가 존재하면 true, 존재하지 않으면 false 반환
      */
-    boolean existsByLoginId(String loginId);
+    boolean existsByLoginId(final String loginId);
 }

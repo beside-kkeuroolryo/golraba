@@ -26,7 +26,7 @@ public class User {
 
     @Column(unique = true, length = 20)
     private String loginId;
-    @Column(length = 20, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
     private boolean active;
     @CreationTimestamp

@@ -34,11 +34,17 @@ jobs:
           sed -i "s|\${MYSQL_USERNAME}|$MYSQL_USERNAME|g" ./src/main/resources/application-db.yml
           sed -i "s|\${MYSQL_PASSWORD}|$MYSQL_PASSWORD|g" ./src/main/resources/application-db.yml
           sed -i "s|\${CLIENT_ORIGIN}|$CLIENT_ORIGIN|g" ./src/main/resources/application-cors.yml
+          sed -i "s|\${SECRET_KEY}|$SECRET_KEY|g" ./src/main/resources/application-security.yml
+          sed -i "s|\${ACCESS_EXPIRED_TIME}|$ACCESS_EXPIRED_TIME|g" ./src/main/resources/application-security.yml
+          sed -i "s|\${REFRESH_EXPIRED_TIME}|$REFRESH_EXPIRED_TIME|g" ./src/main/resources/application-security.yml
         env:
           MYSQL_URL: ${{ secrets.MYSQL_URL }}
           MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           CLIENT_ORIGIN: ${{ secrets.CLIENT_ORIGIN }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ACCESS_EXPIRED_TIME: ${{ secrets.ACCESS_EXPIRED_TIME }}
+          REFRESH_EXPIRED_TIME: ${{ secrets.REFRESH_EXPIRED_TIME }}
 
       - name: use gradle cache
         uses: actions/cache@v3

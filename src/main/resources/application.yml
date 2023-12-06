@@ -9,3 +9,9 @@ spring:
     include:
       - db
       - security
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus

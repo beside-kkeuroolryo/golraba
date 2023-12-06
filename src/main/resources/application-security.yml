@@ -22,6 +22,12 @@ security:
     access-expiration-time: ${ACCESS_EXPIRED_TIME}
     refresh-expiration-time: ${REFRESH_EXPIRED_TIME}
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+
 ---
 spring:
   config:

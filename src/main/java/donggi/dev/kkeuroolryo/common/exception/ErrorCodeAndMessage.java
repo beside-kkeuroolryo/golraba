@@ -5,11 +5,16 @@ import lombok.Getter;
 @Getter
 public enum ErrorCodeAndMessage {
     // Valid & 서버
+    INVALID_REQUEST("F400", "요청 정보를 확인해주세요."),
     SERVER_ERROR("F401", "서버 에러입니다."),
-    INVALID_REQUEST("F402", "요청 정보를 확인해주세요."),
 
     // common
     NO_OFFSET_INVALID_PAGE("P401", "유효하지 않은 페이지 값입니다."),
+
+    // auth
+    INVALID_AUTH_TOKEN("A400", "잘못된 인증 토큰입니다."),
+    EXPIRED_TOKEN("A401", "만료된 토큰입니다."),
+    INVALID_TOKEN("A401", "유효하지 않은 토큰입니다."),
 
     // question
     QUESTION_INVALID_CATEGORY("Q401", "유효하지 않은 카테고리입니다."),
@@ -30,7 +35,8 @@ public enum ErrorCodeAndMessage {
     // user
     USER_NOT_FOUND("U404", "존재하지 않는 유저입니다."),
     USER_INVALID_PASSWORD("U401", "유효하지 않은 비밀번호입니다."),
-    DUPLICATED_LOGIN_ID("U409", "이미 등록된 로그인 아이디입니다.");
+    DUPLICATED_LOGIN_ID("U409", "이미 등록된 로그인 아이디입니다."),
+    ;
 
     private final String code;
     private final String message;

@@ -25,7 +25,7 @@ repositories {
 
 ext {
     set('snippetsDir', file("build/generated-snippets"))
-    set('testcontainersVersion', "1.19.5")
+    set('testcontainersVersion', "1.19.1")
 }
 
 dependencies {

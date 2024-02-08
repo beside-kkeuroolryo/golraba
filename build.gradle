@@ -25,7 +25,7 @@ repositories {
 
 ext {
     set('snippetsDir', file("build/generated-snippets"))
-    set('testcontainersVersion', "1.18.3")
+    set('testcontainersVersion', "1.19.5")
 }
 
 dependencies {
@@ -63,6 +63,10 @@ dependencyManagement {
     imports {
         mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
     }
+}
+
+test {
+    systemProperty "testcontainers.reuse.enable", "true"
 }
 
 tasks.named('test') {

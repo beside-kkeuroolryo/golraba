@@ -65,6 +65,10 @@ dependencyManagement {
     }
 }
 
+test {
+    systemProperty "testcontainers.reuse.enable", "true"
+}
+
 tasks.named('test') {
     outputs.dir snippetsDir
     useJUnitPlatform()

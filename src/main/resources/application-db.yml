@@ -68,7 +68,7 @@ spring:
 
   jpa:
     show-sql: false
-    database-platform: MYSQL
+    #    database-platform: MYSQL
     hibernate:
       ddl-auto: create
     properties:
@@ -76,8 +76,10 @@ spring:
         default_batch_fetch_size: 100
         format_sql: true
         show_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
+#        dialect: org.hibernate.dialect.MySQL8Dialect
 
-  datasource:
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:mysql:8://testDB
+    datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:golraba-db;DATABASE_TO_UPPER=FALSE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;NON_KEYWORDS=USER;
+      username: sa
+      password:
